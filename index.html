@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Макисэ Курису - Гений-нейробиолог | Лаборатория Будущего</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -34,6 +34,7 @@
         
         html {
             scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
         }
         
         body {
@@ -41,6 +42,7 @@
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
             background-image: 
                 radial-gradient(circle at 10% 20%, rgba(198, 40, 40, 0.05) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(26, 35, 126, 0.05) 0%, transparent 20%);
@@ -219,10 +221,12 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            width: 100%;
         }
         
         section {
-            padding: 80px 0;
+            padding: 60px 0;
+            position: relative;
         }
         
         .section-title {
@@ -230,13 +234,16 @@
             margin-bottom: 3rem;
             position: relative;
             display: inline-block;
+            text-align: center;
+            width: 100%;
         }
         
         .section-title::after {
             content: '';
             position: absolute;
             bottom: -10px;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 60px;
             height: 4px;
             background: linear-gradient(90deg, var(--primary), var(--lab-blue));
@@ -285,35 +292,32 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(10, 10, 18, 0.9);
+            background: rgba(10, 10, 18, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .nav-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px 20px;
+            width: 100%;
         }
         
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--lab-blue));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: textShine 3s ease-in-out infinite alternate;
-        }
-        
+        /* Навигационные ссылки */
         .nav-links {
             display: flex;
             list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-wrap: nowrap;
+            justify-content: center;
+            width: 100%;
         }
         
         .nav-links li {
-            margin-left: 30px;
+            margin: 0 10px;
         }
         
         .nav-links a {
@@ -322,6 +326,9 @@
             font-weight: 500;
             transition: color 0.3s;
             position: relative;
+            font-size: 1rem;
+            white-space: nowrap;
+            padding: 5px 0;
         }
         
         .nav-links a:hover {
@@ -350,6 +357,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
+            padding-top: 80px;
         }
         
         .hero::before {
@@ -365,9 +373,19 @@
             z-index: -1;
         }
         
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
         .hero-content {
             max-width: 600px;
             animation: slideInLeft 1s ease-out;
+            z-index: 2;
         }
         
         .hero-title {
@@ -420,6 +438,7 @@
             max-width: 600px;
             animation: float 6s ease-in-out infinite;
             text-align: center;
+            z-index: 1;
         }
         
         .hero-character {
@@ -790,36 +809,6 @@
             transform: translateY(0);
         }
         
-        .modal-content.active .achievement-details {
-            animation: slideInLeft 0.6s ease-out 0.3s both;
-        }
-        
-        .modal-content.active .achievement-visual {
-            animation: slideInRight 0.6s ease-out 0.4s both;
-        }
-        
-        .modal-content.active .achievement-description {
-            animation: fadeInUp 0.5s ease-out 0.5s both;
-        }
-        
-        .modal-content.active .achievement-features li {
-            animation: fadeInUp 0.5s ease-out both;
-        }
-        
-        .modal-content.active .achievement-features li:nth-child(1) { animation-delay: 0.6s; }
-        .modal-content.active .achievement-features li:nth-child(2) { animation-delay: 0.7s; }
-        .modal-content.active .achievement-features li:nth-child(3) { animation-delay: 0.8s; }
-        .modal-content.active .achievement-features li:nth-child(4) { animation-delay: 0.9s; }
-        .modal-content.active .achievement-features li:nth-child(5) { animation-delay: 1.0s; }
-        
-        .modal-content.active .achievement-visual img {
-            animation: zoomIn 0.8s ease-out 0.5s both;
-        }
-        
-        .modal-content.active .visual-label {
-            animation: fadeInUp 0.5s ease-out 0.8s both;
-        }
-        
         .achievement-details {
             padding-right: 20px;
         }
@@ -840,8 +829,6 @@
             padding-left: 35px;
             position: relative;
             line-height: 1.6;
-            opacity: 0;
-            transform: translateX(-20px);
         }
         
         .achievement-features li::before {
@@ -873,13 +860,11 @@
             transform: scale(1.02);
         }
         
+        /* ОБНОВЛЕННЫЙ СТИЛЬ ДЛЯ ПОДПИСЕЙ ИЗОБРАЖЕНИЙ */
         .visual-label {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
+            margin-top: 15px;
             background: rgba(10, 10, 18, 0.85);
-            padding: 15px;
+            padding: 12px 15px;
             font-family: 'Courier New', monospace;
             font-size: 0.95rem;
             color: var(--lab-blue);
@@ -887,6 +872,8 @@
             border-radius: 8px;
             border: 1px solid rgba(0, 229, 255, 0.3);
             backdrop-filter: blur(5px);
+            text-align: center;
+            width: 100%;
         }
         
         /* Анимации для модального окна */
@@ -934,7 +921,7 @@
             background: linear-gradient(135deg, rgba(10, 10, 18, 0.85), rgba(21, 21, 34, 0.9));
             position: relative;
             overflow: hidden;
-            padding: 80px 0;
+            padding: 60px 0;
         }
         
         #raindrop-canvas {
@@ -1327,13 +1314,11 @@
             transform: scale(1.02);
         }
         
+        /* Стиль для подписей изображений в мировых линиях */
         .timeline-visual-label {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
+            margin-top: 15px;
             background: rgba(10, 10, 18, 0.85);
-            padding: 15px;
+            padding: 12px 15px;
             font-family: 'Courier New', monospace;
             font-size: 0.95rem;
             color: var(--timeline-blue);
@@ -1341,6 +1326,8 @@
             border-radius: 8px;
             border: 1px solid rgba(0, 229, 255, 0.3);
             backdrop-filter: blur(5px);
+            text-align: center;
+            width: 100%;
         }
         
         /* Секция "Галерея" */
@@ -1395,7 +1382,7 @@
         }
         
         /* =========================================== */
-        /* СЕКЦИЯ С ПЛЕЕРОМ СЕРИЙ */
+        /* СЕКЦИЯ С ПЛЕЕРОМ СЕРИЙ - ИСПРАВЛЕННАЯ */
         /* =========================================== */
         .episodes-section {
             padding: 60px 0;
@@ -1428,13 +1415,77 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             border: 2px solid var(--primary);
             background: #000;
-            min-height: 450px;
+            width: 100%;
+            height: 550px; /* Увеличили высоту для ПК */
+        }
+        
+        /* УЛУЧШЕННЫЙ СТИЛЬ ДЛЯ IFRAME GOOGLE DRIVE */
+        .video-iframe-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
         
         .video-iframe {
             width: 100%;
-            height: 450px;
+            height: 100%;
             border: none;
+            background: #000;
+        }
+        
+        /* Скрываем все элементы управления Google Drive */
+        .video-iframe iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: auto; /* Включаем взаимодействие */
+        }
+        
+        /* Скрываем элементы управления средствами CSS */
+        .video-iframe iframe::-webkit-media-controls {
+            display: none !important;
+        }
+        
+        .video-iframe iframe::-webkit-media-controls-enclosure {
+            display: none !important;
+        }
+        
+        .video-iframe iframe::-webkit-media-controls-panel {
+            display: none !important;
+        }
+        
+        .video-iframe iframe::-webkit-media-controls-play-button {
+            display: none !important;
+        }
+        
+        .video-iframe iframe::-webkit-media-controls-volume-slider {
+            display: none !important;
+        }
+        
+        .video-iframe iframe::-webkit-media-controls-mute-button {
+            display: none !important;
+        }
+        
+        .video-iframe iframe::-webkit-media-controls-timeline {
+            display: none !important;
+        }
+        
+        .video-iframe iframe::-webkit-media-controls-current-time-display {
+            display: none !important;
+        }
+        
+        .video-iframe iframe::-webkit-media-controls-time-remaining-display {
+            display: none !important;
+        }
+        
+        .video-iframe iframe::-webkit-media-controls-fullscreen-button {
+            display: none !important;
+        }
+        
+        /* Для Firefox */
+        .video-iframe iframe::-moz-media-controls {
+            display: none !important;
         }
         
         .episodes-list {
@@ -1442,7 +1493,7 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            max-height: 500px;
+            max-height: 550px; /* Синхронизировали высоту с плеером */
             overflow-y: auto;
         }
         
@@ -1496,22 +1547,6 @@
             margin-top: 5px;
         }
         
-        .episode-source {
-            display: none; /* Скрываем источник видео */
-        }
-        
-        .episode-note {
-            display: none; /* Скрываем примечания */
-        }
-        
-        .episodes-note {
-            display: none; /* Скрываем примечание о демо-версии */
-        }
-        
-        .demo-notice {
-            display: none; /* Скрываем уведомление о демо-версии */
-        }
-        
         .video-loading {
             position: absolute;
             top: 0;
@@ -1536,49 +1571,6 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        }
-        
-        .video-notice {
-            margin-top: 20px;
-            padding: 10px;
-            background: rgba(198, 40, 40, 0.1);
-            border-radius: 5px;
-            font-size: 0.9rem;
-            text-align: center;
-            color: var(--text-secondary);
-        }
-        
-        .video-notice i {
-            color: var(--primary);
-            margin-right: 5px;
-        }
-        
-        .video-error {
-            padding: 40px;
-            text-align: center;
-            color: var(--text);
-        }
-        
-        .video-error i {
-            font-size: 4rem;
-            color: var(--accent);
-            margin-bottom: 20px;
-        }
-        
-        .video-error h3 {
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-        
-        .video-error ul {
-            text-align: left;
-            display: inline-block;
-            margin: 20px 0;
-            color: var(--text-secondary);
-        }
-        
-        .video-error li {
-            margin-bottom: 10px;
         }
         
         /* Футер */
@@ -1632,7 +1624,10 @@
             z-index: -1;
         }
 
-        /* Адаптивность */
+        /* =========================================== */
+        /* АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
+        /* =========================================== */
+        
         @media (max-width: 1200px) {
             .tabs-header {
                 grid-template-columns: repeat(2, 1fr);
@@ -1663,6 +1658,11 @@
             
             .episodes-list {
                 max-height: 300px;
+            }
+            
+            /* Увеличиваем плеер на средних экранах */
+            .episode-player {
+                height: 500px;
             }
         }
         
@@ -1738,23 +1738,65 @@
                 padding-right: 0;
             }
             
+            /* Адаптация для мобильных */
+            .hero-container {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding-top: 60px;
+            }
+            
             .hero-content {
                 max-width: 100%;
-                text-align: center;
+                margin-bottom: 40px;
+                padding: 0 20px;
             }
             
             .hero-image {
+                position: relative;
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+                top: auto;
+                transform: none;
+                right: auto;
+            }
+            
+            .hero-bg-element {
                 display: none;
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
             }
             
             .about-content {
                 grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+            
+            /* Оптимизация плеера для планшетов */
+            .episode-player {
+                height: 450px;
             }
         }
         
         @media (max-width: 768px) {
+            section {
+                padding: 50px 0;
+            }
+            
             .section-title {
                 font-size: 2rem;
+                margin-bottom: 2rem;
             }
             
             .tabs-header {
@@ -1800,24 +1842,63 @@
                 font-size: 1.1rem;
             }
             
+            /* Навигация для мобильных */
             .nav-links {
-                display: none;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .nav-links li {
+                margin: 0 5px;
+            }
+            
+            .nav-links a {
+                font-size: 0.9rem;
+                padding: 8px 5px;
+            }
+            
+            .hero {
+                height: auto;
+                min-height: 100vh;
             }
             
             .hero-title {
                 font-size: 2.5rem;
             }
             
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-character {
+                max-width: 400px;
+            }
+            
             .stats {
                 grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .stat-item {
+                padding: 15px;
+            }
+            
+            .stat-value {
+                font-size: 1.8rem;
             }
             
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .gallery-item {
+                height: 200px;
             }
             
             .timeline-item {
                 padding-left: 60px;
+                margin-bottom: 60px;
             }
             
             .timeline-btn {
@@ -1850,16 +1931,96 @@
                 padding: 20px 30px;
             }
             
-            .video-iframe {
-                height: 300px;
+            /* ОСНОВНОЕ ИЗМЕНЕНИЕ: УВЕЛИЧИВАЕМ ПЛЕЕР ДЛЯ МОБИЛЬНЫХ */
+            .episode-player {
+                height: 380px; /* Увеличенная высота для мобильных */
+                margin-bottom: 20px;
             }
             
-            .episode-player {
-                min-height: 300px;
+            .episodes-content {
+                gap: 20px;
+            }
+            
+            .episodes-list {
+                max-height: 350px;
+            }
+            
+            /* Улучшаем отображение iframe на мобильных */
+            .video-iframe {
+                transform: scale(1); /* Отключаем масштабирование */
             }
         }
         
-        @media (max-width: 480px) {
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            section {
+                padding: 40px 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .nav-links {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 5px;
+            }
+            
+            .nav-links li {
+                margin: 0;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 8px 3px;
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 10px 25px;
+                font-size: 0.9rem;
+            }
+            
+            .tabs-header {
+                gap: 15px;
+            }
+            
+            .tab-btn {
+                height: 250px;
+                padding: 20px 15px;
+            }
+            
+            .tab-btn-icon {
+                font-size: 2.5rem;
+                margin-bottom: 15px;
+                height: 50px;
+            }
+            
+            .tab-btn-title {
+                font-size: 1.1rem;
+                height: 40px;
+                margin-bottom: 10px;
+            }
+            
+            .tab-btn-description {
+                font-size: 0.85rem;
+                -webkit-line-clamp: 4;
+            }
+            
             .modal-body {
                 padding: 20px;
             }
@@ -1878,45 +2039,63 @@
                 font-size: 1.2rem;
             }
             
-            .tab-content-inner {
-                gap: 30px;
+            .achievement-description {
+                font-size: 1rem;
             }
             
-            .tab-btn {
+            .achievement-features li {
+                font-size: 0.9rem;
+                padding-left: 30px;
+                margin-bottom: 12px;
+            }
+            
+            .stats {
+                gap: 10px;
+            }
+            
+            .stat-item {
+                padding: 12px;
+            }
+            
+            .stat-value {
+                font-size: 1.6rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .gallery-item {
                 height: 250px;
-                padding: 20px 12px;
             }
             
-            .tab-btn-icon {
-                font-size: 2.8rem;
-            }
-            
-            .tab-btn-title {
-                font-size: 1.1rem;
-                height: 45px;
-            }
-            
-            .tab-btn-description {
-                font-size: 0.85rem;
-                -webkit-line-clamp: 5;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
+            .timeline-item {
+                padding-left: 50px;
+                margin-bottom: 50px;
             }
             
             .timeline-btn {
                 padding: 20px;
             }
             
-            .timeline-item {
-                padding-left: 50px;
-            }
-            
             .timeline-btn::after {
                 left: -45px !important;
                 width: 20px;
                 height: 20px;
+            }
+            
+            .timeline-date {
+                font-size: 1rem;
+                padding-left: 30px;
+            }
+            
+            .timeline-text {
+                font-size: 0.95rem;
             }
             
             .timeline-modal-body {
@@ -1937,12 +2116,74 @@
                 font-size: 1.2rem;
             }
             
-            .gallery-grid {
-                grid-template-columns: 1fr;
+            /* ДАЛЬНЕЙШЕЕ УВЕЛИЧЕНИЕ ПЛЕЕРА ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ */
+            .episode-player {
+                height: 320px; /* Еще больше для маленьких экранов */
             }
             
-            .video-iframe {
-                height: 250px;
+            .episodes-list {
+                max-height: 300px;
+            }
+            
+            .episode-item {
+                padding: 10px 12px;
+            }
+            
+            .episode-name {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 375px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .nav-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .nav-links li:nth-child(5) {
+                grid-column: span 2;
+                margin-top: 5px;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .tab-btn {
+                height: 230px;
+                padding: 15px 12px;
+            }
+            
+            .tab-btn-icon {
+                font-size: 2.2rem;
+            }
+            
+            .tab-btn-title {
+                font-size: 1rem;
+            }
+            
+            .timeline-btn {
+                padding: 15px;
+            }
+            
+            .timeline-date {
+                font-size: 0.9rem;
+            }
+            
+            .timeline-text {
+                font-size: 0.9rem;
+            }
+            
+            /* МАКСИМАЛЬНАЯ ВЫСОТА ПЛЕЕРА ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ */
+            .episode-player {
+                height: 280px;
             }
         }
         
@@ -1990,6 +2231,57 @@
             background: linear-gradient(to bottom, var(--lab-blue), var(--secondary-light));
             border-radius: 4px;
         }
+        
+        /* Улучшение для касаний на мобильных */
+        @media (hover: none) and (pointer: coarse) {
+            .tab-btn:hover {
+                transform: none;
+            }
+            
+            .stat-item:hover {
+                transform: none;
+            }
+            
+            .gallery-item:hover {
+                transform: none;
+            }
+            
+            .timeline-btn:hover {
+                transform: none;
+            }
+            
+            .episode-item:hover:not(.disabled) {
+                transform: none;
+            }
+            
+            .btn:hover {
+                transform: none;
+            }
+            
+            /* Увеличение областей клика для мобильных */
+            .tab-btn,
+            .stat-item,
+            .episode-item,
+            .timeline-btn,
+            .btn {
+                cursor: pointer;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            .nav-links a {
+                padding: 10px 5px;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            /* Оптимизация плеера для тач-устройств */
+            .episode-player {
+                touch-action: manipulation;
+            }
+            
+            .video-iframe {
+                touch-action: pan-x pan-y pinch-zoom;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2002,7 +2294,6 @@
     <!-- Навигация -->
     <nav>
         <div class="container nav-container">
-            <div class="logo">Курису Макисэ</div>
             <ul class="nav-links">
                 <li><a href="#about">О персонаже</a></li>
                 <li><a href="#achievements">Научные достижения</a></li>
@@ -2011,1039 +2302,1077 @@
                 <li><a href="#episodes">Серии</a></li>
             </ul>
         </div>
-    </nav>
-    
-    <!-- Герой секция -->
-    <section class="hero">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="glitch" data-text="Макисэ Курису">Макисэ Курису</span>
-                </h1>
-                <p class="hero-subtitle">Гений-нейробиолог | Член Лаборатории Будущего</p>
-                <p>Известный учёный в области нейробиологии, создатель "Машины скачков по памяти" и ключевой член Лаборатории Будущего.</p>
-                <a href="#about" class="btn" style="margin-top: 30px;">Узнать больше</a>
+</nav>
+
+<!-- Герой секция -->
+<section class="hero">
+    <div class="container hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="glitch" data-text="Макисэ Курису">Макисэ Курису</span>
+            </h1>
+            <p class="hero-subtitle">Гений-нейробиолог | Член Лаборатории Будущего</p>
+            <p>Известный учёный в области нейробиологии, создатель "Машины скачков по памяти" и ключевой член Лаборатории Будущего.</p>
+            <a href="#about" class="btn" style="margin-top: 30px;">Узнать больше</a>
+        </div>
+        <div class="hero-image">
+            <div class="hero-bg-element"></div>
+            <!-- На главной - kurisu.png -->
+            <img src="https://i.postimg.cc/tCRgbBnx/kurisu.png" alt="Макисэ Курису" class="hero-character">
+        </div>
+    </div>
+</section>
+
+<!-- Секция "О персонаже" -->
+<section id="about" class="about">
+    <div class="container">
+        <h2 class="section-title">О персонаже</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Макисэ Курису (牧瀬 紅莉栖) — 18-летний гений в области нейробиологии, известная своими новаторскими исследованиями памяти человека. Несмотря на молодой возраст, она уже имеет публикации в ведущих научных журналах.</p>
+                <p>Присоединившись к Лаборатории Будущего, она сыграла ключевую роль в разработке технологии путешествия во времени, создав "Машину скачков по памяти".</p>
+                <p>По характеру Курису — классический цундере: внешне холодная и рациональная, но внутри добрая и заботливая. Она часто конфликтует с Окабэ Ринтаро, но в конечном итоге между ними развиваются глубокие чувства.</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">18</div>
+                        <div class="stat-label">Возраст</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">AB</div>
+                        <div class="stat-label">Группа крови</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">25 июля</div>
+                        <div class="stat-label">Дата рождения</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">Цундере</div>
+                        <div class="stat-label">Тип личности</div>
+                    </div>
+                </div>
             </div>
-            <div class="hero-image">
-                <div class="hero-bg-element"></div>
-                <img src="https://i.ibb.co/rRmyRdjP/kurisu.png" alt="Макисэ Курису" class="hero-character">
+            <div class="about-image">
+                <!-- В разделе о персонаже - kurisu-lab.jpg -->
+                <img src="https://i.postimg.cc/xTs11LLL/kurisu-lab.jpg" alt="Курису в лаборатории" class="hero-character">
             </div>
         </div>
-    </section>
-    
-    <!-- Секция "О персонаже" -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">О персонаже</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Макисэ Курису (牧瀬 紅莉栖) — 18-летний гений в области нейробиологии, известная своими новаторскими исследованиями памяти человека. Несмотря на молодой возраст, она уже имеет публикации в ведущих научных журналах.</p>
-                    <p>Присоединившись к Лаборатории Будущего, она сыграла ключевую роль в разработке технологии путешествия во времени, создав "Машину скачков по памяти".</p>
-                    <p>По характеру Курису — классический цундере: внешне холодная и рациональная, но внутри добрая и заботливая. Она часто конфликтует с Окабэ Ринтаро, но в конечном итоге между ними развиваются глубокие чувства.</p>
+    </div>
+</section>
+
+<!-- Секция "Научные достижения" -->
+<section id="achievements" class="achievements">
+    <div class="container">
+        <h2 class="section-title">Научные достижения</h2>
+        <div class="tabs-container">
+            <div class="tabs-wrapper">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="memory-jump">
+                        <div class="tab-btn-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="tab-btn-title">Машина скачков по памяти</div>
+                        <div class="tab-btn-info">
+                            <div class="tab-btn-description">
+                                Инновационное устройство для передачи воспоминаний в прошлое через квантовую телепортацию сознания. Ключевая технология Лаборатории Будущего.
+                            </div>
+                        </div>
+                    </button>
                     
-                    <div class="stats">
-                        <div class="stat-item">
-                            <div class="stat-value">18</div>
-                            <div class="stat-label">Возраст</div>
+                    <button class="tab-btn" data-tab="neuro-research">
+                        <div class="tab-btn-icon">
+                            <i class="fas fa-flask"></i>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-value">AB</div>
-                            <div class="stat-label">Группа крови</div>
+                        <div class="tab-btn-title">Нейробиологические исследования</div>
+                        <div class="tab-btn-info">
+                            <div class="tab-btn-description">
+                                Прорыв в изучении нейропластичности и квантового кодирования памяти. Открытие механизма "временной волны" в гиппокампе.
+                            </div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-value">25 июля</div>
-                            <div class="stat-label">Дата рождения</div>
+                    </button>
+                    
+                    <button class="tab-btn" data-tab="time-travel">
+                        <div class="tab-btn-icon">
+                            <i class="fas fa-clock"></i>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-value">Цундере</div>
-                            <div class="stat-label">Тип личности</div>
+                        <div class="tab-btn-title">Теория путешествий во времени</div>
+                        <div class="tab-btn-info">
+                            <div class="tab-btn-description">
+                                Революционная теория мировых линий и временных парадоксов. Концепция "Притяжения мировой линии" и D-mail системы.
+                            </div>
                         </div>
-                    </div>
+                    </button>
+                    
+                    <button class="tab-btn" data-tab="publications">
+                        <div class="tab-btn-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="tab-btn-title">Научные публикации</div>
+                        <div class="tab-btn-info">
+                            <div class="tab-btn-description">
+                                Публикации в ведущих научных журналах: Science, Nature Physics, PNAS, Cell. Международное признание исследований.
+                            </div>
+                        </div>
+                    </button>
                 </div>
-                <div class="about-image">
-                    <img src="https://i.ibb.co/Fky1gmh7/kurisu-2.png" alt="Курису в лаборатории">
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Секция "Научные достижения" -->
-    <section id="achievements" class="achievements">
-        <div class="container">
-            <h2 class="section-title">Научные достижения</h2>
-            <div class="tabs-container">
-                <div class="tabs-wrapper">
-                    <div class="tabs-header">
-                        <button class="tab-btn active" data-tab="memory-jump">
-                            <div class="tab-btn-icon">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <div class="tab-btn-title">Машина скачков по памяти</div>
-                            <div class="tab-btn-info">
-                                <div class="tab-btn-description">
-                                    Инновационное устройство для передачи воспоминаний в прошлое через квантовую телепортацию сознания. Ключевая технология Лаборатории Будущего.
-                                </div>
-                            </div>
-                        </button>
-                        
-                        <button class="tab-btn" data-tab="neuro-research">
-                            <div class="tab-btn-icon">
-                                <i class="fas fa-flask"></i>
-                            </div>
-                            <div class="tab-btn-title">Нейробиологические исследования</div>
-                            <div class="tab-btn-info">
-                                <div class="tab-btn-description">
-                                    Прорыв в изучении нейропластичности и квантового кодирования памяти. Открытие механизма "временной волны" в гиппокампе.
-                                </div>
-                            </div>
-                        </button>
-                        
-                        <button class="tab-btn" data-tab="time-travel">
-                            <div class="tab-btn-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="tab-btn-title">Теория путешествий во времени</div>
-                            <div class="tab-btn-info">
-                                <div class="tab-btn-description">
-                                    Революционная теория мировых линий и временных парадоксов. Концепция "Притяжения мировой линии" и D-mail системы.
-                                </div>
-                            </div>
-                        </button>
-                        
-                        <button class="tab-btn" data-tab="publications">
-                            <div class="tab-btn-icon">
-                                <i class="fas fa-book"></i>
-                            </div>
-                            <div class="tab-btn-title">Научные публикации</div>
-                            <div class="tab-btn-info">
-                                <div class="tab-btn-description">
-                                    Публикации в ведущих научных журналах: Science, Nature Physics, PNAS, Cell. Международное признание исследований.
-                                </div>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Модальное окно для отображения контента -->
-    <div class="modal-overlay" id="modalOverlay"></div>
-    
-    <div class="modal-content" id="modalContent">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modalTitle">Машина скачков по памяти</h3>
-            <button class="close-modal" id="closeModal">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="tab-content-inner" id="modalBody">
-                <!-- Контент будет загружаться динамически -->
             </div>
         </div>
     </div>
-    
-    <!-- Секция "Временная линия" -->
-    <section id="timeline" class="timeline-section">
-        <!-- Canvas с анимацией капель -->
-        <canvas id="raindrop-canvas"></canvas>
-        
-        <!-- Затемнение фона -->
-        <div class="timeline-overlay"></div>
-        
-        <!-- Мировые линии -->
-        <div class="world-lines" id="worldLines"></div>
-        
-        <div class="container timeline-content">
-            <h2 class="section-title">Временная линия</h2>
-            
-            <div class="timeline">
-                <!-- Анимированный импульс -->
-                <div class="timeline-pulse"></div>
-                
-                <!-- Событие 1 -->
-                <div class="timeline-item">
-                    <button class="timeline-btn" data-event="event1">
-                        <div class="timeline-date">
-                            <i class="far fa-calendar"></i> 28 июля 2010 (Альфа-мир)
-                        </div>
-                        <p class="timeline-text">Первая встреча с Окабэ Ринтаро в лекционном зале Радиокан. Становится свидетельницей создания D-mail и начала временных экспериментов.</p>
-                    </button>
-                </div>
-                
-                <!-- Событие 2 -->
-                <div class="timeline-item">
-                    <button class="timeline-btn" data-event="event2">
-                        <div class="timeline-date">
-                            <i class="far fa-calendar"></i> Июль-Август 2010
-                        </div>
-                        <p class="timeline-text">Присоединяется к Лаборатории Будущего. Помогает усовершенствовать Микроволновку Банано в полноценную Машину времени.</p>
-                    </button>
-                </div>
-                
-                <!-- Событие 3 -->
-                <div class="timeline-item">
-                    <button class="timeline-btn" data-event="event3">
-                        <div class="timeline-date">
-                            <i class="far fa-calendar"></i> Август 2010 (Альфа-мир)
-                        </div>
-                        <p class="timeline-text">Создает "Машину скачков по памяти". Помогает Окабэ найти способ спасти Маюри от неизбежной гибели.</p>
-                    </button>
-                </div>
-                
-                <!-- Событие 4 -->
-                <div class="timeline-item">
-                    <button class="timeline-btn" data-event="event4">
-                        <div class="timeline-date">
-                            <i class="far fa-calendar"></i> Конец Августа 2010
-                        </div>
-                        <p class="timeline-text">Жертвует собой в Альфа-мире, чтобы Окабэ мог достичь Мировой линии Врат Штейна.</p>
-                    </button>
-                </div>
-                
-                <!-- Событие 5 -->
-                <div class="timeline-item">
-                    <button class="timeline-btn" data-event="event5">
-                        <div class="timeline-date">
-                            <i class="far fa-calendar"></i> Мир Врат Штейна
-                        </div>
-                        <p class="timeline-text">Воссоединяется с Окабэ в идеальной мирной линии, где оба спасены от своих судеб.</p>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
+</section>
 
-    <!-- Модальное окно для временной линии -->
-    <div class="timeline-modal-overlay" id="timelineModalOverlay"></div>
-    
-    <div class="timeline-modal-content" id="timelineModalContent">
-        <div class="timeline-modal-header">
-            <h3 class="timeline-modal-title" id="timelineModalTitle">28 июля 2010 (Альфа-мир)</h3>
-            <button class="timeline-close-modal" id="timelineCloseModal">
-                <i class="fas fa-times"></i>
-            </button>
+<!-- Модальное окно для отображения контента -->
+<div class="modal-overlay" id="modalOverlay"></div>
+
+<div class="modal-content" id="modalContent">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">Машина скачков по памяти</h3>
+        <button class="close-modal" id="closeModal">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="tab-content-inner" id="modalBody">
+            <!-- Контент будет загружаться динамически -->
         </div>
-        <div class="timeline-modal-body">
-            <div class="timeline-details" id="timelineModalBody">
-                <!-- Контент будет загружаться динамически -->
+    </div>
+</div>
+
+<!-- Секция "Временная линия" -->
+<section id="timeline" class="timeline-section">
+    <!-- Canvas с анимацией капель из файла АНИМАЦИЯ.html -->
+    <canvas id="raindrop-canvas"></canvas>
+    
+    <!-- Затемнение фона -->
+    <div class="timeline-overlay"></div>
+    
+    <!-- Мировые линии -->
+    <div class="world-lines" id="worldLines"></div>
+    
+    <div class="container timeline-content">
+        <h2 class="section-title">Временная линия</h2>
+        
+        <div class="timeline">
+            <!-- Анимированный импульс -->
+            <div class="timeline-pulse"></div>
+            
+            <!-- Событие 1 -->
+            <div class="timeline-item">
+                <button class="timeline-btn" data-event="event1">
+                    <div class="timeline-date">
+                        <i class="far fa-calendar"></i> 28 июля 2010 (Альфа-мир)
+                    </div>
+                    <p class="timeline-text">Первая встреча с Окабэ Ринтаро в лекционном зале Радиокан. Становится свидетельницей создания D-mail и начала временных экспериментов.</p>
+                </button>
+            </div>
+            
+            <!-- Событие 2 -->
+            <div class="timeline-item">
+                <button class="timeline-btn" data-event="event2">
+                    <div class="timeline-date">
+                        <i class="far fa-calendar"></i> Июль-Август 2010
+                    </div>
+                    <p class="timeline-text">Присоединяется к Лаборатории Будущего. Помогает усовершенствовать Микроволновку Банано в полноценную Машину времени.</p>
+                </button>
+            </div>
+            
+            <!-- Событие 3 -->
+            <div class="timeline-item">
+                <button class="timeline-btn" data-event="event3">
+                    <div class="timeline-date">
+                        <i class="far fa-calendar"></i> Август 2010 (Альфа-мир)
+                    </div>
+                    <p class="timeline-text">Создает "Машину скачков по памяти". Помогает Окабэ найти способ спасти Маюри от неизбежной гибели.</p>
+                </button>
+            </div>
+            
+            <!-- Событие 4 -->
+            <div class="timeline-item">
+                <button class="timeline-btn" data-event="event4">
+                    <div class="timeline-date">
+                        <i class="far fa-calendar"></i> Конец Августа 2010
+                    </div>
+                    <p class="timeline-text">Жертвует собой в Альфа-мире, чтобы Окабэ мог достичь Мировой линии Врат Штейна.</p>
+                </button>
+            </div>
+            
+            <!-- Событие 5 -->
+            <div class="timeline-item">
+                <button class="timeline-btn" data-event="event5">
+                    <div class="timeline-date">
+                        <i class="far fa-calendar"></i> Мир Врат Штейна
+                    </div>
+                    <p class="timeline-text">Воссоединяется с Окабэ в идеальной мирной линии, где оба спасены от своих судеб.</p>
+                </button>
             </div>
         </div>
     </div>
-    
-    <!-- Секция "Галерея" -->
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <h2 class="section-title">Галерея</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://i.ibb.co/rRmyRdjP/kurisu.png" alt="Официальный арт" class="gallery-img">
-                    <div class="gallery-caption">Официальный арт</div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://i.ibb.co/Fky1gmh7/kurisu-2.png" alt="В Лаборатории Будущего" class="gallery-img">
-                    <div class="gallery-caption">В Лаборатории Будущего</div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://i.ibb.co/XZSMNBqH/kurisu-1.jpg" alt="С Окабэ Ринтаро" class="gallery-img">
-                    <div class="gallery-caption">С Окабэ Ринтаро</div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://i.ibb.co/YTFQh5tr/kurisu-3.jpg" alt="Научная работа" class="gallery-img">
-                    <div class="gallery-caption">Научная работа</div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://i.ibb.co/s9BWG2tz/kurisu-5.jpg" alt="Цундере режим" class="gallery-img">
-                    <div class="gallery-caption">Цундере режим</div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://i.ibb.co/fzWpqRzL/kurisu-4.jpg" alt="В Акихабаре" class="gallery-img">
-                    <div class="gallery-caption">В Акихабаре</div>
-                </div>
+</section>
+
+<!-- Модальное окно для временной линии -->
+<div class="timeline-modal-overlay" id="timelineModalOverlay"></div>
+
+<div class="timeline-modal-content" id="timelineModalContent">
+    <div class="timeline-modal-header">
+        <h3 class="timeline-modal-title" id="timelineModalTitle">28 июля 2010 (Альфа-мир)</h3>
+        <button class="timeline-close-modal" id="timelineCloseModal">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="timeline-modal-body">
+        <div class="timeline-details" id="timelineModalBody">
+            <!-- Контент будет загружаться динамически -->
+        </div>
+    </div>
+</div>
+
+<!-- Секция "Галерея" -->
+<section id="gallery" class="gallery">
+    <div class="container">
+        <h2 class="section-title">Галерея</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <!-- В галерее официальный арт - kurisu-6.jpg -->
+                <img src="https://i.postimg.cc/rFhww55t/kurisu-6.jpg" alt="Официальный арт" class="gallery-img">
+                <div class="gallery-caption">Официальный арт</div>
+            </div>
+            
+            <div class="gallery-item">
+                <!-- В галерее "В Лаборатории Будущего" - kurisu-2.png -->
+                <img src="https://i.postimg.cc/RVC0mgJc/kurisu-2.png" alt="В Лаборатории Будущего" class="gallery-img">
+                <div class="gallery-caption">В Лаборатории Будущего</div>
+            </div>
+            
+            <div class="gallery-item">
+                <!-- С Окабэ Ринтаро - kurisu-1.jpg -->
+                <img src="https://i.postimg.cc/HsWLm68c/kurisu-1.jpg" alt="С Окабэ Ринтаро" class="gallery-img">
+                <div class="gallery-caption">С Окабэ Ринтаро</div>
+            </div>
+            
+            <div class="gallery-item">
+                <!-- Научная работа - kurisu-3.jpg -->
+                <img src="https://i.postimg.cc/9FXf2Lwq/kurisu-3.jpg" alt="Научная работа" class="gallery-img">
+                <div class="gallery-caption">Научная работа</div>
+            </div>
+            
+            <div class="gallery-item">
+                <!-- Цундере режим - kurisu-5.jpg -->
+                <img src="https://i.postimg.cc/YqXCCQQF/kurisu-5.jpg" alt="Цундере режим" class="gallery-img">
+                <div class="gallery-caption">Цундере режим</div>
+            </div>
+            
+            <div class="gallery-item">
+                <!-- В Акихабаре - kurisu-4.jpg -->
+                <img src="https://i.postimg.cc/5N9tJsQz/kurisu-4.jpg" alt="В Акихабаре" class="gallery-img">
+                <div class="gallery-caption">В Акихабаре</div>
             </div>
         </div>
-    </section>
-    
-    <!-- Секция с плеером серий -->
-    <section id="episodes" class="episodes-section">
-        <div class="container episodes-container">
-            <h2 class="episodes-title">Первый сезон Врата Штейна</h2>
-            
-            <div class="episodes-content">
-                <div class="episode-player-container">
-                    <div class="episode-player">
-                        <!-- Используем iframe для Google Drive -->
+    </div>
+</section>
+
+<!-- Секция с плеером серий - ИСПРАВЛЕННАЯ -->
+<section id="episodes" class="episodes-section">
+    <div class="container episodes-container">
+        <h2 class="episodes-title">Первый сезон Врата Штейна</h2>
+        
+        <div class="episodes-content">
+            <div class="episode-player-container">
+                <div class="episode-player">
+                    <!-- Используем прямой iframe для Google Drive -->
+                    <div class="video-iframe-container">
                         <iframe 
                             id="videoFrame"
                             class="video-iframe"
-                            src="https://drive.google.com/file/d/1tiN_ly3Mh82I2zExRLLm83zNWeLZiMQN/preview"
+                            src=""
                             allow="autoplay; encrypted-media; picture-in-picture"
                             allowfullscreen
                             frameborder="0">
                         </iframe>
-                        <div class="video-loading" id="videoLoading">
-                            <div class="loading-spinner">
-                                <i class="fas fa-sync fa-spin"></i>
-                            </div>
-                            <p>Загрузка видео...</p>
-                        </div>
                     </div>
+                    <div class="video-loading" id="videoLoading">
+                        <div class="loading-spinner">
+                            <i class="fas fa-sync fa-spin"></i>
+                        </div>
+                        <p>Загрузка видео...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="episodes-list">
+                <h3 class="episodes-list-title">Список серий</h3>
+                
+                <!-- Серия 1 -->
+                <div class="episode-item active" data-episode="1" data-video-id="1tiN_ly3Mh82I2zExRLLm83zNWeLZiMQN">
+                    <div class="episode-number">01</div>
+                    <div class="episode-name">Начало и конец</div>
+                    <div class="episode-duration">24 мин</div>
                 </div>
                 
-                <div class="episodes-list">
-                    <h3 class="episodes-list-title">Список серий</h3>
-                    
-                    <!-- Серия 1 -->
-                    <div class="episode-item active" data-episode="1" data-video-id="1tiN_ly3Mh82I2zExRLLm83zNWeLZiMQN">
-                        <div class="episode-number">01</div>
-                        <div class="episode-name">Начало и конец</div>
-                        <div class="episode-duration">24 мин</div>
-                    </div>
-                    
-                    <!-- Серия 2 -->
-                    <div class="episode-item" data-episode="2" data-video-id="1DS-G2352S51OHCTa5Ic2EcAc7A0dXsze">
-                        <div class="episode-number">02</div>
-                        <div class="episode-name">Параноидальный разрыв</div>
-                        <div class="episode-duration">24 мин</div>
-                    </div>
-                    
-                    <!-- Серия 3 -->
-                    <div class="episode-item disabled" data-episode="3">
-                        <div class="episode-number">03</div>
-                        <div class="episode-name">Параллетический монетизм</div>
-                        <div class="episode-duration">24 мин</div>
-                    </div>
-                    
-                    <!-- Серия 4 -->
-                    <div class="episode-item disabled" data-episode="4">
-                        <div class="episode-number">04</div>
-                        <div class="episode-name">Искривление интерпретации</div>
-                        <div class="episode-duration">24 мин</div>
-                    </div>
-                    
-                    <!-- Серия 5 -->
-                    <div class="episode-item disabled" data-episode="5">
-                        <div class="episode-number">05</div>
-                        <div class="episode-name">Вектор столкновения</div>
-                        <div class="episode-duration">24 мин</div>
-                    </div>
-                    
-                    <!-- Серия 6 -->
-                    <div class="episode-item disabled" data-episode="6">
-                        <div class="episode-number">06</div>
-                        <div class="episode-name">Дивергенция дивергенции</div>
-                        <div class="episode-duration">24 мин</div>
-                    </div>
-                    
-                    <!-- Серия 7 -->
-                    <div class="episode-item disabled" data-episode="7">
-                        <div class="episode-number">07</div>
-                        <div class="episode-name">Трансцендентальное деление</div>
-                        <div class="episode-duration">24 мин</div>
-                    </div>
+                <!-- Серия 2 -->
+                <div class="episode-item" data-episode="2" data-video-id="1DS-G2352S51OHCTa5Ic2EcAc7A0dXsze">
+                    <div class="episode-number">02</div>
+                    <div class="episode-name">Параноидальный разрыв</div>
+                    <div class="episode-duration">24 мин</div>
+                </div>
+                
+                <!-- Серия 3 -->
+                <div class="episode-item disabled" data-episode="3">
+                    <div class="episode-number">03</div>
+                    <div class="episode-name">Параллетический монетизм</div>
+                    <div class="episode-duration">24 мин</div>
+                </div>
+                
+                <!-- Серия 4 -->
+                <div class="episode-item disabled" data-episode="4">
+                    <div class="episode-number">04</div>
+                    <div class="episode-name">Искривление интерпретации</div>
+                    <div class="episode-duration">24 мин</div>
+                </div>
+                
+                <!-- Серия 5 -->
+                <div class="episode-item disabled" data-episode="5">
+                    <div class="episode-number">05</div>
+                    <div class="episode-name">Вектор столкновения</div>
+                    <div class="episode-duration">24 мин</div>
+                </div>
+                
+                <!-- Серия 6 -->
+                <div class="episode-item disabled" data-episode="6">
+                    <div class="episode-number">06</div>
+                    <div class="episode-name">Дивергенция дивергенции</div>
+                    <div class="episode-duration">24 мин</div>
+                </div>
+                
+                <!-- Серия 7 -->
+                <div class="episode-item disabled" data-episode="7">
+                    <div class="episode-number">07</div>
+                    <div class="episode-name">Трансцендентальное деление</div>
+                    <div class="episode-duration">24 мин</div>
                 </div>
             </div>
         </div>
-    </section>
-    
-    <!-- Футер -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="lab-badge">Лаборатория Будущего №008</div>
-                <p>Официальный сайт-визитка Макисэ Курису</p>
-                <p>Исследования в области нейробиологии и временных технологий</p>
-                <div class="el-psy-congroo">El Psy Congroo</div>
-            </div>
-        </div>
-    </footer>
+    </div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        // Инициализация частиц для фона
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: "#c62828" },
-                shape: { type: "circle" },
-                opacity: { value: 0.5, random: true },
-                size: { value: 3, random: true },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: "#1a237e",
-                    opacity: 0.4,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: "none",
-                    random: true,
-                    straight: false,
-                    out_mode: "out",
-                    bounce: false
-                }
+<!-- Футер -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="lab-badge">Лаборатория Будущего №008</div>
+            <p>Официальный сайт-визитка Макисэ Курису</p>
+            <p>Исследования в области нейробиологии и временных технологий</p>
+            <div class="el-psy-congroo">El Psy Congroo</div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+    // Инициализация частиц для фона
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 80, density: { enable: true, value_area: 800 } },
+            color: { value: "#c62828" },
+            shape: { type: "circle" },
+            opacity: { value: 0.5, random: true },
+            size: { value: 3, random: true },
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: "#1a237e",
+                opacity: 0.4,
+                width: 1
             },
-            interactivity: {
-                detect_on: "canvas",
-                events: {
-                    onhover: { enable: true, mode: "repulse" },
-                    onclick: { enable: true, mode: "push" }
-                }
+            move: {
+                enable: true,
+                speed: 2,
+                direction: "none",
+                random: true,
+                straight: false,
+                out_mode: "out",
+                bounce: false
+            }
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: {
+                onhover: { enable: true, mode: "repulse" },
+                onclick: { enable: true, mode: "push" }
+            }
+        }
+    });
+    
+    // Плавная прокрутка для навигации
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
             }
         });
+    });
+    
+    // Бинарный фон
+    const binaryBg = document.getElementById('binaryBg');
+    const chars = '01';
+    const worldLines = [];
+    
+    for (let i = 0; i < 50; i++) {
+        const worldLine = document.createElement('div');
+        worldLine.className = 'world-line';
+        worldLine.style.left = Math.random() * 100 + 'vw';
+        worldLine.style.top = Math.random() * 100 + 'vh';
+        worldLine.textContent = 'МИРОВАЯ ЛИНИЯ ' + Math.floor(Math.random() * 1000000);
+        worldLine.style.opacity = Math.random() * 0.5 + 0.1;
+        binaryBg.appendChild(worldLine);
+        worldLines.push(worldLine);
+    }
+    
+    // Анимация мировых линий
+    function animateWorldLines() {
+        worldLines.forEach(line => {
+            line.style.top = (parseFloat(line.style.top) + 0.1) + 'vh';
+            if (parseFloat(line.style.top) > 100) {
+                line.style.top = '-10vh';
+                line.style.left = Math.random() * 100 + 'vw';
+            }
+        });
+        requestAnimationFrame(animateWorldLines);
+    }
+    
+    animateWorldLines();
+    
+    // ===========================================
+    // ДАННЫЕ ДЛЯ ВСЕХ СЕКЦИЙ
+    // ===========================================
+
+    // Данные для научных достижений
+    const tabData = {
+        'memory-jump': {
+            title: 'Машина скачков по памяти',
+            content: `
+                <div class="achievement-details">
+                    <p class="achievement-description">
+                        Инновационное устройство, позволяющее передавать воспоминания из настоящего в прошлое, 
+                        фактически осуществляя ограниченное путешествие во времени через сознание человека.
+                    </p>
+                    <ul class="achievement-features">
+                        <li>Использует принцип квантовой телепортации сознания</li>
+                        <li>Работает через систему LHC (отправка данных в прошлое)</li>
+                        <li>Модифицирована из микроволновой печи с добавлением неон-лазерных диодов</li>
+                        <li>Требует точных временных координат и волновых функций мозга</li>
+                        <li>Создана в сотрудничестве с Окабэ Ринтаро и лабораторией будущего</li>
+                    </ul>
+                </div>
+                <div class="achievement-visual">
+                    <img src="https://i.postimg.cc/YqXCCQQD/Schematic-representation-of-the-device.webp" alt="Схематическое изображение устройства">
+                    <div class="visual-label">Схематическое изображение устройства</div>
+                </div>
+            `
+        },
+        'neuro-research': {
+            title: 'Нейробиологические исследования',
+            content: `
+                <div class="achievement-details">
+                    <p class="achievement-description">
+                        Прорывные исследования в области нейропластичности и кодирования памяти, 
+                        заложившие теоретическую основу для технологии скачков по памяти.
+                    </p>
+                    <ul class="achievement-features">
+                        <li>Открытие механизма "временной волны" в гиппокампе</li>
+                        <li>Исследование нейронных коррелятов дежавю</li>
+                        <li>Разработка модели квантового кодирования воспоминаний</li>
+                        <li>Теория о существовании "хронологических нейронов"</li>
+                        <li>Эксперименты по стиранию и восстановлению памяти</li>
+                    </ul>
+                </div>
+                <div class="achievement-visual">
+                    <img src="https://i.postimg.cc/zXdGGTTj/Map-of-the-hippocampus-neural-connections.jpg" alt="Карта нейронных связей гиппокампа">
+                    <div class="visual-label">Карта нейронных связей гиппокампа</div>
+                </div>
+            `
+        },
+        'time-travel': {
+            title: 'Теория путешествий во времени',
+            content: `
+                <div class="achievement-details">
+                    <p class="achievement-description">
+                        Революционная теория, объединяющая квантовую механику с концепцией мировых линий, 
+                        объясняющая парадоксы временных путешествий и предлагающая практическую реализацию.
+                    </p>
+                    <ul class="achievement-features">
+                        <li>Концепция "Притяжения мировой линии" (World Line Attraction Field)</li>
+                        <li>Теория конвергенции мировых линий в точках дивергенции</li>
+                        <li>Математическое описание временных парадоксов и их разрешений</li>
+                        <li>Модель квантового туннелирования через временные барьеры</li>
+                        <li>Практическая реализация через отправку D-mail (D-писем)</li>
+                    </ul>
+                </div>
+                <div class="achievement-visual">
+                    <img src="https://i.postimg.cc/Dyfzhx48/Diagram-of-world-lines-and-time-branches.jpg" alt="Диаграмма мировых линий и временных разветвлений">
+                    <div class="visual-label">Диаграмма мировых линий и временных разветвлений</div>
+                </div>
+            `
+        },
+        'publications': {
+            title: 'Научные публикации',
+            content: `
+                <div class="achievement-details">
+                    <p class="achievement-description">
+                        Несмотря на молодой возраст, Макисэ Курису опубликовала несколько важных научных работ, 
+                        получивших международное признание в академических кругах.
+                    </p>
+                    <ul class="achievement-features">
+                        <li>"Квантовая природа памяти: Нейронные основы временного кодирования" (Science, 2009)</li>
+                        <li>"Возможность манипуляции мировыми линиями через квантовые возмущения" (Nature Physics, 2010)</li>
+                        <li>"Экспериментальное подтверждение существования Reading Steiner" (PNAS, 2010)</li>
+                        <li>"Практическая реализация ограниченного временного путешествия через LHC" (Cell, 2011)</li>
+                        <li>"Машина скачков по памяти: от теории к практике" (совместно с Окабэ Р., 2011)</li>
+                    </ul>
+                </div>
+                <div class="achievement-visual">
+                    <img src="https://i.postimg.cc/TY2Pxt5K/Covers-of-scientific-journals-with-Kurisu-s-publications.jpg" alt="Обложки научных журналов с публикациями Курису">
+                    <div class="visual-label">Обложки научных журналов с публикациями Курису</div>
+                </div>
+            `
+        }
+    };
+
+    // Данные для временной линии
+    const timelineEvents = {
+        'event1': {
+            title: '28 июля 2010 (Альфа-мир)',
+            content: `
+                <div class="timeline-description">
+                    <p class="timeline-full-description">
+                        Судьбоносная встреча Макисэ Курису с Окабэ Ринтаро в лекционном зале Радиокан. 
+                        Курису прибыла в Японию для выступления на научной конференции, где представляла свои 
+                        исследования в области нейробиологии. В этот же день происходит первое столкновение 
+                        с парадоксами времени.
+                    </p>
+                    <p class="timeline-full-description">
+                        Курису становится невольной свидетельницей отправки первого D-mail (D-письма) - 
+                        сообщения в прошлое, которое изменяет мировую линию. Это событие запускает цепь 
+                        временных экспериментов и приводит к созданию Лаборатории Будущего.
+                    </p>
+                    <ul class="timeline-features">
+                        <li>Первая встреча Курису и Окабэ в лекционном зале</li>
+                        <li>Отправка первого D-mail (сообщение о поимке майора)</li>
+                        <li>Смена мировой линии с Beta на Alpha</li>
+                        <li>Начало временных экспериментов</li>
+                        <li>Обнаружение феномена Reading Steiner у Окабэ</li>
+                    </ul>
+                </div>
+                <div class="timeline-visual">
+                    <img src="https://i.postimg.cc/8PyzzLLh/Radiokan-Lecture-Hall-the-place-of-the-first-meeting.webp" alt="Лекционный зал Радиокан">
+                    <div class="timeline-visual-label">Лекционный зал Радиокан, место первой встречи</div>
+                </div>
+            `
+        },
+        'event2': {
+            title: 'Июль-Август 2010',
+            content: `
+                <div class="timeline-description">
+                    <p class="timeline-full-description">
+                        Курису официально присоединяется к Лаборатории Будущего в роли главного научного 
+                        консультанта. Её экспертиза в области нейробиологии становится ключевой для понимания 
+                        механизмов временных путешествий.
+                    </p>
+                    <p class="timeline-full-description">
+                        Совместно с членами лаборатории, Курису помогает усовершенствовать обычную микроволновую 
+                        печь ("Микроволновка Банано") в полноценную машину времени. Она разрабатывает теорию 
+                        мировых линий и начинает работу над "Машиной скачков по памяти".
+                    </p>
+                    <ul class="timeline-features">
+                        <li>Официальное вступление в Лабораторию Будущего</li>
+                        <li>Модификация микроволновки в машину времени</li>
+                        <li>Разработка теории мировых линий</li>
+                        <li>Начало работы над Memory Leap Machine</li>
+                        <li>Установление связи с SERN</li>
+                    </ul>
+                </div>
+                <div class="timeline-visual">
+                    <img src="https://i.postimg.cc/hPCttVVY/The-Future-Laboratory-a-place-for-experiments.jpg" alt="Лаборатория Будущего">
+                    <div class="timeline-visual-label">Лаборатория Будущего, место проведения экспериментов</div>
+                </div>
+            `
+        },
+        'event3': {
+            title: 'Август 2010 (Альфа-мир)',
+            content: `
+                <div class="timeline-description">
+                    <p class="timeline-full-description">
+                        Курису завершает разработку "Машины скачков по памяти" - революционного устройства, 
+                        позволяющего передавать воспоминания из настоящего в прошлое. Эта технология становится 
+                        ключевым инструментом для спасения Маюри Сиины от неизбежной гибели.
+                    </p>
+                    <p class="timeline-full-description">
+                        Вместе с Окабэ, Курису проводит серию опасных экспериментов по изменению мировой линии, 
+                        пытаясь найти путь к Мировой линии Врат Штейна - идеальной временной линии, где все главные герои 
+                        остаются живы и счастливы.
+                    </p>
+                    <ul class="timeline-features">
+                        <li>Завершение разработки Memory Leap Machine</li>
+                        <li>Попытки спасения Маюри от Convergence</li>
+                        <li>Открытие принципа Attractor Field</li>
+                        <li>Эксперименты с Reading Steiner</li>
+                        <li>Обнаручение временных парадоксов</li>
+                    </ul>
+                </div>
+                <div class="timeline-visual">
+                    <img src="https://i.postimg.cc/9FxQQyyx/Schematic-representation-of-the-Memory-Leap-Machine.jpg" alt="Машина скачков по памяти">
+                    <div class="timeline-visual-label">Схематическое изображение Memory Leap Machine</div>
+                </div>
+            `
+        },
+        'event4': {
+            title: 'Конец Августа 2010',
+            content: `
+                <div class="timeline-description">
+                    <p class="timeline-full-description">
+                        В кульминационный момент временного противостояния, Курису жертвует собой в 
+                        Альфа-мире, чтобы Окабэ мог достичь Мировой линии Врат Штейна. Её смерть становится необходимым 
+                        условием для изменения мировой линии и спасения всех остальных.
+                    </p>
+                    <p class="timeline-full-description">
+                        Это самопожертвование демонстрирует глубину чувств Курису к Окабэ и её готовность 
+                        пожертвовать собой ради достижения лучшего будущего. Её смерть оставляет глубокий 
+                        след в сознании Окабэ и становится движущей силой для его дальнейших действий.
+                    </p>
+                    <ul class="timeline-features">
+                        <li>Самопожертвование Курису в Альфа-мире</li>
+                        <li>Переход в Beta мировую линию</li>
+                        <li>Начало операции по достижению Мировой линии Врат Штейна</li>
+                        <li>Воспоминания Окабэ о "мертвой" Курису</li>
+                        <li>Подготовка к финальной временной операции</li>
+                    </ul>
+                </div>
+                <div class="timeline-visual">
+                    <img src="https://i.postimg.cc/BQZv3mPv/A-tragic-moment-of-self-sacrifice.jpg" alt="Трагический момент">
+                    <div class="timeline-visual-label">Трагический момент самопожертвования</div>
+                </div>
+            `
+        },
+        'event5': {
+            title: 'Мир Врат Штейна',
+            content: `
+                <div class="timeline-description">
+                    <p class="timeline-full-description">
+                        После успешного достижения Мировой линии Врат Штейна, Курису воссоединяется с 
+                        Окабэ в идеальном мире, где оба спасены от своих трагических судеб. В этой линии 
+                        времени Курису никогда не была убита, а Окабэ сохранил воспоминания о всех 
+                        предыдущих мировых линиях.
+                    </p>
+                    <p class="timeline-full-description">
+                        Курису продолжает свои научные исследования в области нейробиологии, теперь с 
+                        практическим опытом временных путешествий. Её отношения с Окабэ развиваются, и 
+                        вместе они продолжают работать над новыми научными открытиями в мирных условиях.
+                    </p>
+                    <ul class="timeline-features">
+                        <li>Воссоединение Курису и Окабэ в Мире Врат Штейна</li>
+                        <li>Сохранение воспоминаний о всех мировых линиях</li>
+                        <li>Продолжение научных исследований</li>
+                        <li>Развитие отношений между персонажами</li>
+                        <li>Мирная жизнь без временных угроз</li>
+                    </ul>
+                </div>
+                <div class="timeline-visual">
+                    <img src="https://i.postimg.cc/c4DLLff2/The-ideal-peaceful-line-of-the-Stein-Gate.jpg" alt="Мир Врат Штейна">
+                    <div class="timeline-visual-label">Идеальная мирная линия Врат Штейна</div>
+                </div>
+            `
+        }
+    };
+
+    // ===========================================
+    // ОСНОВНОЙ КОД
+    // ===========================================
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Сайт Макисэ Курису загружен!');
         
-        // Плавная прокрутка для навигации
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
+        // ===========================================
+        // 1. НАУЧНЫЕ ДОСТИЖЕНИЯ
+        // ===========================================
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalContent = document.getElementById('modalContent');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const closeModal = document.getElementById('closeModal');
+        
+        function openModal(tabId) {
+            const data = tabData[tabId];
+            if (!data) return;
+            
+            modalTitle.textContent = data.title;
+            modalBody.innerHTML = data.content;
+            
+            document.body.style.overflow = 'hidden';
+            modalOverlay.classList.add('active');
+            modalContent.classList.add('active');
+            
+            const activeButton = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+            if (activeButton) {
+                activeButton.style.animation = 'buttonPress 0.4s ease';
+                setTimeout(() => {
+                    activeButton.style.animation = '';
+                }, 400);
                 
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                activeButton.classList.add('active');
+            }
+        }
+        
+        function closeModalWindow() {
+            document.body.style.overflow = '';
+            modalOverlay.classList.remove('active');
+            modalContent.classList.remove('active');
+        }
+        
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                openModal(tabId);
+            });
+        });
+        
+        closeModal.addEventListener('click', closeModalWindow);
+        modalOverlay.addEventListener('click', closeModalWindow);
+        
+        // ===========================================
+        // 2. ВРЕМЕННАЯ ЛИНИЯ
+        // ===========================================
+        const timelineButtons = document.querySelectorAll('.timeline-btn');
+        const timelineModalOverlay = document.getElementById('timelineModalOverlay');
+        const timelineModalContent = document.getElementById('timelineModalContent');
+        const timelineModalTitle = document.getElementById('timelineModalTitle');
+        const timelineModalBody = document.getElementById('timelineModalBody');
+        const timelineCloseModal = document.getElementById('timelineCloseModal');
+        
+        function openTimelineModal(eventId) {
+            const eventData = timelineEvents[eventId];
+            if (!eventData) return;
+            
+            timelineModalTitle.textContent = eventData.title;
+            timelineModalBody.innerHTML = eventData.content;
+            
+            document.body.style.overflow = 'hidden';
+            timelineModalOverlay.classList.add('active');
+            timelineModalContent.classList.add('active');
+            
+            const activeButton = document.querySelector(`.timeline-btn[data-event="${eventId}"]`);
+            if (activeButton) {
+                activeButton.style.animation = 'buttonPress 0.4s ease';
+                setTimeout(() => {
+                    activeButton.style.animation = '';
+                }, 400);
+            }
+        }
+        
+        function closeTimelineModal() {
+            document.body.style.overflow = '';
+            timelineModalOverlay.classList.remove('active');
+            timelineModalContent.classList.remove('active');
+        }
+        
+        timelineButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const eventId = this.getAttribute('data-event');
+                openTimelineModal(eventId);
+            });
+        });
+        
+        timelineCloseModal.addEventListener('click', closeTimelineModal);
+        timelineModalOverlay.addEventListener('click', closeTimelineModal);
+        
+        // ===========================================
+        // 3. ПЛЕЕР СЕРИЙ - ИСПРАВЛЕННЫЙ
+        // ===========================================
+        const episodeItems = document.querySelectorAll('.episode-item:not(.disabled)');
+        const videoFrame = document.getElementById('videoFrame');
+        const videoLoading = document.getElementById('videoLoading');
+        
+        // Улучшенная функция для получения URL Google Drive
+        function getGoogleDriveVideoUrl(fileId) {
+            // Используем прямой iframe с preview для видео
+            return `https://drive.google.com/file/d/${fileId}/preview`;
+        }
+        
+        // Анимация загрузки
+        function showLoading() {
+            if (videoLoading) {
+                videoLoading.style.display = 'flex';
+            }
+            if (videoFrame) {
+                videoFrame.style.opacity = '0.5';
+            }
+        }
+        
+        function hideLoading() {
+            if (videoLoading) {
+                videoLoading.style.display = 'none';
+            }
+            if (videoFrame) {
+                videoFrame.style.opacity = '1';
+            }
+        }
+        
+        // Загружаем первую серию
+        const firstEpisode = document.querySelector('.episode-item.active');
+        if (firstEpisode && videoFrame) {
+            const firstVideoId = firstEpisode.getAttribute('data-video-id');
+            if (firstVideoId) {
+                showLoading();
+                videoFrame.src = getGoogleDriveVideoUrl(firstVideoId);
+                
+                // Скрываем загрузку после загрузки видео
+                videoFrame.onload = function() {
+                    setTimeout(hideLoading, 1000);
+                };
+                
+                // На всякий случай скрываем через 5 секунд максимум
+                setTimeout(hideLoading, 5000);
+            }
+        }
+        
+        // Переключение серий
+        episodeItems.forEach(item => {
+            item.addEventListener('click', function() {
+                if (this.classList.contains('disabled')) return;
+                
+                const videoId = this.getAttribute('data-video-id');
+                
+                episodeItems.forEach(item => item.classList.remove('active'));
+                this.classList.add('active');
+                
+                if (videoId && videoFrame) {
+                    showLoading();
+                    videoFrame.src = getGoogleDriveVideoUrl(videoId);
+                    
+                    // Скрываем загрузку после загрузки видео
+                    videoFrame.onload = function() {
+                        setTimeout(hideLoading, 1000);
+                    };
+                    
+                    // На всякий случай скрываем через 5 секунд максимум
+                    setTimeout(hideLoading, 5000);
+                }
+                
+                if (window.innerWidth < 768) {
+                    document.getElementById('episodes').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
         });
         
-        // Бинарный фон
-        const binaryBg = document.getElementById('binaryBg');
-        const chars = '01';
-        const worldLines = [];
-        
-        for (let i = 0; i < 50; i++) {
-            const worldLine = document.createElement('div');
-            worldLine.className = 'world-line';
-            worldLine.style.left = Math.random() * 100 + 'vw';
-            worldLine.style.top = Math.random() * 100 + 'vh';
-            worldLine.textContent = 'МИРОВАЯ ЛИНИЯ ' + Math.floor(Math.random() * 1000000);
-            worldLine.style.opacity = Math.random() * 0.5 + 0.1;
-            binaryBg.appendChild(worldLine);
-            worldLines.push(worldLine);
-        }
-        
-        // Анимация мировых линий
-        function animateWorldLines() {
-            worldLines.forEach(line => {
-                line.style.top = (parseFloat(line.style.top) + 0.1) + 'vh';
-                if (parseFloat(line.style.top) > 100) {
-                    line.style.top = '-10vh';
-                    line.style.left = Math.random() * 100 + 'vw';
-                }
-            });
-            requestAnimationFrame(animateWorldLines);
-        }
-        
-        animateWorldLines();
-        
         // ===========================================
-        // ДАННЫЕ ДЛЯ ВСЕХ СЕКЦИЙ
-        // ===========================================
-
-        // Данные для научных достижений
-        const tabData = {
-            'memory-jump': {
-                title: 'Машина скачков по памяти',
-                content: `
-                    <div class="achievement-details">
-                        <p class="achievement-description">
-                            Инновационное устройство, позволяющее передавать воспоминания из настоящего в прошлое, 
-                            фактически осуществляя ограниченное путешествие во времени через сознание человека.
-                        </p>
-                        <ul class="achievement-features">
-                            <li>Использует принцип квантовой телепортации сознания</li>
-                            <li>Работает через систему LHC (отправка данных в прошлое)</li>
-                            <li>Модифицирована из микроволновой печи с добавлением неон-лазерных диодов</li>
-                            <li>Требует точных временных координат и волновых функций мозга</li>
-                            <li>Создана в сотрудничестве с Окабэ Ринтаро и лабораторией будущего</li>
-                        </ul>
-                    </div>
-                    <div class="achievement-visual">
-                        <img src="https://i.ibb.co/Xxd5WCdP/Schematic-representation-of-the-device.webp" alt="Схематическое изображение устройства">
-                        <div class="visual-label">Схематическое изображение устройства</div>
-                    </div>
-                `
-            },
-            'neuro-research': {
-                title: 'Нейробиологические исследования',
-                content: `
-                    <div class="achievement-details">
-                        <p class="achievement-description">
-                            Прорывные исследования в области нейропластичности и кодирования памяти, 
-                            заложившие теоретическую основу для технологии скачков по памяти.
-                        </p>
-                        <ul class="achievement-features">
-                            <li>Открытие механизма "временной волны" в гиппокампе</li>
-                            <li>Исследование нейронных коррелятов дежавю</li>
-                            <li>Разработка модели квантового кодирования воспоминаний</li>
-                            <li>Теория о существовании "хронологических нейронов"</li>
-                            <li>Эксперименты по стиранию и восстановлению памяти</li>
-                        </ul>
-                    </div>
-                    <div class="achievement-visual">
-                        <img src="https://i.ibb.co/dswkC9h7/Map-of-the-hippocampus-neural-connections.jpg" alt="Карта нейронных связей гиппокампа">
-                        <div class="visual-label">Карта нейронных связей гиппокампа</div>
-                    </div>
-                `
-            },
-            'time-travel': {
-                title: 'Теория путешествий во времени',
-                content: `
-                    <div class="achievement-details">
-                        <p class="achievement-description">
-                            Революционная теория, объединяющая квантовую механику с концепцией мировых линий, 
-                            объясняющая парадоксы временных путешествий и предлагающая практическую реализацию.
-                        </p>
-                        <ul class="achievement-features">
-                            <li>Концепция "Притяжения мировой линии" (World Line Attraction Field)</li>
-                            <li>Теория конвергенции мировых линий в точках дивергенции</li>
-                            <li>Математическое описание временных парадоксов и их разрешений</li>
-                            <li>Модель квантового туннелирования через временные барьеры</li>
-                            <li>Практическая реализация через отправку D-mail (D-писем)</li>
-                        </ul>
-                    </div>
-                    <div class="achievement-visual">
-                        <img src="https://i.ibb.co/vKZ9N7S/Diagram-of-world-lines-and-time-branches.jpg" alt="Диаграмма мировых линий и временных разветвлений">
-                        <div class="visual-label">Диаграмма мировых линий и временных разветвлений</div>
-                    </div>
-                `
-            },
-            'publications': {
-                title: 'Научные публикации',
-                content: `
-                    <div class="achievement-details">
-                        <p class="achievement-description">
-                            Несмотря на молодой возраст, Макисэ Курису опубликовала несколько важных научных работ, 
-                            получивших международное признание в академических кругах.
-                        </p>
-                        <ul class="achievement-features">
-                            <li>"Квантовая природа памяти: Нейронные основы временного кодирования" (Science, 2009)</li>
-                            <li>"Возможность манипуляции мировыми линиями через квантовые возмущения" (Nature Physics, 2010)</li>
-                            <li>"Экспериментальное подтверждение существования Reading Steiner" (PNAS, 2010)</li>
-                            <li>"Практическая реализация ограниченного временного путешествия через LHC" (Cell, 2011)</li>
-                            <li>"Машина скачков по памяти: от теории к практике" (совместно с Окабэ Р., 2011)</li>
-                        </ul>
-                    </div>
-                    <div class="achievement-visual">
-                        <img src="https://i.ibb.co/cKfX81Wt/Covers-of-scientific-journals-with-Kurisu-s-publications.jpg" alt="Обложки научных журналов с публикациями Курису">
-                        <div class="visual-label">Обложки научных журналов с публикациями Курису</div>
-                    </div>
-                `
-            }
-        };
-
-        // Данные для временной линии
-        const timelineEvents = {
-            'event1': {
-                title: '28 июля 2010 (Альфа-мир)',
-                content: `
-                    <div class="timeline-description">
-                        <p class="timeline-full-description">
-                            Судьбоносная встреча Макисэ Курису с Окабэ Ринтаро в лекционном зале Радиокан. 
-                            Курису прибыла в Японию для выступления на научной конференции, где представляла свои 
-                            исследования в области нейробиологии. В этот же день происходит первое столкновение 
-                            с парадоксами времени.
-                        </p>
-                        <p class="timeline-full-description">
-                            Курису становится невольной свидетельницей отправки первого D-mail (D-письма) - 
-                            сообщения в прошлое, которое изменяет мировую линию. Это событие запускает цепь 
-                            временных экспериментов и приводит к созданию Лаборатории Будущего.
-                        </p>
-                        <ul class="timeline-features">
-                            <li>Первая встреча Курису и Окабэ в лекционном зале</li>
-                            <li>Отправка первого D-mail (сообщение о поимке майора)</li>
-                            <li>Смена мировой линии с Beta на Alpha</li>
-                            <li>Начало временных экспериментов</li>
-                            <li>Обнаружение феномена Reading Steiner у Окабэ</li>
-                        </ul>
-                    </div>
-                    <div class="timeline-visual">
-                        <img src="https://i.ibb.co/gLHWy7SD/Radiokan-Lecture-Hall-the-place-of-the-first-meeting.webp" alt="Лекционный зал Радиокан">
-                        <div class="timeline-visual-label">Лекционный зал Радиокан, место первой встречи</div>
-                    </div>
-                `
-            },
-            'event2': {
-                title: 'Июль-Август 2010',
-                content: `
-                    <div class="timeline-description">
-                        <p class="timeline-full-description">
-                            Курису официально присоединяется к Лаборатории Будущего в роли главного научного 
-                            консультанта. Её экспертиза в области нейробиологии становится ключевой для понимания 
-                            механизмов временных путешествий.
-                        </p>
-                        <p class="timeline-full-description">
-                            Совместно с членами лаборатории, Курису помогает усовершенствовать обычную микроволновую 
-                            печь ("Микроволновка Банано") в полноценную машину времени. Она разрабатывает теорию 
-                            мировых линий и начинает работу над "Машиной скачков по памяти".
-                        </p>
-                        <ul class="timeline-features">
-                            <li>Официальное вступление в Лабораторию Будущего</li>
-                            <li>Модификация микроволновки в машину времени</li>
-                            <li>Разработка теории мировых линий</li>
-                            <li>Начало работы над Memory Leap Machine</li>
-                            <li>Установление связи с SERN</li>
-                        </ul>
-                    </div>
-                    <div class="timeline-visual">
-                        <img src="https://i.ibb.co/KjyS3N8Q/The-Future-Laboratory-a-place-for-experiments.jpg" alt="Лаборатория Будущего">
-                        <div class="timeline-visual-label">Лаборатория Будущего, место проведения экспериментов</div>
-                    </div>
-                `
-            },
-            'event3': {
-                title: 'Август 2010 (Альфа-мир)',
-                content: `
-                    <div class="timeline-description">
-                        <p class="timeline-full-description">
-                            Курису завершает разработку "Машины скачков по памяти" - революционного устройства, 
-                            позволяющего передавать воспоминания из настоящего в прошлое. Эта технология становится 
-                            ключевым инструментом для спасения Маюри Сиины от неизбежной гибели.
-                        </p>
-                        <p class="timeline-full-description">
-                            Вместе с Окабэ, Курису проводит серию опасных экспериментов по изменению мировой линии, 
-                            пытаясь найти путь к Мировой линии Врат Штейна - идеальной временной линии, где все главные герои 
-                            остаются живы и счастливы.
-                        </p>
-                        <ul class="timeline-features">
-                            <li>Завершение разработки Memory Leap Machine</li>
-                            <li>Попытки спасения Маюри от Convergence</li>
-                            <li>Открытие принципа Attractor Field</li>
-                            <li>Эксперименты с Reading Steiner</li>
-                            <li>Обнаружение временных парадоксов</li>
-                        </ul>
-                    </div>
-                    <div class="timeline-visual">
-                        <img src="https://i.ibb.co/XkLhtMck/Schematic-representation-of-the-Memory-Leap-Machine.jpg" alt="Машина скачков по памяти">
-                        <div class="timeline-visual-label">Схематическое изображение Memory Leap Machine</div>
-                    </div>
-                `
-            },
-            'event4': {
-                title: 'Конец Августа 2010',
-                content: `
-                    <div class="timeline-description">
-                        <p class="timeline-full-description">
-                            В кульминационный момент временного противостояния, Курису жертвует собой в 
-                            Альфа-мире, чтобы Окабэ мог достичь Мировой линии Врат Штейна. Её смерть становится необходимым 
-                            условием для изменения мировой линии и спасения всех остальных.
-                        </p>
-                        <p class="timeline-full-description">
-                            Это самопожертвование демонстрирует глубину чувств Курису к Окабэ и её готовность 
-                            пожертвовать собой ради достижения лучшего будущего. Её смерть оставляет глубокий 
-                            след в сознании Окабэ и становится движущей силой для его дальнейших действий.
-                        </p>
-                        <ul class="timeline-features">
-                            <li>Самопожертвование Курису в Альфа-мире</li>
-                            <li>Переход в Beta мировую линию</li>
-                            <li>Начало операции по достижению Мировой линии Врат Штейна</li>
-                            <li>Воспоминания Окабэ о "мертвой" Курису</li>
-                            <li>Подготовка к финальной временной операции</li>
-                        </ul>
-                    </div>
-                    <div class="timeline-visual">
-                        <img src="https://i.ibb.co/0pjCMhGp/A-tragic-moment-of-self-sacrifice.jpg" alt="Трагический момент">
-                        <div class="timeline-visual-label">Трагический момент самопожертвования</div>
-                    </div>
-                `
-            },
-            'event5': {
-                title: 'Мир Врат Штейна',
-                content: `
-                    <div class="timeline-description">
-                        <p class="timeline-full-description">
-                            После успешного достижения Мировой линии Врат Штейна, Курису воссоединяется с 
-                            Окабэ в идеальном мире, где оба спасены от своих трагических судеб. В этой линии 
-                            времени Курису никогда не была убита, а Окабэ сохранил воспоминания о всех 
-                            предыдущих мировых линиях.
-                        </p>
-                        <p class="timeline-full-description">
-                            Курису продолжает свои научные исследования в области нейробиологии, теперь с 
-                            практическим опытом временных путешествий. Её отношения с Окабэ развиваются, и 
-                            вместе они продолжают работать над новыми научными открытиями в мирных условиях.
-                        </p>
-                        <ul class="timeline-features">
-                            <li>Воссоединение Курису и Окабэ в Мире Врат Штейна</li>
-                            <li>Сохранение воспоминаний о всех мировых линиях</li>
-                            <li>Продолжение научных исследований</li>
-                            <li>Развитие отношений между персонажами</li>
-                            <li>Мирная жизнь без временных угроз</li>
-                        </ul>
-                    </div>
-                    <div class="timeline-visual">
-                        <img src="https://i.ibb.co/bMbn7ryh/The-ideal-peaceful-line-of-the-Stein-Gate.jpg" alt="Мир Врат Штейна">
-                        <div class="timeline-visual-label">Идеальная мирная линия Врат Штейна</div>
-                    </div>
-                `
-            }
-        };
-
-        // ===========================================
-        // ОСНОВНОЙ КОД
+        // 4. АНИМАЦИИ И ЭФФЕКТЫ
         // ===========================================
         
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Сайт Макисэ Курису загружен!');
-            
-            // ===========================================
-            // 1. НАУЧНЫЕ ДОСТИЖЕНИЯ
-            // ===========================================
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const modalOverlay = document.getElementById('modalOverlay');
-            const modalContent = document.getElementById('modalContent');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalBody = document.getElementById('modalBody');
-            const closeModal = document.getElementById('closeModal');
-            
-            function openModal(tabId) {
-                const data = tabData[tabId];
-                if (!data) return;
-                
-                modalTitle.textContent = data.title;
-                modalBody.innerHTML = data.content;
-                
-                document.body.style.overflow = 'hidden';
-                modalOverlay.classList.add('active');
-                modalContent.classList.add('active');
-                
-                const activeButton = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
-                if (activeButton) {
-                    activeButton.style.animation = 'buttonPress 0.4s ease';
-                    setTimeout(() => {
-                        activeButton.style.animation = '';
-                    }, 400);
-                    
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    activeButton.classList.add('active');
-                }
-            }
-            
-            function closeModalWindow() {
-                document.body.style.overflow = '';
-                modalOverlay.classList.remove('active');
-                modalContent.classList.remove('active');
-            }
-            
-            tabButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const tabId = this.getAttribute('data-tab');
-                    openModal(tabId);
-                });
-            });
-            
-            closeModal.addEventListener('click', closeModalWindow);
-            modalOverlay.addEventListener('click', closeModalWindow);
-            
-            // ===========================================
-            // 2. ВРЕМЕННАЯ ЛИНИЯ
-            // ===========================================
-            const timelineButtons = document.querySelectorAll('.timeline-btn');
-            const timelineModalOverlay = document.getElementById('timelineModalOverlay');
-            const timelineModalContent = document.getElementById('timelineModalContent');
-            const timelineModalTitle = document.getElementById('timelineModalTitle');
-            const timelineModalBody = document.getElementById('timelineModalBody');
-            const timelineCloseModal = document.getElementById('timelineCloseModal');
-            
-            function openTimelineModal(eventId) {
-                const eventData = timelineEvents[eventId];
-                if (!eventData) return;
-                
-                timelineModalTitle.textContent = eventData.title;
-                timelineModalBody.innerHTML = eventData.content;
-                
-                document.body.style.overflow = 'hidden';
-                timelineModalOverlay.classList.add('active');
-                timelineModalContent.classList.add('active');
-                
-                const activeButton = document.querySelector(`.timeline-btn[data-event="${eventId}"]`);
-                if (activeButton) {
-                    activeButton.style.animation = 'buttonPress 0.4s ease';
-                    setTimeout(() => {
-                        activeButton.style.animation = '';
-                    }, 400);
-                }
-            }
-            
-            function closeTimelineModal() {
-                document.body.style.overflow = '';
-                timelineModalOverlay.classList.remove('active');
-                timelineModalContent.classList.remove('active');
-            }
-            
-            timelineButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const eventId = this.getAttribute('data-event');
-                    openTimelineModal(eventId);
-                });
-            });
-            
-            timelineCloseModal.addEventListener('click', closeTimelineModal);
-            timelineModalOverlay.addEventListener('click', closeTimelineModal);
-            
-            // ===========================================
-            // 3. ПЛЕЕР СЕРИЙ
-            // ===========================================
-            const episodeItems = document.querySelectorAll('.episode-item:not(.disabled)');
-            const videoFrame = document.getElementById('videoFrame');
-            const videoLoading = document.getElementById('videoLoading');
-            
-            function getGoogleDrivePreviewUrl(fileId) {
-                return `https://drive.google.com/file/d/${fileId}/preview`;
-            }
-            
-            // Анимация загрузки
-            function showLoading() {
-                if (videoLoading) {
-                    videoLoading.style.display = 'flex';
-                }
-                if (videoFrame) {
-                    videoFrame.style.opacity = '0.5';
-                }
-            }
-            
-            function hideLoading() {
-                if (videoLoading) {
-                    videoLoading.style.display = 'none';
-                }
-                if (videoFrame) {
-                    videoFrame.style.opacity = '1';
-                }
-            }
-            
-            // Загружаем первую серию
-            const firstEpisode = document.querySelector('.episode-item.active');
-            if (firstEpisode && videoFrame) {
-                const firstVideoId = firstEpisode.getAttribute('data-video-id');
-                if (firstVideoId) {
-                    showLoading();
-                    videoFrame.src = getGoogleDrivePreviewUrl(firstVideoId);
-                    
-                    // Скрываем загрузку через 3 секунды максимум
-                    setTimeout(hideLoading, 3000);
-                }
-            }
-            
-            // Переключение серий
-            episodeItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    if (this.classList.contains('disabled')) return;
-                    
-                    const videoId = this.getAttribute('data-video-id');
-                    
-                    episodeItems.forEach(item => item.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    if (videoId && videoFrame) {
-                        showLoading();
-                        videoFrame.src = getGoogleDrivePreviewUrl(videoId);
-                        
-                        setTimeout(hideLoading, 2000);
-                    }
-                    
-                    if (window.innerWidth < 768) {
-                        document.getElementById('episodes').scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-            
-            // ===========================================
-            // 4. АНИМАЦИИ И ЭФФЕКТЫ
-            // ===========================================
-            
-            // Анимация появления элементов
-            const animateOnScroll = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            // Анимируем элементы временной линии
-            const timelineItems = document.querySelectorAll('.timeline-item');
-            timelineItems.forEach((item, index) => {
-                animateOnScroll.observe(item);
-                
-                setTimeout(() => {
-                    item.style.opacity = '1';
-                    item.style.transform = 'translateY(0)';
-                    item.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                }, 300 + (index * 200));
-            });
-            
-            // Анимация кнопок достижений
-            tabButtons.forEach((btn, index) => {
-                btn.style.opacity = '0';
-                btn.style.transform = 'translateY(30px)';
-                
-                setTimeout(() => {
-                    btn.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    btn.style.opacity = '1';
-                    btn.style.transform = 'translateY(0)';
-                }, 200 + (index * 100));
-            });
-            
-            // Анимация карточек галереи
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            galleryItems.forEach((item, index) => {
-                item.style.opacity = '0';
-                item.style.transform = 'scale(0.9)';
-                
-                setTimeout(() => {
-                    item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    item.style.opacity = '1';
-                    item.style.transform = 'scale(1)';
-                }, 300 + (index * 100));
-            });
-            
-            // ===========================================
-            // 5. ОБРАБОТКА КЛАВИШ
-            // ===========================================
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    if (timelineModalOverlay.classList.contains('active')) {
-                        closeTimelineModal();
-                    } else if (modalOverlay.classList.contains('active')) {
-                        closeModalWindow();
-                    }
+        // Анимация появления элементов
+        const animateOnScroll = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
             });
+        }, { threshold: 0.1 });
+        
+        // Анимируем элементы временной линии
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        timelineItems.forEach((item, index) => {
+            animateOnScroll.observe(item);
             
-            // ===========================================
-            // 6. АНИМАЦИЯ КАПЕЛЬ ДЛЯ ВРЕМЕННОЙ ЛИНИИ
-            // ===========================================
-            const canvas = document.getElementById('raindrop-canvas');
-            if (canvas) {
-                const ctx = canvas.getContext('2d');
-                let w = canvas.width = window.innerWidth;
-                let h = canvas.height = window.innerHeight;
-                const clearColor = 'rgba(10, 10, 18, 0.05)';
-                const max = 30;
-                const drops = [];
-
-                function random(min, max) {
-                    return Math.random() * (max - min) + min;
-                }
-
-                function Raindrop() {}
-
-                Raindrop.prototype = {
-                    init: function() {
-                        this.x = random(0, w);
-                        this.y = 0;
-                        this.color = `hsla(${random(180, 200)}, 100%, ${random(50, 70)}%, 0.7)`;
-                        this.w = 2;
-                        this.h = 1;
-                        this.vy = random(3, 5);
-                        this.vw = 3;
-                        this.vh = 1;
-                        this.size = random(1, 2);
-                        this.hit = random(h * 0.7, h * 0.9);
-                        this.a = 1;
-                        this.va = 0.96;
-                    },
-                    
-                    draw: function() {
-                        if (this.y > this.hit) {
-                            ctx.beginPath();
-                            ctx.moveTo(this.x, this.y - this.h / 2);
-                            ctx.bezierCurveTo(
-                                this.x + this.w / 2, this.y - this.h / 2,
-                                this.x + this.w / 2, this.y + this.h / 2,
-                                this.x, this.y + this.h / 2
-                            );
-                            ctx.bezierCurveTo(
-                                this.x - this.w / 2, this.y + this.h / 2,
-                                this.x - this.w / 2, this.y - this.h / 2,
-                                this.x, this.y - this.h / 2
-                            );
-                            ctx.strokeStyle = `hsla(${random(180, 200)}, 100%, 70%, ${this.a * 0.3})`;
-                            ctx.lineWidth = 2;
-                            ctx.stroke();
-                            ctx.closePath();
-                        } else {
-                            ctx.fillStyle = this.color;
-                            ctx.shadowBlur = 10;
-                            ctx.shadowColor = this.color;
-                            ctx.fillRect(this.x, this.y, this.size, this.size * 6);
-                            ctx.shadowBlur = 0;
-                        }
-                        this.update();
-                    },
-                    
-                    update: function() {
-                        if (this.y < this.hit) {
-                            this.y += this.vy;
-                        } else {
-                            if (this.a > 0.03) {
-                                this.w += this.vw;
-                                this.h += this.vh;
-                                if (this.w > 100) {
-                                    this.a *= this.va;
-                                    this.vw *= 0.98;
-                                    this.vh *= 0.98;
-                                }
-                            } else {
-                                this.init();
-                            }
-                        }
-                    }
-                };
-
-                function resize() {
-                    w = canvas.width = window.innerWidth;
-                    h = canvas.height = window.innerHeight;
-                }
-
-                function setup() {
-                    for (let i = 0; i < max; i++) {
-                        setTimeout(function() {
-                            const drop = new Raindrop();
-                            drop.init();
-                            drops.push(drop);
-                        }, i * 200);
-                    }
-                }
-
-                function animate() {
-                    ctx.fillStyle = clearColor;
-                    ctx.fillRect(0, 0, w, h);
-                    
-                    for (let i = 0; i < drops.length; i++) {
-                        drops[i].draw();
-                    }
-                    
-                    requestAnimationFrame(animate);
-                }
-
-                window.addEventListener('resize', resize);
-                setup();
-                animate();
-            }
-            
-            // ===========================================
-            // 7. ФИНАЛЬНАЯ ПРОВЕРКА
-            // ===========================================
-            console.log('Все системы работают!');
-            console.log('Доступные функции:');
-            console.log('- Научные достижения: клик по карточкам');
-            console.log('- Временная линия: клик по событиям');
-            console.log('- Плеер серий: переключение между эпизодами');
-            console.log('- Галерея: наведение для эффектов');
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+                item.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            }, 300 + (index * 200));
         });
-    </script>
+        
+        // Анимация кнопок достижений
+        tabButtons.forEach((btn, index) => {
+            btn.style.opacity = '0';
+            btn.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                btn.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                btn.style.opacity = '1';
+                btn.style.transform = 'translateY(0)';
+            }, 200 + (index * 100));
+        });
+        
+        // Анимация карточек галереи
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                item.style.opacity = '1';
+                item.style.transform = 'scale(1)';
+            }, 300 + (index * 100));
+        });
+        
+        // ===========================================
+        // 5. ОБРАБОТКА КЛАВИШ
+        // ===========================================
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (timelineModalOverlay.classList.contains('active')) {
+                    closeTimelineModal();
+                } else if (modalOverlay.classList.contains('active')) {
+                    closeModalWindow();
+                }
+            }
+        });
+        
+        // ===========================================
+        // 6. АНИМАЦИЯ КАПЕЛЬ ДЛЯ ВРЕМЕННОЙ ЛИНИИ
+        // ===========================================
+        const canvas = document.getElementById('raindrop-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let w = canvas.width = window.innerWidth;
+            let h = canvas.height = window.innerHeight;
+            const clearColor = 'rgba(10, 10, 18, 0.05)';
+            const max = 35;
+            const drops = [];
+
+            function random(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            function Raindrop() {}
+
+            Raindrop.prototype = {
+                init: function() {
+                    this.x = random(0, w);
+                    this.y = random(-200, -50);
+                    this.color = `hsla(${random(180, 200)}, 100%, ${random(50, 70)}%, 0.7)`;
+                    this.vy = random(5, 10);
+                    this.size = random(1.5, 3);
+                    this.length = random(36, 60);
+                },
+                
+                draw: function() {
+                    ctx.fillStyle = this.color;
+                    ctx.shadowBlur = 22;
+                    ctx.shadowColor = this.color;
+                    
+                    // Рисуем вытянутую каплю с градиентом
+                    const gradient = ctx.createLinearGradient(
+                        this.x, this.y,
+                        this.x, this.y + this.length
+                    );
+                    gradient.addColorStop(0, this.color.replace('0.7)', '0.9)'));
+                    gradient.addColorStop(0.7, this.color.replace('0.7)', '0.5)'));
+                    gradient.addColorStop(1, this.color.replace('0.7)', '0.2)'));
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(this.x, this.y);
+                    ctx.lineTo(this.x, this.y + this.length);
+                    ctx.lineWidth = this.size;
+                    ctx.strokeStyle = gradient;
+                    ctx.lineCap = 'round';
+                    ctx.stroke();
+                    
+                    // Рисуем округлость на конце капли
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y + this.length, this.size * 1.1, 0, Math.PI * 2);
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                    
+                    // Легкое свечение у верхней части капли
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size/1.3, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color.replace('0.7)', '0.5)');
+                    ctx.fill();
+                    
+                    ctx.shadowBlur = 0;
+                    this.update();
+                },
+                
+                update: function() {
+                    this.y += this.vy;
+                    
+                    // Если капля ушла за нижнюю границу экрана, перезапускаем ее сверху
+                    if (this.y > h + 50) {
+                        this.init();
+                        this.y = random(-200, -50);
+                        this.length = random(36, 60);
+                    }
+                }
+            };
+
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+                
+                // При изменении размера окна пересоздаем капли
+                drops.length = 0;
+                setup();
+            }
+
+            function setup() {
+                for (let i = 0; i < max; i++) {
+                    const drop = new Raindrop();
+                    drop.init();
+                    // Распределяем капли по всей высоте
+                    drop.y = random(-h, h);
+                    drops.push(drop);
+                }
+            }
+
+            function animate() {
+                // Более прозрачный фон для эффекта шлейфа
+                ctx.fillStyle = 'rgba(10, 10, 18, 0.07)';
+                ctx.fillRect(0, 0, w, h);
+                
+                for (let i = 0; i < drops.length; i++) {
+                    drops[i].draw();
+                }
+                
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', resize);
+            setup();
+            animate();
+        }
+        
+        // ===========================================
+        // 7. ФИНАЛЬНАЯ ПРОВЕРКА
+        // ===========================================
+        console.log('Все системы работают!');
+        console.log('Доступные функции:');
+        console.log('- Научные достижения: клик по карточкам');
+        console.log('- Временная линия: клик по событиям');
+        console.log('- Плеер серий: переключение между эпизодами');
+        console.log('- Галерея: наведение для эффектов');
+        
+        // Адаптация для мобильных устройств
+        function handleMobileResize() {
+            if (window.innerWidth < 768) {
+                // Оптимизации для мобильных
+                document.querySelectorAll('.timeline-btn').forEach(btn => {
+                    btn.style.transform = 'none';
+                });
+            }
+        }
+        
+        window.addEventListener('resize', handleMobileResize);
+        handleMobileResize();
+    });
+</script>
 </body>
 </html>
