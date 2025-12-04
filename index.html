@@ -1382,7 +1382,7 @@
         }
         
         /* =========================================== */
-        /* СЕКЦИЯ С ПЛЕЕРОМ СЕРИЙ - ИСПРАВЛЕННАЯ */
+        /* СЕКЦИЯ С ПЛЕЕРОМ СЕРИЙ - ИСПРАВЛЕННАЯ С HTML5 ПЛЕЕРОМ */
         /* =========================================== */
         .episodes-section {
             padding: 60px 0;
@@ -1408,6 +1408,7 @@
             gap: 30px;
         }
         
+        /* СТИЛИ ДЛЯ HTML5 ВИДЕОПЛЕЕРА */
         .episode-player {
             position: relative;
             border-radius: 15px;
@@ -1416,76 +1417,33 @@
             border: 2px solid var(--primary);
             background: #000;
             width: 100%;
-            height: 550px; /* Увеличили высоту для ПК */
+            height: 550px;
         }
         
-        /* УЛУЧШЕННЫЙ СТИЛЬ ДЛЯ IFRAME GOOGLE DRIVE */
-        .video-iframe-container {
-            position: relative;
+        #videoPlayer {
             width: 100%;
             height: 100%;
-            overflow: hidden;
-        }
-        
-        .video-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+            object-fit: contain;
             background: #000;
+            display: block;
         }
         
-        /* Скрываем все элементы управления Google Drive */
-        .video-iframe iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            pointer-events: auto; /* Включаем взаимодействие */
+        /* Кастомные стили для элементов управления видео */
+        #videoPlayer::-webkit-media-controls-panel {
+            background: rgba(21, 21, 34, 0.9);
+            border-radius: 10px;
+            margin: 10px;
         }
         
-        /* Скрываем элементы управления средствами CSS */
-        .video-iframe iframe::-webkit-media-controls {
-            display: none !important;
-        }
-        
-        .video-iframe iframe::-webkit-media-controls-enclosure {
-            display: none !important;
-        }
-        
-        .video-iframe iframe::-webkit-media-controls-panel {
-            display: none !important;
-        }
-        
-        .video-iframe iframe::-webkit-media-controls-play-button {
-            display: none !important;
-        }
-        
-        .video-iframe iframe::-webkit-media-controls-volume-slider {
-            display: none !important;
-        }
-        
-        .video-iframe iframe::-webkit-media-controls-mute-button {
-            display: none !important;
-        }
-        
-        .video-iframe iframe::-webkit-media-controls-timeline {
-            display: none !important;
-        }
-        
-        .video-iframe iframe::-webkit-media-controls-current-time-display {
-            display: none !important;
-        }
-        
-        .video-iframe iframe::-webkit-media-controls-time-remaining-display {
-            display: none !important;
-        }
-        
-        .video-iframe iframe::-webkit-media-controls-fullscreen-button {
-            display: none !important;
-        }
-        
-        /* Для Firefox */
-        .video-iframe iframe::-moz-media-controls {
-            display: none !important;
+        #videoPlayer::-webkit-media-controls-play-button,
+        #videoPlayer::-webkit-media-controls-volume-slider-container,
+        #videoPlayer::-webkit-media-controls-volume-slider,
+        #videoPlayer::-webkit-media-controls-mute-button,
+        #videoPlayer::-webkit-media-controls-timeline,
+        #videoPlayer::-webkit-media-controls-current-time-display,
+        #videoPlayer::-webkit-media-controls-time-remaining-display,
+        #videoPlayer::-webkit-media-controls-fullscreen-button {
+            color: var(--primary);
         }
         
         .episodes-list {
@@ -1493,7 +1451,7 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            max-height: 550px; /* Синхронизировали высоту с плеером */
+            max-height: 550px;
             overflow-y: auto;
         }
         
@@ -1944,11 +1902,6 @@
             .episodes-list {
                 max-height: 350px;
             }
-            
-            /* Улучшаем отображение iframe на мобильных */
-            .video-iframe {
-                transform: scale(1); /* Отключаем масштабирование */
-            }
         }
         
         @media (max-width: 576px) {
@@ -2277,10 +2230,6 @@
             .episode-player {
                 touch-action: manipulation;
             }
-            
-            .video-iframe {
-                touch-action: pan-x pan-y pinch-zoom;
-            }
         }
     </style>
 </head>
@@ -2569,7 +2518,7 @@
     </div>
 </section>
 
-<!-- Секция с плеером серий - ИСПРАВЛЕННАЯ -->
+<!-- Секция с плеером серий - ИСПРАВЛЕННАЯ С HTML5 ПЛЕЕРОМ -->
 <section id="episodes" class="episodes-section">
     <div class="container episodes-container">
         <h2 class="episodes-title">Первый сезон Врата Штейна</h2>
@@ -2577,17 +2526,16 @@
         <div class="episodes-content">
             <div class="episode-player-container">
                 <div class="episode-player">
-                    <!-- Используем прямой iframe для Google Drive -->
-                    <div class="video-iframe-container">
-                        <iframe 
-                            id="videoFrame"
-                            class="video-iframe"
-                            src=""
-                            allow="autoplay; encrypted-media; picture-in-picture"
-                            allowfullscreen
-                            frameborder="0">
-                        </iframe>
-                    </div>
+                    <!-- HTML5 видеоплеер вместо iframe -->
+                    <video 
+                        id="videoPlayer"
+                        controls
+                        preload="metadata"
+                        width="100%"
+                        height="100%"
+                        style="background: #000;">
+                        Ваш браузер не поддерживает видео тег.
+                    </video>
                     <div class="video-loading" id="videoLoading">
                         <div class="loading-spinner">
                             <i class="fas fa-sync fa-spin"></i>
@@ -2921,7 +2869,7 @@
                         <li>Попытки спасения Маюри от Convergence</li>
                         <li>Открытие принципа Attractor Field</li>
                         <li>Эксперименты с Reading Steiner</li>
-                        <li>Обнаручение временных парадоксов</li>
+                        <li>Обнаружение временных парадоксов</li>
                     </ul>
                 </div>
                 <div class="timeline-visual">
@@ -3092,16 +3040,16 @@
         timelineModalOverlay.addEventListener('click', closeTimelineModal);
         
         // ===========================================
-        // 3. ПЛЕЕР СЕРИЙ - ИСПРАВЛЕННЫЙ
+        // 3. ПЛЕЕР СЕРИЙ - ИСПРАВЛЕННЫЙ С HTML5 ПЛЕЕРОМ
         // ===========================================
         const episodeItems = document.querySelectorAll('.episode-item:not(.disabled)');
-        const videoFrame = document.getElementById('videoFrame');
+        const videoPlayer = document.getElementById('videoPlayer');
         const videoLoading = document.getElementById('videoLoading');
         
-        // Улучшенная функция для получения URL Google Drive
+        // Функция для получения прямой ссылки на видео из Google Drive
         function getGoogleDriveVideoUrl(fileId) {
-            // Используем прямой iframe с preview для видео
-            return `https://drive.google.com/file/d/${fileId}/preview`;
+            // Прямая ссылка для скачивания/просмотра видео
+            return `https://drive.google.com/uc?export=download&id=${fileId}`;
         }
         
         // Анимация загрузки
@@ -3109,8 +3057,8 @@
             if (videoLoading) {
                 videoLoading.style.display = 'flex';
             }
-            if (videoFrame) {
-                videoFrame.style.opacity = '0.5';
+            if (videoPlayer) {
+                videoPlayer.style.opacity = '0.5';
             }
         }
         
@@ -3118,25 +3066,37 @@
             if (videoLoading) {
                 videoLoading.style.display = 'none';
             }
-            if (videoFrame) {
-                videoFrame.style.opacity = '1';
+            if (videoPlayer) {
+                videoPlayer.style.opacity = '1';
             }
         }
         
         // Загружаем первую серию
         const firstEpisode = document.querySelector('.episode-item.active');
-        if (firstEpisode && videoFrame) {
+        if (firstEpisode && videoPlayer) {
             const firstVideoId = firstEpisode.getAttribute('data-video-id');
             if (firstVideoId) {
                 showLoading();
-                videoFrame.src = getGoogleDriveVideoUrl(firstVideoId);
+                const videoUrl = getGoogleDriveVideoUrl(firstVideoId);
+                videoPlayer.src = videoUrl;
+                videoPlayer.load();
                 
-                // Скрываем загрузку после загрузки видео
-                videoFrame.onload = function() {
-                    setTimeout(hideLoading, 1000);
+                // Скрываем загрузку когда видео готово
+                videoPlayer.oncanplay = function() {
+                    hideLoading();
+                    videoPlayer.play().catch(e => {
+                        console.log('Автовоспроизведение заблокировано, нужно нажать play');
+                        hideLoading();
+                    });
                 };
                 
-                // На всякий случай скрываем через 5 секунд максимум
+                // Если видео не может загрузиться
+                videoPlayer.onerror = function() {
+                    hideLoading();
+                    console.error('Ошибка загрузки видео. Проверьте ссылку и доступность видео.');
+                };
+                
+                // На всякий случай скрываем через 5 секунд
                 setTimeout(hideLoading, 5000);
             }
         }
@@ -3151,19 +3111,34 @@
                 episodeItems.forEach(item => item.classList.remove('active'));
                 this.classList.add('active');
                 
-                if (videoId && videoFrame) {
+                if (videoId && videoPlayer) {
                     showLoading();
-                    videoFrame.src = getGoogleDriveVideoUrl(videoId);
                     
-                    // Скрываем загрузку после загрузки видео
-                    videoFrame.onload = function() {
-                        setTimeout(hideLoading, 1000);
+                    const videoUrl = getGoogleDriveVideoUrl(videoId);
+                    videoPlayer.src = videoUrl;
+                    videoPlayer.load();
+                    
+                    // Скрываем загрузку когда видео готово
+                    videoPlayer.oncanplay = function() {
+                        hideLoading();
+                        videoPlayer.play().catch(e => {
+                            console.log('Автовоспроизведение заблокировано');
+                            hideLoading();
+                        });
                     };
                     
-                    // На всякий случай скрываем через 5 секунд максимум
+                    // Обработка ошибок
+                    videoPlayer.onerror = function() {
+                        hideLoading();
+                        console.error('Ошибка загрузки видео:', videoId);
+                        alert('Не удалось загрузить видео. Проверьте доступность файла.');
+                    };
+                    
+                    // На всякий случай скрываем через 5 секунд
                     setTimeout(hideLoading, 5000);
                 }
                 
+                // На мобильных скролим к плееру
                 if (window.innerWidth < 768) {
                     document.getElementById('episodes').scrollIntoView({
                         behavior: 'smooth',
@@ -3232,6 +3207,18 @@
                     closeTimelineModal();
                 } else if (modalOverlay.classList.contains('active')) {
                     closeModalWindow();
+                }
+            }
+            
+            // Управление видео с клавиатуры
+            if (document.activeElement !== videoPlayer && videoPlayer) {
+                if (e.key === ' ' || e.key === 'Spacebar') {
+                    e.preventDefault();
+                    if (videoPlayer.paused) {
+                        videoPlayer.play();
+                    } else {
+                        videoPlayer.pause();
+                    }
                 }
             }
         });
@@ -3372,6 +3359,21 @@
         
         window.addEventListener('resize', handleMobileResize);
         handleMobileResize();
+        
+        // Уведомление о возможной блокировке автовоспроизведения
+        videoPlayer.addEventListener('play', function() {
+            console.log('Видео воспроизводится');
+        });
+        
+        videoPlayer.addEventListener('pause', function() {
+            console.log('Видео приостановлено');
+        });
+        
+        // Добавляем обработчик ошибок видео
+        videoPlayer.addEventListener('error', function(e) {
+            console.error('Ошибка видео:', e);
+            hideLoading();
+        });
     });
 </script>
 </body>
