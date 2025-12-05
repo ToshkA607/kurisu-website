@@ -4790,23 +4790,25 @@
             });
         }
         
-        checkAuthState() {
+       checkAuthState() {
     console.log('Проверка состояния аутентификации...');
     
-    this.authFunctions.onAuthStateChanged(this.auth, (user) => {
+    this.authFunctions.onAuthStateChanged(this.auth, async (user) => {
         console.log('Состояние аутентификации изменилось:', user);
         
         if (user) {
             console.log('Пользователь вошел:', {
                 uid: user.uid,
                 email: user.email,
-                displayName: user.displayName,
-                photoURL: user.photoURL
+                displayName: user.displayName
             });
             
             this.currentUser = user;
             this.showUserInfo();
-            this.loadUserProfile(user.uid);
+            
+            // Загружаем профиль
+            console.log('Загружаем профиль пользователя:', user.uid);
+            await this.loadUserProfile(user.uid);
         } else {
             console.log('Пользователь вышел');
             this.currentUser = null;
@@ -4835,6 +4837,8 @@
 
 async createUserProfile(userId, firebaseUser) {
     try {
+        console.log('Создание профиля для пользователя:', userId);
+        
         const userData = {
             userId: userId,
             email: firebaseUser.email,
@@ -4848,25 +4852,54 @@ async createUserProfile(userId, firebaseUser) {
             displayName: firebaseUser.displayName || firebaseUser.email.split('@')[0]
         };
         
-        // ИСПРАВЛЕННЫЙ КОД:
-        // Используем doc() и setDoc() правильно
+        // Создаем ссылку на документ
         const userDocRef = this.firestore.doc(this.db, 'users', userId);
-        await this.firestore.setDoc(userDocRef, userData);
+        
+        // Проверяем, существует ли уже документ
+        const docSnap = await this.firestore.getDoc(userDocRef);
+        
+        if (docSnap.exists()) {
+            console.log('Профиль уже существует, обновляем');
+            await this.firestore.updateDoc(userDocRef, userData);
+        } else {
+            console.log('Создаем новый профиль');
+            // Используем setDoc для создания нового документа
+            await this.firestore.setDoc(userDocRef, userData);
+        }
         
         this.updateUserInfo(userData);
-        console.log('Профиль создан успешно');
+        console.log('Профиль успешно создан/обновлен');
+        return true;
     } catch (error) {
         console.error('Ошибка создания профиля:', error);
-        // Альтернативный способ
+        
+        // Попробуем альтернативный способ
         try {
+            console.log('Пробуем альтернативный метод создания профиля...');
+            
+            const userData = {
+                userId: userId,
+                email: firebaseUser.email,
+                username: firebaseUser.displayName || firebaseUser.email.split('@')[0],
+                role: 'Участник Лаборатории',
+                labId: `LAB-${String(Math.floor(Math.random() * 999) + 1).padStart(3, '0')}`,
+                joinDate: new Date().toLocaleDateString('ru-RU'),
+                avatar: '',
+                commentCount: 0,
+                createdAt: this.firestore.serverTimestamp(),
+                displayName: firebaseUser.displayName || firebaseUser.email.split('@')[0]
+            };
+            
+            // Создаем документ с автоматическим ID, но с указанием userId в данных
             const usersCollection = this.firestore.collection(this.db, 'users');
-            await this.firestore.addDoc(usersCollection, {
-                ...userData,
-                userId: userId
-            });
+            await this.firestore.addDoc(usersCollection, userData);
+            
             console.log('Профиль создан через addDoc');
+            this.updateUserInfo(userData);
+            return true;
         } catch (e) {
             console.error('Ошибка при попытке addDoc:', e);
+            return false;
         }
     }
 }
