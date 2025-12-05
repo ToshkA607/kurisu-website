@@ -5,6 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Макисэ Курису - Гений-нейробиолог | Лаборатория Будущего</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Импортируем Firebase модули
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword, 
+            signOut, 
+            onAuthStateChanged,
+            updateProfile
+        } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+        
+        import { 
+            getFirestore,
+            collection,
+            addDoc,
+            getDocs,
+            query,
+            where,
+            orderBy,
+            deleteDoc,
+            doc,
+            updateDoc,
+            serverTimestamp,
+            getDoc
+        } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        // Конфигурация Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDBCjzCv1mAAjhV9_ljTXZ7Fn8Ix1_vU-k",
+            authDomain: "kurisu-lab.firebaseapp.com",
+            projectId: "kurisu-lab",
+            storageBucket: "kurisu-lab.firebasestorage.app",
+            messagingSenderId: "754858147142",
+            appId: "1:754858147142:web:1f03a6f17c442132297947"
+        };
+
+        // Инициализация Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Делаем переменные глобально доступными
+        window.firebase = {
+            app,
+            auth,
+            db,
+            authFunctions: {
+                createUserWithEmailAndPassword,
+                signInWithEmailAndPassword,
+                signOut,
+                onAuthStateChanged,
+                updateProfile
+            },
+            firestoreFunctions: {
+                getFirestore,
+                collection,
+                addDoc,
+                getDocs,
+                query,
+                where,
+                orderBy,
+                deleteDoc,
+                doc,
+                updateDoc,
+                serverTimestamp,
+                getDoc
+            }
+        };
+        
+        console.log("Firebase инициализирован!");
+    </script>
+    
     <style>
         /* Глобальные стили и переменные */
         :root {
@@ -51,7 +126,7 @@
         }
         
         /* =========================================== */
-        /* СТИЛИ КОММЕНТАРИЕВ - ИЗМЕНЕННЫЕ */
+        /* СТИЛИ КОММЕНТАРИЕВ */
         /* =========================================== */
         
         .comments-section {
@@ -293,7 +368,7 @@
             color: var(--primary);
         }
         
-        /* Кнопка удаления комментария - ИСПРАВЛЕННАЯ */
+        /* Кнопка удаления комментария */
         .comment-delete-btn {
             background: rgba(244, 67, 54, 0.1);
             border: 1px solid rgba(244, 67, 54, 0.3);
@@ -352,7 +427,7 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* Модальное окно комментариев для мобильных */
+        /* Модальное окно комментариев */
         .comments-modal-overlay {
             position: fixed;
             top: 0;
@@ -804,7 +879,7 @@
             position: relative;
         }
         
-        /* Кнопки авторизации - УМЕНЬШЕННЫЕ РАЗМЕРЫ */
+        /* Кнопки авторизации */
         .auth-buttons {
             display: flex;
             gap: 10px;
@@ -813,18 +888,18 @@
         }
         
         .auth-btn {
-            padding: 5px 20px; /* Уменьшили высоту и ширину */
-            border-radius: 18px; /* Немного уменьшили радиус */
+            padding: 5px 20px;
+            border-radius: 18px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.85rem; /* Уменьшили размер шрифта */
+            font-size: 0.85rem;
             border: 2px solid transparent;
-            height: 32px; /* Уменьшили высоту: было 40px */
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 80px; /* Уменьшили минимальную ширину */
+            min-width: 80px;
         }
         
         .login-btn {
@@ -1176,7 +1251,7 @@
         }
         
         /* =========================================== */
-        /* СТИЛИ ПРОФИЛЯ ПОЛЬЗОВАТЕЛЯ - ОБНОВЛЕННЫЕ */
+        /* СТИЛИ ПРОФИЛЯ ПОЛЬЗОВАТЕЛЯ */
         /* =========================================== */
         
         .profile-page {
@@ -1311,7 +1386,6 @@
             z-index: 1;
         }
         
-        /* Изменение: кнопка загрузки аватара перемещена ниже */
         .avatar-upload-btn {
             margin-top: 15px;
             padding: 8px 20px;
@@ -2855,7 +2929,7 @@
         }
         
         /* =========================================== */
-        /* СЕКЦИЯ С ПЛЕЕРОМ СЕРИЙ - ИСПРАВЛЕННАЯ */
+        /* СЕКЦИЯ С ПЛЕЕРОМ СЕРИЙ */
         /* =========================================== */
         .episodes-section {
             padding: 60px 0;
@@ -2889,7 +2963,7 @@
             border: 2px solid var(--primary);
             background: #000;
             width: 100%;
-            height: 550px; /* Увеличили высоту для ПК */
+            height: 550px;
         }
         
         /* УЛУЧШЕННЫЙ СТИЛЬ ДЛЯ IFRAME GOOGLE DRIVE */
@@ -2907,12 +2981,11 @@
             background: #000;
         }
         
-        /* Скрываем все элементы управления Google Drive */
         .video-iframe iframe {
             width: 100%;
             height: 100%;
             border: none;
-            pointer-events: auto; /* Включаем взаимодействие */
+            pointer-events: auto;
         }
         
         /* Скрываем элементы управления средствами CSS */
@@ -2966,7 +3039,7 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            max-height: 550px; /* Синхронизировали высоту с плеером */
+            max-height: 550px;
             overflow-y: auto;
         }
         
@@ -3039,11 +3112,6 @@
             color: var(--primary);
             margin-bottom: 20px;
             animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
         
         /* Футер */
@@ -3133,7 +3201,6 @@
                 max-height: 300px;
             }
             
-            /* Увеличиваем плеер на средних экранах */
             .episode-player {
                 height: 500px;
             }
@@ -3444,9 +3511,8 @@
                 padding: 20px 30px;
             }
             
-            /* ОСНОВНОЕ ИЗМЕНЕНИЕ: УВЕЛИЧИВАЕМ ПЛЕЕР ДЛЯ МОБИЛЬНЫХ */
             .episode-player {
-                height: 380px; /* Увеличенная высота для мобильных */
+                height: 380px;
                 margin-bottom: 20px;
             }
             
@@ -3458,12 +3524,10 @@
                 max-height: 350px;
             }
             
-            /* Улучшаем отображение iframe на мобильных */
             .video-iframe {
-                transform: scale(1); /* Отключаем масштабирование */
+                transform: scale(1);
             }
             
-            /* Уменьшение кнопок авторизации на мобильных */
             .auth-btn {
                 padding: 3px 10px;
                 font-size: 0.75rem;
@@ -3482,7 +3546,6 @@
                 font-size: 0.9rem;
             }
             
-            /* Адаптация профиля */
             .profile-header {
                 margin-bottom: 30px;
             }
@@ -3684,9 +3747,8 @@
                 font-size: 1.2rem;
             }
             
-            /* ДАЛЬНЕЙШЕЕ УВЕЛИЧЕНИЕ ПЛЕЕРА ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ */
             .episode-player {
-                height: 320px; /* Еще больше для маленьких экранов */
+                height: 320px;
             }
             
             .episodes-list {
@@ -3701,7 +3763,6 @@
                 font-size: 0.9rem;
             }
             
-            /* Адаптация авторизации */
             .auth-btn {
                 padding: 3px 8px;
                 font-size: 0.7rem;
@@ -3720,7 +3781,6 @@
                 font-size: 0.8rem;
             }
             
-            /* Адаптация профиля */
             .profile-page {
                 padding: 80px 15px 40px;
             }
@@ -3787,12 +3847,10 @@
                 font-size: 0.9rem;
             }
             
-            /* МАКСИМАЛЬНАЯ ВЫСОТА ПЛЕЕРА ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ */
             .episode-player {
                 height: 280px;
             }
             
-            /* Минимальные размеры кнопок авторизации */
             .auth-btn {
                 padding: 2px 6px;
                 font-size: 0.65rem;
@@ -3995,8 +4053,8 @@
                 <div class="auth-message" id="loginMessage"></div>
                 
                 <div class="auth-form-group">
-                    <label for="loginEmail">Email или Логин</label>
-                    <input type="text" id="loginEmail" class="auth-form-control" placeholder="Введите ваш email или логин" required>
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="auth-form-control" placeholder="Введите ваш email" required>
                 </div>
                 
                 <div class="auth-form-group">
@@ -4029,14 +4087,14 @@
                 </div>
                 
                 <div class="auth-form-group">
-                    <label for="registerUsername">Логин</label>
-                    <input type="text" id="registerUsername" class="auth-form-control" placeholder="Придумайте логин" required>
+                    <label for="registerUsername">Имя пользователя</label>
+                    <input type="text" id="registerUsername" class="auth-form-control" placeholder="Придумайте имя пользователя" required>
                 </div>
                 
                 <div class="auth-form-group">
                     <label for="registerPassword">Пароль</label>
                     <div class="auth-password-field">
-                        <input type="password" id="registerPassword" class="auth-form-control" placeholder="Придумайте пароль" required>
+                        <input type="password" id="registerPassword" class="auth-form-control" placeholder="Придумайте пароль (мин. 6 символов)" required>
                         <button type="button" class="auth-toggle-password" data-target="registerPassword">
                             <i class="fas fa-eye"></i>
                         </button>
@@ -4078,34 +4136,8 @@
         <div class="edit-profile-modal-body">
             <form class="edit-profile-form" id="editProfileForm">
                 <div class="edit-profile-form-group">
-                    <label class="edit-profile-form-label" for="editProfileName">Имя</label>
-                    <input type="text" id="editProfileName" class="edit-profile-form-control" placeholder="Введите ваше имя">
-                </div>
-                
-                <div class="edit-profile-form-group">
-                    <label class="edit-profile-form-label" for="editProfileEmail">Email</label>
-                    <input type="email" id="editProfileEmail" class="edit-profile-form-control" placeholder="Введите ваш email">
-                </div>
-                
-                <!-- Поле для изменения пароля -->
-                <div class="edit-profile-form-group">
-                    <label class="edit-profile-form-label" for="editProfilePassword">Новый пароль</label>
-                    <div class="auth-password-field">
-                        <input type="password" id="editProfilePassword" class="edit-profile-form-control" placeholder="Введите новый пароль">
-                        <button type="button" class="auth-toggle-password" data-target="editProfilePassword">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="edit-profile-form-group">
-                    <label class="edit-profile-form-label" for="editProfileConfirmPassword">Подтвердите пароль</label>
-                    <div class="auth-password-field">
-                        <input type="password" id="editProfileConfirmPassword" class="edit-profile-form-control" placeholder="Повторите новый пароль">
-                        <button type="button" class="auth-toggle-password" data-target="editProfileConfirmPassword">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
+                    <label class="edit-profile-form-label" for="editProfileName">Имя пользователя</label>
+                    <input type="text" id="editProfileName" class="edit-profile-form-control" placeholder="Введите новое имя пользователя">
                 </div>
                 
                 <button type="submit" class="edit-profile-form-btn">
@@ -4156,7 +4188,7 @@
         </div>
     </div>
     
-    <!-- Страница профиля - ОБНОВЛЕННАЯ ВЕРСИЯ -->
+    <!-- Страница профиля -->
     <div class="profile-page" id="profilePage">
         <div class="container profile-container">
             <div class="profile-header">
@@ -4169,10 +4201,10 @@
                         <div class="profile-avatar-large" id="profileAvatarLarge">П</div>
                         <input type="file" id="avatarInput" class="avatar-input" accept="image/*">
                         <h2 class="profile-user-name" id="profileUserName">Пользователь</h2>
+                        <div class="profile-user-role" id="profileUserRole">Участник Лаборатории</div>
                         <button class="avatar-upload-btn" id="avatarUploadBtn">
                             <i class="fas fa-camera"></i> Загрузить аватар
                         </button>
-
                     </div>
                 </div>
                 
@@ -4193,7 +4225,7 @@
                             </div>
                             <div class="profile-info-item">
                                 <div class="profile-info-label">
-                                    <i class="fas fa-user-tag"></i> Логин
+                                    <i class="fas fa-user-tag"></i> Имя пользователя
                                 </div>
                                 <div class="profile-info-value" id="profileUsername">username</div>
                             </div>
@@ -4207,13 +4239,7 @@
                                 <div class="profile-info-label">
                                     <i class="fas fa-calendar-alt"></i> Дата регистрации
                                 </div>
-                                <div class="profile-info-value">25.07.2010</div>
-                            </div>
-                            <div class="profile-info-item">
-                                <div class="profile-info-label">
-                                    <i class="fas fa-history"></i> Всего времени
-                                </div>
-                                <div class="profile-info-value">248 часов</div>
+                                <div class="profile-info-value" id="joinDate">25.07.2010</div>
                             </div>
                         </div>
                     </div>
@@ -4247,7 +4273,6 @@
         </div>
         <div class="hero-image">
             <div class="hero-bg-element"></div>
-            <!-- На главной - kurisu.png -->
             <img src="https://i.postimg.cc/tCRgbBnx/kurisu.png" alt="Макисэ Курису" class="hero-character">
         </div>
     </div>
@@ -4283,7 +4308,6 @@
                 </div>
             </div>
             <div class="about-image">
-                <!-- В разделе о персонаже - kurisu-lab.jpg -->
                 <img src="https://i.postimg.cc/xTs11LLL/kurisu-lab.jpg" alt="Курису в лаборатории" class="hero-character">
             </div>
         </div>
@@ -4369,7 +4393,7 @@
 
 <!-- Секция "Временная линия" -->
 <section id="timeline" class="timeline-section">
-    <!-- Canvas с анимацией капель из файла АНИМАЦИЯ.html -->
+    <!-- Canvas с анимацией капель -->
     <canvas id="raindrop-canvas"></canvas>
     
     <!-- Затемнение фона -->
@@ -4389,7 +4413,7 @@
             <div class="timeline-item">
                 <button class="timeline-btn" data-event="event1">
                     <div class="timeline-date">
-                        <i class="far fa-calendar"></i> 28 июля 2010 (Альфа  мир)
+                        <i class="far fa-calendar"></i> 28 июля 2010 (Альфа мир)
                     </div>
                     <p class="timeline-text">Первая встреча с Окабэ Ринтаро в лекционном зале Радиокан. Становится свидетельницей создания D-mail и начала временных экспериментов.</p>
                 </button>
@@ -4461,37 +4485,31 @@
         <h2 class="section-title">Галерея</h2>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <!-- В галерее официальный арт - kurisu-6.jpg -->
                 <img src="https://i.postimg.cc/rFhww55t/kurisu-6.jpg" alt="Официальный арт" class="gallery-img">
                 <div class="gallery-caption">Официальный арт</div>
             </div>
             
             <div class="gallery-item">
-                <!-- В галерее "В Лаборатории Будущего" - kurisu-2.png -->
                 <img src="https://i.postimg.cc/RVC0mgJc/kurisu-2.png" alt="В Лаборатории Будущего" class="gallery-img">
                 <div class="gallery-caption">В Лаборатории Будущего</div>
             </div>
             
             <div class="gallery-item">
-                <!-- С Окабэ Ринтаро - kurisu-1.jpg -->
                 <img src="https://i.postimg.cc/HsWLm68c/kurisu-1.jpg" alt="С Окабэ Ринтаро" class="gallery-img">
                 <div class="gallery-caption">С Окабэ Ринтаро</div>
             </div>
             
             <div class="gallery-item">
-                <!-- Научная работа - kurisu-3.jpg -->
                 <img src="https://i.postimg.cc/9FXf2Lwq/kurisu-3.jpg" alt="Научная работа" class="gallery-img">
                 <div class="gallery-caption">Научная работа</div>
             </div>
             
             <div class="gallery-item">
-                <!-- Цундере режим - kurisu-5.jpg -->
                 <img src="https://i.postimg.cc/YqXCCQQF/kurisu-5.jpg" alt="Цундере режим" class="gallery-img">
                 <div class="gallery-caption">Цундере режим</div>
             </div>
             
             <div class="gallery-item">
-                <!-- В Акихабаре - kurisu-4.jpg -->
                 <img src="https://i.postimg.cc/5N9tJsQz/kurisu-4.jpg" alt="В Акихабаре" class="gallery-img">
                 <div class="gallery-caption">В Акихабаре</div>
             </div>
@@ -4499,7 +4517,7 @@
     </div>
 </section>
 
-<!-- Секция с плеером серий - ИСПРАВЛЕННАЯ -->
+<!-- Секция с плеером серий -->
 <section id="episodes" class="episodes-section">
     <div class="container episodes-container">
         <h2 class="episodes-title">Первый сезон Врата Штейна</h2>
@@ -4507,7 +4525,6 @@
         <div class="episodes-content">
             <div class="episode-player-container">
                 <div class="episode-player">
-                    <!-- Используем прямой iframe для Google Drive -->
                     <div class="video-iframe-container">
                         <iframe 
                             id="videoFrame"
@@ -4638,846 +4655,22 @@
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
     // ===========================================
-    // СИСТЕМА КОММЕНТАРИЕВ - ИСПРАВЛЕННАЯ
+    // FIREBASE MANAGER CLASSES
     // ===========================================
 
-    class CommentStorage {
+    class FirebaseAuthManager {
         constructor() {
-            // ИЗМЕНЕНО: Удалены демо-комментарии, теперь пустой список
-            if (!localStorage.getItem('comments')) {
-                localStorage.setItem('comments', JSON.stringify([]));
-            }
-        }
-        
-        getComments() {
-            const comments = localStorage.getItem('comments');
-            return comments ? JSON.parse(comments) : [];
-        }
-        
-        getCommentsByEpisode(episodeId) {
-            const comments = this.getComments();
-            return comments.filter(comment => comment.episodeId == episodeId);
-        }
-        
-        addComment(commentData) {
-            const comments = this.getComments();
-            const newComment = {
-                id: Date.now(),
-                episodeId: commentData.episodeId,
-                userId: commentData.userId,
-                userName: commentData.userName,
-                userAvatar: commentData.userAvatar || '',
-                userRole: commentData.userRole,
-                content: commentData.content,
-                date: new Date().toLocaleDateString('ru-RU', { 
-                    day: 'numeric', 
-                    month: 'long', 
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                }),
-                episodeName: commentData.episodeName
-            };
-            comments.push(newComment);
-            localStorage.setItem('comments', JSON.stringify(comments));
-            return newComment;
-        }
-        
-        deleteComment(commentId, userId) {
-            const comments = this.getComments();
-            const index = comments.findIndex(comment => comment.id === commentId && comment.userId === userId);
-            
-            if (index !== -1) {
-                comments.splice(index, 1);
-                localStorage.setItem('comments', JSON.stringify(comments));
-                return true;
-            }
-            return false;
-        }
-        
-        getUserCommentsCount(userId) {
-            const comments = this.getComments();
-            return comments.filter(comment => comment.userId === userId).length;
-        }
-    }
-
-    class CommentsManager {
-        constructor(authManager) {
-            this.authManager = authManager;
-            this.commentStorage = new CommentStorage();
-            this.currentEpisodeId = 1; // По умолчанию первая серия
-            this.currentEpisodeName = 'Начало и конец';
-            this.initElements();
-            this.bindEvents();
-            this.loadComments();
-        }
-        
-        initElements() {
-            this.elements = {
-                commentForm: document.getElementById('commentForm'),
-                commentText: document.getElementById('commentText'),
-                charCount: document.getElementById('charCount'),
-                submitComment: document.getElementById('submitComment'),
-                commentsList: document.getElementById('commentsList'),
-                commentsSection: document.getElementById('commentsSection'),
-                modalCommentForm: document.getElementById('modalCommentForm'),
-                modalCommentText: document.getElementById('modalCommentText'),
-                modalCharCount: document.getElementById('modalCharCount'),
-                modalSubmitComment: document.getElementById('modalSubmitComment'),
-                modalCommentsList: document.getElementById('modalCommentsList'),
-                openCommentsBtn: document.getElementById('openCommentsBtn'),
-                commentsModalOverlay: document.getElementById('commentsModalOverlay'),
-                commentsModal: document.getElementById('commentsModal'),
-                commentsCloseModal: document.getElementById('commentsCloseModal')
-            };
-        }
-        
-        bindEvents() {
-            // Обработчики для обычной формы комментариев
-            if (this.elements.commentText) {
-                this.elements.commentText.addEventListener('input', (e) => this.updateCharCount(e, this.elements.charCount));
-            }
-            
-            if (this.elements.submitComment) {
-                this.elements.submitComment.addEventListener('click', () => this.submitComment());
-            }
-            
-            // Обработчики для модальной формы комментариев
-            if (this.elements.modalCommentText) {
-                this.elements.modalCommentText.addEventListener('input', (e) => this.updateCharCount(e, this.elements.modalCharCount));
-            }
-            
-            if (this.elements.modalSubmitComment) {
-                this.elements.modalSubmitComment.addEventListener('click', () => this.submitModalComment());
-            }
-            
-            // Обработчики для модального окна
-            if (this.elements.openCommentsBtn) {
-                this.elements.openCommentsBtn.addEventListener('click', () => this.openCommentsModal());
-            }
-            
-            if (this.elements.commentsCloseModal) {
-                this.elements.commentsCloseModal.addEventListener('click', () => this.closeCommentsModal());
-            }
-            
-            if (this.elements.commentsModalOverlay) {
-                this.elements.commentsModalOverlay.addEventListener('click', () => this.closeCommentsModal());
-            }
-            
-            // Обработчик переключения серий
-            document.querySelectorAll('.episode-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    if (!item.classList.contains('disabled')) {
-                        const episodeId = parseInt(item.dataset.episode);
-                        const episodeName = item.querySelector('.episode-name').textContent;
-                        this.setCurrentEpisode(episodeId, episodeName);
-                    }
-                });
-            });
-            
-            // Обновление при входе/выходе пользователя
-            const originalShowUserInfo = this.authManager.showUserInfo;
-            this.authManager.showUserInfo = function() {
-                originalShowUserInfo.call(this);
-                commentsManager.updateCommentForm();
-            };
-            
-            const originalShowAuthButtons = this.authManager.showAuthButtons;
-            this.authManager.showAuthButtons = function() {
-                originalShowAuthButtons.call(this);
-                commentsManager.updateCommentForm();
-            };
-        }
-        
-        setCurrentEpisode(episodeId, episodeName) {
-            this.currentEpisodeId = episodeId;
-            this.currentEpisodeName = episodeName;
-            this.loadComments();
-            
-            // Обновляем заголовок комментариев
-            const commentsTitle = document.querySelector('.comments-title');
-            if (commentsTitle) {
-                commentsTitle.innerHTML = `<i class="fas fa-comments"></i> Комментарии`;
-            }
-        }
-        
-        updateCharCount(e, charCountElement) {
-            const text = e.target.value;
-            const count = text.length;
-            const maxLength = 500;
-            
-            if (charCountElement) {
-                charCountElement.textContent = `${count}/${maxLength}`;
-                
-                if (count > maxLength * 0.9) {
-                    charCountElement.classList.add('warning');
-                    charCountElement.classList.remove('error');
-                } else if (count > maxLength) {
-                    charCountElement.classList.remove('warning');
-                    charCountElement.classList.add('error');
-                } else {
-                    charCountElement.classList.remove('warning', 'error');
-                }
-            }
-        }
-        
-        updateCommentForm() {
-            const user = this.authManager.sessionManager.getCurrentUser();
-            const isLoggedIn = !!user;
-            
-            // Показываем/скрываем форму комментариев
-            if (this.elements.commentForm) {
-                if (isLoggedIn) {
-                    this.elements.commentForm.style.display = 'block';
-                } else {
-                    this.elements.commentForm.style.display = 'none';
-                    // Показываем сообщение о необходимости входа
-                    const loginMessage = document.createElement('div');
-                    loginMessage.className = 'login-to-comment';
-                    loginMessage.innerHTML = `
-                        <p><i class="fas fa-info-circle"></i> Чтобы оставлять комментарии, пожалуйста, войдите в аккаунт</p>
-                        <button class="comment-submit-btn" id="loginToCommentBtn">
-                            <i class="fas fa-sign-in-alt"></i> Войти
-                        </button>
-                    `;
-                    
-                    if (!document.querySelector('.login-to-comment')) {
-                        this.elements.commentsSection.insertBefore(loginMessage, this.elements.commentForm);
-                        
-                        const loginBtn = document.getElementById('loginToCommentBtn');
-                        if (loginBtn) {
-                            loginBtn.addEventListener('click', () => {
-                                this.authManager.openAuthModal('login');
-                            });
-                        }
-                    }
-                }
-            }
-            
-            // Аналогично для модальной формы
-            if (this.elements.modalCommentForm) {
-                if (isLoggedIn) {
-                    this.elements.modalCommentForm.style.display = 'block';
-                } else {
-                    this.elements.modalCommentForm.style.display = 'none';
-                }
-            }
-        }
-        
-        loadComments() {
-            const comments = this.commentStorage.getCommentsByEpisode(this.currentEpisodeId);
-            
-            // Сортируем по дате (новые сначала)
-            comments.sort((a, b) => b.id - a.id);
-            
-            // Очищаем список комментариев
-            if (this.elements.commentsList) {
-                this.elements.commentsList.innerHTML = '';
-            }
-            
-            if (this.elements.modalCommentsList) {
-                this.elements.modalCommentsList.innerHTML = '';
-            }
-            
-            if (comments.length === 0) {
-                // Показываем сообщение об отсутствии комментариев
-                const noCommentsHtml = `
-                    <div class="no-comments">
-                        <i class="fas fa-comment-slash"></i>
-                        <p>Пока нет комментариев.<br>Будьте первым, кто оставит отзыв!</p>
-                    </div>
-                `;
-                
-                if (this.elements.commentsList) {
-                    this.elements.commentsList.innerHTML = noCommentsHtml;
-                }
-                
-                if (this.elements.modalCommentsList) {
-                    this.elements.modalCommentsList.innerHTML = noCommentsHtml;
-                }
-                
-                return;
-            }
-            
-            // Отображаем комментарии
-            comments.forEach(comment => {
-                const commentHtml = this.createCommentHtml(comment);
-                
-                if (this.elements.commentsList) {
-                    this.elements.commentsList.insertAdjacentHTML('beforeend', commentHtml);
-                }
-                
-                if (this.elements.modalCommentsList) {
-                    this.elements.modalCommentsList.insertAdjacentHTML('beforeend', commentHtml);
-                }
-                
-                // Добавляем обработчик удаления для каждого комментария
-                setTimeout(() => {
-                    this.addDeleteHandler(comment.id);
-                }, 100);
-            });
-        }
-        
-        createCommentHtml(comment) {
-            const avatarStyle = comment.userAvatar ? `background-image: url(${comment.userAvatar})` : '';
-            const avatarContent = comment.userAvatar ? '' : comment.userName.charAt(0).toUpperCase();
-            const currentUser = this.authManager.sessionManager.getCurrentUser();
-            const showDeleteBtn = currentUser && currentUser.id === comment.userId;
-            
-            const deleteBtnHtml = showDeleteBtn 
-                ? `<button class="comment-delete-btn" data-comment-id="${comment.id}" title="Удалить комментарий">
-                    <i class="fas fa-trash"></i> Удалить
-                   </button>` 
-                : '';
-            
-            return `
-                <div class="comment-item" data-comment-id="${comment.id}">
-                    <div class="comment-header">
-                        <div class="comment-author">
-                            <div class="comment-author-avatar" style="${avatarStyle}">${avatarContent}</div>
-                            <div class="comment-author-info">
-                                <div class="comment-author-name">${comment.userName}</div>
-                                <div class="comment-author-role">${comment.userRole}</div>
-                            </div>
-                        </div>
-                        <div class="comment-date">${comment.date}</div>
-                    </div>
-                    <div class="comment-content">${this.escapeHtml(comment.content)}</div>
-                    <div class="comment-episode-info">
-                        <div class="episode-text">
-                            <i class="fas fa-play-circle"></i> Серия ${comment.episodeId}: ${comment.episodeName}
-                        </div>
-                        ${deleteBtnHtml}
-                    </div>
-                </div>
-            `;
-        }
-        
-        addDeleteHandler(commentId) {
-            const deleteBtns = document.querySelectorAll(`.comment-delete-btn[data-comment-id="${commentId}"]`);
-            deleteBtns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    this.deleteComment(commentId);
-                });
-            });
-        }
-        
-        escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-        
-        submitComment() {
-            const user = this.authManager.sessionManager.getCurrentUser();
-            if (!user) {
-                alert('Пожалуйста, войдите в аккаунт, чтобы оставлять комментарии');
-                this.authManager.openAuthModal('login');
-                return;
-            }
-            
-            const commentText = this.elements.commentText ? this.elements.commentText.value.trim() : '';
-            
-            if (!commentText) {
-                alert('Пожалуйста, введите текст комментария');
-                return;
-            }
-            
-            if (commentText.length > 500) {
-                alert('Комментарий не должен превышать 500 символов');
-                return;
-            }
-            
-            const commentData = {
-                episodeId: this.currentEpisodeId,
-                userId: user.id,
-                userName: user.name,
-                userAvatar: user.avatar,
-                userRole: user.role,
-                content: commentText,
-                episodeName: this.currentEpisodeName
-            };
-            
-            const newComment = this.commentStorage.addComment(commentData);
-            
-            // Очищаем поле ввода
-            if (this.elements.commentText) {
-                this.elements.commentText.value = '';
-                this.updateCharCount({ target: this.elements.commentText }, this.elements.charCount);
-            }
-            
-            // Добавляем новый комментарий в начало списка
-            const commentHtml = this.createCommentHtml(newComment);
-            
-            // Убираем сообщение об отсутствии комментариев, если оно есть
-            const noCommentsElement = this.elements.commentsList.querySelector('.no-comments');
-            if (noCommentsElement) {
-                noCommentsElement.remove();
-            }
-            
-            const modalNoCommentsElement = this.elements.modalCommentsList ? this.elements.modalCommentsList.querySelector('.no-comments') : null;
-            if (modalNoCommentsElement) {
-                modalNoCommentsElement.remove();
-            }
-            
-            // Добавляем комментарий
-            if (this.elements.commentsList) {
-                this.elements.commentsList.insertAdjacentHTML('afterbegin', commentHtml);
-            }
-            
-            if (this.elements.modalCommentsList) {
-                this.elements.modalCommentsList.insertAdjacentHTML('afterbegin', commentHtml);
-            }
-            
-            // Добавляем обработчик удаления для нового комментария
-            this.addDeleteHandler(newComment.id);
-            
-            // Прокручиваем к новому комментарию
-            const commentElement = document.querySelector(`[data-comment-id="${newComment.id}"]`);
-            if (commentElement) {
-                commentElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                
-                // Добавляем анимацию выделения
-                commentElement.style.animation = 'none';
-                setTimeout(() => {
-                    commentElement.style.animation = 'slideInUp 0.4s ease-out';
-                    commentElement.style.backgroundColor = 'rgba(41, 121, 255, 0.1)';
-                    
-                    setTimeout(() => {
-                        commentElement.style.backgroundColor = '';
-                    }, 2000);
-                }, 10);
-            }
-            
-            // Показываем уведомление
-            this.showNotification('Комментарий успешно добавлен!', 'success');
-        }
-        
-        submitModalComment() {
-            const user = this.authManager.sessionManager.getCurrentUser();
-            if (!user) {
-                alert('Пожалуйста, войдите в аккаунт, чтобы оставлять комментарии');
-                this.authManager.openAuthModal('login');
-                return;
-            }
-            
-            const commentText = this.elements.modalCommentText ? this.elements.modalCommentText.value.trim() : '';
-            
-            if (!commentText) {
-                alert('Пожалуйста, введите текст комментария');
-                return;
-            }
-            
-            if (commentText.length > 500) {
-                alert('Комментарий не должен превышать 500 символов');
-                return;
-            }
-            
-            const commentData = {
-                episodeId: this.currentEpisodeId,
-                userId: user.id,
-                userName: user.name,
-                userAvatar: user.avatar,
-                userRole: user.role,
-                content: commentText,
-                episodeName: this.currentEpisodeName
-            };
-            
-            const newComment = this.commentStorage.addComment(commentData);
-            
-            // Очищаем поле ввода
-            if (this.elements.modalCommentText) {
-                this.elements.modalCommentText.value = '';
-                this.updateCharCount({ target: this.elements.modalCommentText }, this.elements.modalCharCount);
-            }
-            
-            // Добавляем новый комментарий
-            const commentHtml = this.createCommentHtml(newComment);
-            
-            // Убираем сообщение об отсутствии комментариев
-            const noCommentsElement = this.elements.commentsList ? this.elements.commentsList.querySelector('.no-comments') : null;
-            if (noCommentsElement) {
-                noCommentsElement.remove();
-            }
-            
-            const modalNoCommentsElement = this.elements.modalCommentsList.querySelector('.no-comments');
-            if (modalNoCommentsElement) {
-                modalNoCommentsElement.remove();
-            }
-            
-            // Добавляем комментарий в оба списка
-            if (this.elements.commentsList) {
-                this.elements.commentsList.insertAdjacentHTML('afterbegin', commentHtml);
-            }
-            
-            if (this.elements.modalCommentsList) {
-                this.elements.modalCommentsList.insertAdjacentHTML('afterbegin', commentHtml);
-            }
-            
-            // Добавляем обработчик удаления для нового комментария
-            this.addDeleteHandler(newComment.id);
-            
-            // Показываем уведомление
-            this.showNotification('Комментарий успешно добавлен!', 'success');
-        }
-        
-        deleteComment(commentId) {
-            const user = this.authManager.sessionManager.getCurrentUser();
-            if (!user) return;
-            
-            if (!confirm('Вы уверены, что хотите удалить этот комментарий?')) {
-                return;
-            }
-            
-            if (this.commentStorage.deleteComment(commentId, user.id)) {
-                // Удаляем комментарий из DOM
-                const commentElements = document.querySelectorAll(`[data-comment-id="${commentId}"]`);
-                commentElements.forEach(commentElement => {
-                    if (commentElement) {
-                        commentElement.style.animation = 'fadeOut 0.3s ease';
-                        commentElement.style.opacity = '0';
-                        
-                        setTimeout(() => {
-                            if (commentElement.parentNode) {
-                                commentElement.parentNode.removeChild(commentElement);
-                            }
-                        }, 300);
-                    }
-                });
-                
-                // Проверяем, остались ли комментарии
-                const hasComments = this.commentStorage.getCommentsByEpisode(this.currentEpisodeId).length > 0;
-                
-                if (!hasComments) {
-                    // Показываем сообщение об отсутствии комментариев
-                    const noCommentsHtml = `
-                        <div class="no-comments">
-                            <i class="fas fa-comment-slash"></i>
-                            <p>Пока нет комментариев.<br>Будьте первым, кто оставит отзыв!</p>
-                        </div>
-                    `;
-                    
-                    if (this.elements.commentsList && this.elements.commentsList.children.length === 0) {
-                        this.elements.commentsList.innerHTML = noCommentsHtml;
-                    }
-                    
-                    if (this.elements.modalCommentsList && this.elements.modalCommentsList.children.length === 0) {
-                        this.elements.modalCommentsList.innerHTML = noCommentsHtml;
-                    }
-                }
-                
-                this.showNotification('Комментарий удален!', 'success');
-            } else {
-                this.showNotification('Ошибка при удалении комментария', 'error');
-            }
-        }
-        
-        openCommentsModal() {
-            // Загружаем комментарии в модальное окно (на всякий случай)
-            this.loadComments();
-            
-            // Обновляем заголовок в модальном окне
-            const modalTitle = document.querySelector('.comments-modal-title');
-            if (modalTitle) {
-                modalTitle.innerHTML = `<i class="fas fa-comments"></i> Комментарии`;
-            }
-            
-            // Показываем модальное окно
-            if (this.elements.commentsModalOverlay) {
-                this.elements.commentsModalOverlay.classList.add('active');
-            }
-            
-            if (this.elements.commentsModal) {
-                this.elements.commentsModal.classList.add('active');
-            }
-            
-            document.body.style.overflow = 'hidden';
-            
-            // Прокручиваем к началу комментариев
-            if (this.elements.modalCommentsList && this.elements.modalCommentsList.firstChild) {
-                this.elements.modalCommentsList.firstChild.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-        
-        closeCommentsModal() {
-            if (this.elements.commentsModalOverlay) {
-                this.elements.commentsModalOverlay.classList.remove('active');
-            }
-            
-            if (this.elements.commentsModal) {
-                this.elements.commentsModal.classList.remove('active');
-            }
-            
-            document.body.style.overflow = '';
-        }
-        
-        showNotification(message, type = 'success') {
-            // Создаем элемент уведомления
-            const notification = document.createElement('div');
-            notification.className = `auth-message ${type} show`;
-            notification.textContent = message;
-            notification.style.position = 'fixed';
-            notification.style.top = '20px';
-            notification.style.right = '20px';
-            notification.style.zIndex = '10004';
-            notification.style.maxWidth = '300px';
-            
-            document.body.appendChild(notification);
-            
-            // Удаляем уведомление через 3 секунды
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
-            }, 3000);
-        }
-    }
-
-    // ===========================================
-    // СИСТЕМА АВТОРИЗАЦИИ И ПРОФИЛЯ
-    // ===========================================
-
-    class UserStorage {
-        constructor() {
-            if (!localStorage.getItem('users')) {
-                // ИЗМЕНЕНО: Удалены демо-комментарии из данных пользователей
-                const demoUsers = [
-                    {
-                        id: 1,
-                        name: 'Тестовый пользователь',
-                        email: 'test@example.com',
-                        username: 'test_user',
-                        password: 'test123',
-                        joinDate: '25 июля 2010',
-                        role: 'Участник Лаборатории',
-                        labId: 'LAB-001',
-                        avatar: '',
-                        bio: '',
-                        commentCount: 0
-                    },
-                    {
-                        id: 2,
-                        name: 'Макисэ Курису',
-                        email: 'kurisu@lab.com',
-                        username: 'kurisu',
-                        password: 'steinsgate',
-                        joinDate: '28 июля 2010',
-                        role: 'Главный нейробиолог',
-                        labId: 'LAB-008',
-                        avatar: '',
-                        bio: '',
-                        commentCount: 0
-                    }
-                ];
-                localStorage.setItem('users', JSON.stringify(demoUsers));
-            }
-        }
-        
-        getUsers() {
-            const users = localStorage.getItem('users');
-            return users ? JSON.parse(users) : [];
-        }
-        
-        findUser(login, password) {
-            const users = this.getUsers();
-            return users.find(user => 
-                (user.email === login || user.username === login) && 
-                user.password === password
-            );
-        }
-        
-        createUser(userData) {
-            const users = this.getUsers();
-            const newUser = {
-                id: Date.now(),
-                name: userData.username,
-                email: userData.email,
-                username: userData.username,
-                password: userData.password,
-                joinDate: new Date().toLocaleDateString('ru-RU', { 
-                    day: 'numeric', 
-                    month: 'long', 
-                    year: 'numeric' 
-                }),
-                role: 'Участник Лаборатории',
-                labId: `LAB-${String(users.length + 1).padStart(3, '0')}`,
-                avatar: '',
-                bio: '',
-                commentCount: 0
-            };
-            users.push(newUser);
-            localStorage.setItem('users', JSON.stringify(users));
-            return newUser;
-        }
-        
-        userExists(email, username) {
-            const users = this.getUsers();
-            return users.some(user => user.email === email || user.username === username);
-        }
-        
-        updateUser(userId, updates) {
-            const users = this.getUsers();
-            const index = users.findIndex(user => user.id === userId);
-            if (index !== -1) {
-                users[index] = { ...users[index], ...updates };
-                localStorage.setItem('users', JSON.stringify(users));
-                return users[index];
-            }
-            return null;
-        }
-        
-        updateAvatar(userId, avatarData) {
-            const users = this.getUsers();
-            const index = users.findIndex(user => user.id === userId);
-            if (index !== -1) {
-                users[index].avatar = avatarData;
-                localStorage.setItem('users', JSON.stringify(users));
-                return users[index];
-            }
-            return null;
-        }
-        
-        incrementCommentCount(userId) {
-            const users = this.getUsers();
-            const index = users.findIndex(user => user.id === userId);
-            if (index !== -1) {
-                users[index].commentCount = (users[index].commentCount || 0) + 1;
-                localStorage.setItem('users', JSON.stringify(users));
-                return users[index];
-            }
-            return null;
-        }
-    }
-
-    class SessionManager {
-        constructor() {
-            this.storage = new UserStorage();
+            this.auth = window.firebase.auth;
+            this.authFunctions = window.firebase.authFunctions;
+            this.db = window.firebase.db;
+            this.firestore = window.firebase.firestoreFunctions;
             this.currentUser = null;
-            this.checkSession();
-        }
-        
-        checkSession() {
-            const session = localStorage.getItem('session');
-            if (session) {
-                this.currentUser = JSON.parse(session);
-                return true;
-            }
-            return false;
-        }
-        
-        login(login, password, remember = false) {
-            const user = this.storage.findUser(login, password);
-            if (user) {
-                this.currentUser = {
-                    id: user.id, 
-                    name: user.name, 
-                    username: user.username,
-                    email: user.email,
-                    joinDate: user.joinDate,
-                    role: user.role,
-                    labId: user.labId,
-                    avatar: user.avatar || '',
-                    bio: user.bio || '',
-                    commentCount: user.commentCount || 0
-                };
-                
-                localStorage.setItem('session', JSON.stringify(this.currentUser));
-                
-                if (remember) {
-                    localStorage.setItem('remember', 'true');
-                }
-                
-                return { success: true, user: this.currentUser };
-            }
-            return { success: false, message: 'Неверный логин или пароль' };
-        }
-        
-        register(userData) {
-            if (this.storage.userExists(userData.email, userData.username)) {
-                return { 
-                    success: false, 
-                    message: 'Пользователь с таким email или логином уже существует' 
-                };
-            }
-            
-            const newUser = this.storage.createUser(userData);
-            return { success: true, user: newUser };
-        }
-        
-        logout() {
-            this.currentUser = null;
-            localStorage.removeItem('session');
-            localStorage.removeItem('remember');
-            return true;
-        }
-        
-        getCurrentUser() {
-            return this.currentUser;
-        }
-        
-        updateProfile(updates) {
-            if (!this.currentUser) return null;
-            
-            const updatedUser = this.storage.updateUser(this.currentUser.id, updates);
-            if (updatedUser) {
-                this.currentUser = {
-                    id: updatedUser.id, 
-                    name: updatedUser.name, 
-                    username: updatedUser.username,
-                    email: updatedUser.email,
-                    joinDate: updatedUser.joinDate,
-                    role: updatedUser.role,
-                    labId: updatedUser.labId,
-                    avatar: updatedUser.avatar || '',
-                    bio: updatedUser.bio || '',
-                    commentCount: updatedUser.commentCount || 0
-                };
-                
-                localStorage.setItem('session', JSON.stringify(this.currentUser));
-                return this.currentUser;
-            }
-            return null;
-        }
-        
-        updateAvatar(avatarData) {
-            if (!this.currentUser) return null;
-            
-            const updatedUser = this.storage.updateAvatar(this.currentUser.id, avatarData);
-            if (updatedUser) {
-                this.currentUser.avatar = avatarData;
-                localStorage.setItem('session', JSON.stringify(this.currentUser));
-                return this.currentUser;
-            }
-            return null;
-        }
-        
-        incrementCommentCount() {
-            if (!this.currentUser) return null;
-            
-            const updatedUser = this.storage.incrementCommentCount(this.currentUser.id);
-            if (updatedUser) {
-                this.currentUser.commentCount = updatedUser.commentCount;
-                localStorage.setItem('session', JSON.stringify(this.currentUser));
-                return this.currentUser;
-            }
-            return null;
-        }
-    }
-
-    class AuthManager {
-        constructor() {
-            this.sessionManager = new SessionManager();
             this.initElements();
             this.bindEvents();
             this.checkAuthState();
         }
         
         initElements() {
-            // Все элементы инициализируются как раньше
             this.elements = {
                 authButtons: document.getElementById('authButtons'),
                 userInfo: document.getElementById('userInfo'),
@@ -5507,10 +4700,6 @@
                 profileUserId: document.getElementById('profileUserId'),
                 joinDate: document.getElementById('joinDate'),
                 editProfileBtn: document.getElementById('editProfileBtn'),
-                avatarInput: document.getElementById('avatarInput'),
-                avatarUploadBtn: document.getElementById('avatarUploadBtn'),
-                profileTabBtns: document.querySelectorAll('.profile-tab-btn'),
-                profileTabContents: document.querySelectorAll('.profile-tab-content'),
                 editProfileModalOverlay: document.getElementById('editProfileModalOverlay'),
                 editProfileModal: document.getElementById('editProfileModal'),
                 closeEditProfileModal: document.getElementById('closeEditProfileModal'),
@@ -5519,7 +4708,6 @@
         }
         
         bindEvents() {
-            // Проверяем, что элементы существуют перед добавлением обработчиков
             if (this.elements.openLoginModal) {
                 this.elements.openLoginModal.addEventListener('click', () => this.openAuthModal('login'));
             }
@@ -5552,12 +4740,8 @@
                 this.elements.registerForm.addEventListener('submit', (e) => this.handleRegister(e));
             }
             
-            // ОБНОВЛЕНО: Исправлена привязка кнопки профиля
             if (this.elements.profileBtn) {
-                this.elements.profileBtn.addEventListener('click', () => {
-                    console.log('Кнопка профиля нажата!');
-                    this.showProfilePage();
-                });
+                this.elements.profileBtn.addEventListener('click', () => this.showProfilePage());
             }
             
             if (this.elements.backToMainBtn) {
@@ -5572,7 +4756,6 @@
                 this.elements.editProfileBtn.addEventListener('click', () => this.handleEditProfile());
             }
             
-            // Редактирование профиля
             if (this.elements.closeEditProfileModal) {
                 this.elements.closeEditProfileModal.addEventListener('click', () => this.closeEditProfileModal());
             }
@@ -5583,27 +4766,6 @@
             
             if (this.elements.editProfileForm) {
                 this.elements.editProfileForm.addEventListener('submit', (e) => this.handleEditProfileSubmit(e));
-            }
-            
-            // Загрузка аватара
-            if (this.elements.avatarUploadBtn) {
-                this.elements.avatarUploadBtn.addEventListener('click', () => {
-                    if (this.elements.avatarInput) {
-                        this.elements.avatarInput.click();
-                    }
-                });
-            }
-            
-            if (this.elements.avatarInput) {
-                this.elements.avatarInput.addEventListener('change', (e) => this.handleAvatarUpload(e));
-            }
-            
-            if (this.elements.profileAvatarLarge) {
-                this.elements.profileAvatarLarge.addEventListener('click', () => {
-                    if (this.elements.avatarInput) {
-                        this.elements.avatarInput.click();
-                    }
-                });
             }
             
             // Переключение видимости пароля
@@ -5626,33 +4788,113 @@
                     }
                 });
             });
-            
-            // Переключение вкладок профиля
-            this.elements.profileTabBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const tabId = btn.dataset.tab;
-                    this.switchProfileTab(tabId);
-                });
-            });
-            
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    if (this.elements.authModal && this.elements.authModal.classList.contains('active')) {
-                        this.closeAuthModal();
-                    } else if (this.elements.editProfileModal && this.elements.editProfileModal.classList.contains('active')) {
-                        this.closeEditProfileModal();
-                    } else if (document.querySelector('.comments-modal-overlay.active')) {
-                        commentsManager.closeCommentsModal();
-                    }
+        }
+        
+        checkAuthState() {
+            this.authFunctions.onAuthStateChanged(this.auth, (user) => {
+                if (user) {
+                    this.currentUser = user;
+                    this.showUserInfo();
+                    this.loadUserProfile(user.uid);
+                } else {
+                    this.currentUser = null;
+                    this.showAuthButtons();
                 }
             });
         }
         
-        checkAuthState() {
-            if (this.sessionManager.checkSession()) {
-                this.showUserInfo();
+        async loadUserProfile(userId) {
+            try {
+                const userDoc = await this.firestore.getDoc(
+                    this.firestore.doc(this.db, 'users', userId)
+                );
+                
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    this.updateUserInfo(userData);
+                } else {
+                    // Создаем профиль пользователя в Firestore
+                    await this.createUserProfile(userId);
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки профиля:', error);
+            }
+        }
+        
+        async createUserProfile(userId) {
+            try {
+                const userData = {
+                    userId: userId,
+                    email: this.currentUser.email,
+                    username: this.currentUser.displayName || this.currentUser.email.split('@')[0],
+                    role: 'Участник Лаборатории',
+                    labId: `LAB-${String(Math.floor(Math.random() * 999) + 1).padStart(3, '0')}`,
+                    joinDate: new Date().toLocaleDateString('ru-RU'),
+                    avatar: '',
+                    commentCount: 0,
+                    createdAt: this.firestore.serverTimestamp()
+                };
+                
+                await this.firestore.setDoc(
+                    this.firestore.doc(this.db, 'users', userId),
+                    userData
+                );
+                
+                this.updateUserInfo(userData);
+            } catch (error) {
+                console.error('Ошибка создания профиля:', error);
+            }
+        }
+        
+        updateUserInfo(userData) {
+            if (this.elements.userName) {
+                this.elements.userName.textContent = userData.username || 'Пользователь';
+            }
+            
+            if (this.elements.profileUserName) {
+                this.elements.profileUserName.textContent = userData.username || 'Пользователь';
+            }
+            
+            if (this.elements.profileUserRole) {
+                this.elements.profileUserRole.textContent = userData.role || 'Участник Лаборатории';
+            }
+            
+            if (this.elements.profileEmail) {
+                this.elements.profileEmail.textContent = this.currentUser.email;
+            }
+            
+            if (this.elements.profileUsername) {
+                this.elements.profileUsername.textContent = userData.username || this.currentUser.email.split('@')[0];
+            }
+            
+            if (this.elements.profileUserId) {
+                this.elements.profileUserId.textContent = userData.labId ? userData.labId.split('-')[1] : '001';
+            }
+            
+            if (this.elements.joinDate) {
+                this.elements.joinDate.textContent = userData.joinDate || new Date().toLocaleDateString('ru-RU');
+            }
+            
+            // Устанавливаем аватар
+            if (this.currentUser.photoURL) {
+                if (this.elements.userAvatar) {
+                    this.elements.userAvatar.style.backgroundImage = `url(${this.currentUser.photoURL})`;
+                    this.elements.userAvatar.textContent = '';
+                }
+                if (this.elements.profileAvatarLarge) {
+                    this.elements.profileAvatarLarge.style.backgroundImage = `url(${this.currentUser.photoURL})`;
+                    this.elements.profileAvatarLarge.textContent = '';
+                }
             } else {
-                this.showAuthButtons();
+                const firstLetter = userData.username ? userData.username.charAt(0).toUpperCase() : 'П';
+                if (this.elements.userAvatar) {
+                    this.elements.userAvatar.style.backgroundImage = '';
+                    this.elements.userAvatar.textContent = firstLetter;
+                }
+                if (this.elements.profileAvatarLarge) {
+                    this.elements.profileAvatarLarge.style.backgroundImage = '';
+                    this.elements.profileAvatarLarge.textContent = firstLetter;
+                }
             }
         }
         
@@ -5667,29 +4909,11 @@
         }
         
         showUserInfo() {
-            const user = this.sessionManager.getCurrentUser();
-            
             if (this.elements.authButtons) {
                 this.elements.authButtons.style.display = 'none';
             }
-            
             if (this.elements.userInfo) {
                 this.elements.userInfo.style.display = 'flex';
-            }
-            
-            // Устанавливаем аватар или первую букву имени
-            if (user && this.elements.userAvatar) {
-                if (user.avatar) {
-                    this.elements.userAvatar.style.backgroundImage = `url(${user.avatar})`;
-                    this.elements.userAvatar.textContent = '';
-                } else {
-                    this.elements.userAvatar.style.backgroundImage = '';
-                    this.elements.userAvatar.textContent = user.name ? user.name.charAt(0).toUpperCase() : 'П';
-                }
-            }
-            
-            if (user && this.elements.userName) {
-                this.elements.userName.textContent = user.name || 'Пользователь';
             }
         }
         
@@ -5731,17 +4955,11 @@
         }
         
         openEditProfileModal() {
-            const user = this.sessionManager.getCurrentUser();
-            if (user) {
-                const editProfileName = document.getElementById('editProfileName');
-                const editProfileEmail = document.getElementById('editProfileEmail');
-                const editProfilePassword = document.getElementById('editProfilePassword');
-                const editProfileConfirmPassword = document.getElementById('editProfileConfirmPassword');
-                
-                if (editProfileName) editProfileName.value = user.name || '';
-                if (editProfileEmail) editProfileEmail.value = user.email || '';
-                if (editProfilePassword) editProfilePassword.value = '';
-                if (editProfileConfirmPassword) editProfileConfirmPassword.value = '';
+            const editProfileName = document.getElementById('editProfileName');
+            if (editProfileName) {
+                editProfileName.value = this.currentUser.displayName || 
+                    this.elements.profileUsername.textContent || 
+                    '';
             }
             
             if (this.elements.editProfileModalOverlay) {
@@ -5783,59 +5001,43 @@
             this.clearMessages();
         }
         
-        switchProfileTab(tabId) {
-            // Убираем активный класс у всех кнопок
-            this.elements.profileTabBtns.forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Скрываем все содержимое вкладок
-            this.elements.profileTabContents.forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Активируем выбранную кнопку и содержимое
-            const activeBtn = document.querySelector(`.profile-tab-btn[data-tab="${tabId}"]`);
-            const activeContent = document.getElementById(`profileTab${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`);
-            
-            if (activeBtn) activeBtn.classList.add('active');
-            if (activeContent) activeContent.classList.add('active');
-        }
-        
-        handleLogin(e) {
+        async handleLogin(e) {
             e.preventDefault();
             this.clearMessages();
             
-            const login = document.getElementById('loginEmail').value.trim();
+            const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value;
-            const remember = document.getElementById('rememberMe') ? document.getElementById('rememberMe').checked : false;
             
-            if (!login || !password) {
+            if (!email || !password) {
                 this.showMessage(this.elements.loginMessage, 'Заполните все поля', 'error');
                 return;
             }
             
-            const result = this.sessionManager.login(login, password, remember);
-            
-            if (result.success) {
-                this.showMessage(this.elements.loginMessage, 'Успешный вход!', 'success');
-                this.showUserInfo();
+            try {
+                const userCredential = await this.authFunctions.signInWithEmailAndPassword(
+                    this.auth, email, password
+                );
                 
-                // Обновляем форму комментариев
-                if (commentsManager) {
-                    commentsManager.updateCommentForm();
-                }
+                this.showMessage(this.elements.loginMessage, 'Успешный вход!', 'success');
                 
                 setTimeout(() => {
                     this.closeAuthModal();
                     this.showMainPage();
                 }, 1500);
-            } else {
-                this.showMessage(this.elements.loginMessage, result.message, 'error');
+            } catch (error) {
+                let errorMessage = 'Ошибка входа';
+                if (error.code === 'auth/user-not-found') {
+                    errorMessage = 'Пользователь не найден';
+                } else if (error.code === 'auth/wrong-password') {
+                    errorMessage = 'Неверный пароль';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'Неверный формат email';
+                }
+                this.showMessage(this.elements.loginMessage, errorMessage, 'error');
             }
         }
         
-        handleRegister(e) {
+        async handleRegister(e) {
             e.preventDefault();
             this.clearMessages();
             
@@ -5865,11 +5067,19 @@
                 return;
             }
             
-            const userData = { email, username, password };
-            const result = this.sessionManager.register(userData);
-            
-            if (result.success) {
-                this.showMessage(this.elements.registerMessage, 'Регистрация успешна! Теперь вы можете войти.', 'success');
+            try {
+                // Создаем пользователя в Firebase Auth
+                const userCredential = await this.authFunctions.createUserWithEmailAndPassword(
+                    this.auth, email, password
+                );
+                
+                // Обновляем отображаемое имя
+                await this.authFunctions.updateProfile(userCredential.user, {
+                    displayName: username
+                });
+                
+                this.showMessage(this.elements.registerMessage, 'Регистрация успешна!', 'success');
+                
                 if (this.elements.registerForm) {
                     this.elements.registerForm.reset();
                 }
@@ -5878,24 +5088,30 @@
                     this.switchTab('login');
                     const loginEmail = document.getElementById('loginEmail');
                     if (loginEmail) {
-                        loginEmail.value = username;
+                        loginEmail.value = email;
                         loginEmail.focus();
                     }
                 }, 2000);
-            } else {
-                this.showMessage(this.elements.registerMessage, result.message, 'error');
+            } catch (error) {
+                let errorMessage = 'Ошибка регистрации';
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessage = 'Пользователь с таким email уже существует';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'Неверный формат email';
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessage = 'Пароль слишком слабый';
+                }
+                this.showMessage(this.elements.registerMessage, errorMessage, 'error');
             }
         }
         
-        handleLogout() {
-            if (this.sessionManager.logout()) {
+        async handleLogout() {
+            try {
+                await this.authFunctions.signOut(this.auth);
                 this.showAuthButtons();
                 this.showMainPage();
-                
-                // Обновляем форму комментариев
-                if (commentsManager) {
-                    commentsManager.updateCommentForm();
-                }
+            } catch (error) {
+                console.error('Ошибка выхода:', error);
             }
         }
         
@@ -5903,169 +5119,72 @@
             this.openEditProfileModal();
         }
         
-        handleEditProfileSubmit(e) {
+        async handleEditProfileSubmit(e) {
             e.preventDefault();
             
-            const name = document.getElementById('editProfileName').value.trim();
-            const email = document.getElementById('editProfileEmail').value.trim();
-            const newPassword = document.getElementById('editProfilePassword').value;
-            const confirmPassword = document.getElementById('editProfileConfirmPassword').value;
+            const newUsername = document.getElementById('editProfileName').value.trim();
             
-            if (!name || !email) {
-                alert('Пожалуйста, заполните обязательные поля: Имя и Email');
+            if (!newUsername) {
+                alert('Пожалуйста, введите имя пользователя');
                 return;
             }
             
-            if (newPassword && newPassword.length < 6) {
-                alert('Пароль должен содержать минимум 6 символов');
-                return;
-            }
-            
-            if (newPassword !== confirmPassword) {
-                alert('Пароли не совпадают');
-                return;
-            }
-            
-            const updates = {
-                name: name,
-                email: email
-            };
-            
-            // Если введен новый пароль, добавляем его в обновления
-            if (newPassword) {
-                updates.password = newPassword;
-            }
-            
-            const updatedUser = this.sessionManager.updateProfile(updates);
-            if (updatedUser) {
-                // Обновляем данные на странице профиля
-                if (this.elements.profileUserName) {
-                    this.elements.profileUserName.textContent = updatedUser.name;
-                }
-                if (this.elements.profileEmail) {
-                    this.elements.profileEmail.textContent = updatedUser.email;
-                }
-                if (this.elements.userName) {
-                    this.elements.userName.textContent = updatedUser.name;
-                }
+            try {
+                // Обновляем отображаемое имя в Firebase Auth
+                await this.authFunctions.updateProfile(this.currentUser, {
+                    displayName: newUsername
+                });
                 
-                // Обновляем аватар в навигации
-                if (this.elements.userAvatar) {
-                    if (updatedUser.avatar) {
-                        this.elements.userAvatar.style.backgroundImage = `url(${updatedUser.avatar})`;
-                        this.elements.userAvatar.textContent = '';
-                    } else {
-                        this.elements.userAvatar.style.backgroundImage = '';
-                        this.elements.userAvatar.textContent = updatedUser.name.charAt(0).toUpperCase();
+                // Обновляем в Firestore
+                await this.firestore.updateDoc(
+                    this.firestore.doc(this.db, 'users', this.currentUser.uid),
+                    {
+                        username: newUsername
                     }
+                );
+                
+                // Обновляем на странице
+                if (this.elements.userName) {
+                    this.elements.userName.textContent = newUsername;
+                }
+                if (this.elements.profileUserName) {
+                    this.elements.profileUserName.textContent = newUsername;
+                }
+                if (this.elements.profileUsername) {
+                    this.elements.profileUsername.textContent = newUsername;
                 }
                 
-                // Обновляем аватар в форме комментариев
-                if (commentsManager) {
-                    commentsManager.updateCommentForm();
+                // Обновляем аватар
+                if (this.elements.userAvatar && !this.currentUser.photoURL) {
+                    this.elements.userAvatar.textContent = newUsername.charAt(0).toUpperCase();
                 }
-                
-                // Очищаем поля пароля
-                const editProfilePassword = document.getElementById('editProfilePassword');
-                const editProfileConfirmPassword = document.getElementById('editProfileConfirmPassword');
-                if (editProfilePassword) editProfilePassword.value = '';
-                if (editProfileConfirmPassword) editProfileConfirmPassword.value = '';
+                if (this.elements.profileAvatarLarge && !this.currentUser.photoURL) {
+                    this.elements.profileAvatarLarge.textContent = newUsername.charAt(0).toUpperCase();
+                }
                 
                 this.closeEditProfileModal();
                 alert('Профиль успешно обновлен!');
-            } else {
+            } catch (error) {
+                console.error('Ошибка обновления профиля:', error);
                 alert('Ошибка при обновлении профиля');
             }
         }
         
-        handleAvatarUpload(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            
-            if (!file.type.match('image.*')) {
-                alert('Пожалуйста, выберите файл изображения');
-                return;
-            }
-            
-            if (file.size > 5 * 1024 * 1024) {
-                alert('Размер файла не должен превышать 5MB');
-                return;
-            }
-            
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const imageData = event.target.result;
-                
-                // Обновляем аватар в системе
-                const updatedUser = this.sessionManager.updateAvatar(imageData);
-                if (updatedUser) {
-                    // Обновляем аватар на странице
-                    if (this.elements.profileAvatarLarge) {
-                        this.elements.profileAvatarLarge.style.backgroundImage = `url(${imageData})`;
-                        this.elements.profileAvatarLarge.textContent = '';
-                    }
-                    
-                    // Также обновляем маленький аватар в навигации
-                    if (this.elements.userAvatar) {
-                        this.elements.userAvatar.style.backgroundImage = `url(${imageData})`;
-                        this.elements.userAvatar.textContent = '';
-                    }
-                    
-                    // Обновляем аватар в форме комментариев
-                    if (commentsManager) {
-                        commentsManager.updateCommentForm();
-                    }
-                    
-                    alert('Аватар успешно обновлен!');
-                }
-            };
-            reader.readAsDataURL(file);
-        }
-        
         showProfilePage() {
-            console.log('Показать страницу профиля вызвано');
-            
-            const user = this.sessionManager.getCurrentUser();
-            if (!user) {
-                console.log('Нет текущего пользователя');
-                return;
-            }
-            
-            console.log('Пользователь найден:', user);
+            const user = this.currentUser;
+            if (!user) return;
             
             // Обновляем данные в профиле
             if (this.elements.profileAvatarLarge) {
-                if (user.avatar) {
-                    this.elements.profileAvatarLarge.style.backgroundImage = `url(${user.avatar})`;
+                if (user.photoURL) {
+                    this.elements.profileAvatarLarge.style.backgroundImage = `url(${user.photoURL})`;
                     this.elements.profileAvatarLarge.textContent = '';
                 } else {
                     this.elements.profileAvatarLarge.style.backgroundImage = '';
-                    this.elements.profileAvatarLarge.textContent = user.name ? user.name.charAt(0).toUpperCase() : 'П';
+                    this.elements.profileAvatarLarge.textContent = user.displayName ? 
+                        user.displayName.charAt(0).toUpperCase() : 
+                        user.email.charAt(0).toUpperCase();
                 }
-            }
-            
-            if (this.elements.profileUserName) {
-                this.elements.profileUserName.textContent = user.name || 'Пользователь';
-            }
-            
-            if (this.elements.profileUserRole) {
-                this.elements.profileUserRole.textContent = user.role || 'Участник Лаборатории';
-            }
-            
-            if (this.elements.profileEmail) {
-                this.elements.profileEmail.textContent = user.email || 'user@example.com';
-            }
-            
-            if (this.elements.profileUsername) {
-                this.elements.profileUsername.textContent = user.username || 'username';
-            }
-            
-            if (this.elements.profileUserId) {
-                this.elements.profileUserId.textContent = user.labId ? user.labId.split('-')[1] : '001';
-            }
-            
-            if (this.elements.joinDate) {
-                this.elements.joinDate.textContent = user.joinDate || '25 июля 2010';
             }
             
             // Скрываем основное содержимое и показываем профиль
@@ -6081,9 +5200,6 @@
             }
             
             window.scrollTo(0, 0);
-            
-            // Активируем первую вкладку
-            this.switchProfileTab('info');
         }
         
         showMainPage() {
@@ -6121,6 +5237,609 @@
             if (this.elements.registerMessage) {
                 this.elements.registerMessage.classList.remove('show');
             }
+        }
+    }
+
+    class FirebaseCommentsManager {
+        constructor(authManager) {
+            this.authManager = authManager;
+            this.db = window.firebase.db;
+            this.firestore = window.firebase.firestoreFunctions;
+            this.currentEpisodeId = 1;
+            this.currentEpisodeName = 'Начало и конец';
+            this.initElements();
+            this.bindEvents();
+            this.loadComments();
+        }
+        
+        initElements() {
+            this.elements = {
+                commentForm: document.getElementById('commentForm'),
+                commentText: document.getElementById('commentText'),
+                charCount: document.getElementById('charCount'),
+                submitComment: document.getElementById('submitComment'),
+                commentsList: document.getElementById('commentsList'),
+                commentsSection: document.getElementById('commentsSection'),
+                modalCommentForm: document.getElementById('modalCommentForm'),
+                modalCommentText: document.getElementById('modalCommentText'),
+                modalCharCount: document.getElementById('modalCharCount'),
+                modalSubmitComment: document.getElementById('modalSubmitComment'),
+                modalCommentsList: document.getElementById('modalCommentsList'),
+                openCommentsBtn: document.getElementById('openCommentsBtn'),
+                commentsModalOverlay: document.getElementById('commentsModalOverlay'),
+                commentsModal: document.getElementById('commentsModal'),
+                commentsCloseModal: document.getElementById('commentsCloseModal')
+            };
+        }
+        
+        bindEvents() {
+            if (this.elements.commentText) {
+                this.elements.commentText.addEventListener('input', (e) => this.updateCharCount(e, this.elements.charCount));
+            }
+            
+            if (this.elements.submitComment) {
+                this.elements.submitComment.addEventListener('click', () => this.submitComment());
+            }
+            
+            if (this.elements.modalCommentText) {
+                this.elements.modalCommentText.addEventListener('input', (e) => this.updateCharCount(e, this.elements.modalCharCount));
+            }
+            
+            if (this.elements.modalSubmitComment) {
+                this.elements.modalSubmitComment.addEventListener('click', () => this.submitModalComment());
+            }
+            
+            if (this.elements.openCommentsBtn) {
+                this.elements.openCommentsBtn.addEventListener('click', () => this.openCommentsModal());
+            }
+            
+            if (this.elements.commentsCloseModal) {
+                this.elements.commentsCloseModal.addEventListener('click', () => this.closeCommentsModal());
+            }
+            
+            if (this.elements.commentsModalOverlay) {
+                this.elements.commentsModalOverlay.addEventListener('click', () => this.closeCommentsModal());
+            }
+            
+            document.querySelectorAll('.episode-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    if (!item.classList.contains('disabled')) {
+                        const episodeId = parseInt(item.dataset.episode);
+                        const episodeName = item.querySelector('.episode-name').textContent;
+                        this.setCurrentEpisode(episodeId, episodeName);
+                    }
+                });
+            });
+        }
+        
+        setCurrentEpisode(episodeId, episodeName) {
+            this.currentEpisodeId = episodeId;
+            this.currentEpisodeName = episodeName;
+            this.loadComments();
+        }
+        
+        updateCharCount(e, charCountElement) {
+            const text = e.target.value;
+            const count = text.length;
+            const maxLength = 500;
+            
+            if (charCountElement) {
+                charCountElement.textContent = `${count}/${maxLength}`;
+                
+                if (count > maxLength * 0.9) {
+                    charCountElement.classList.add('warning');
+                    charCountElement.classList.remove('error');
+                } else if (count > maxLength) {
+                    charCountElement.classList.remove('warning');
+                    charCountElement.classList.add('error');
+                } else {
+                    charCountElement.classList.remove('warning', 'error');
+                }
+            }
+        }
+        
+        updateCommentForm() {
+            const user = this.authManager.currentUser;
+            const isLoggedIn = !!user;
+            
+            if (this.elements.commentForm) {
+                if (isLoggedIn) {
+                    this.elements.commentForm.style.display = 'block';
+                } else {
+                    this.elements.commentForm.style.display = 'none';
+                }
+            }
+            
+            if (this.elements.modalCommentForm) {
+                if (isLoggedIn) {
+                    this.elements.modalCommentForm.style.display = 'block';
+                } else {
+                    this.elements.modalCommentForm.style.display = 'none';
+                }
+            }
+        }
+        
+        async loadComments() {
+            try {
+                const commentsQuery = this.firestore.query(
+                    this.firestore.collection(this.db, 'comments'),
+                    this.firestore.where('episodeId', '==', this.currentEpisodeId),
+                    this.firestore.orderBy('createdAt', 'desc')
+                );
+                
+                const querySnapshot = await this.firestore.getDocs(commentsQuery);
+                
+                // Очищаем список комментариев
+                if (this.elements.commentsList) {
+                    this.elements.commentsList.innerHTML = '';
+                }
+                
+                if (this.elements.modalCommentsList) {
+                    this.elements.modalCommentsList.innerHTML = '';
+                }
+                
+                if (querySnapshot.empty) {
+                    const noCommentsHtml = `
+                        <div class="no-comments">
+                            <i class="fas fa-comment-slash"></i>
+                            <p>Пока нет комментариев.<br>Будьте первым, кто оставит отзыв!</p>
+                        </div>
+                    `;
+                    
+                    if (this.elements.commentsList) {
+                        this.elements.commentsList.innerHTML = noCommentsHtml;
+                    }
+                    
+                    if (this.elements.modalCommentsList) {
+                        this.elements.modalCommentsList.innerHTML = noCommentsHtml;
+                    }
+                    
+                    return;
+                }
+                
+                // Загружаем данные пользователей для комментариев
+                const commentsWithUserData = [];
+                
+                for (const doc of querySnapshot.docs) {
+                    const comment = doc.data();
+                    comment.id = doc.id;
+                    
+                    // Загружаем данные пользователя
+                    let userData = {};
+                    try {
+                        const userDoc = await this.firestore.getDoc(
+                            this.firestore.doc(this.db, 'users', comment.userId)
+                        );
+                        if (userDoc.exists()) {
+                            userData = userDoc.data();
+                        }
+                    } catch (error) {
+                        console.error('Ошибка загрузки данных пользователя:', error);
+                    }
+                    
+                    commentsWithUserData.push({
+                        ...comment,
+                        userName: userData.username || 'Аноним',
+                        userRole: userData.role || 'Участник Лаборатории',
+                        userAvatar: userData.avatar || '',
+                        userDataLoaded: true
+                    });
+                }
+                
+                // Отображаем комментарии
+                commentsWithUserData.forEach(comment => {
+                    const commentHtml = this.createCommentHtml(comment);
+                    
+                    if (this.elements.commentsList) {
+                        this.elements.commentsList.insertAdjacentHTML('beforeend', commentHtml);
+                    }
+                    
+                    if (this.elements.modalCommentsList) {
+                        this.elements.modalCommentsList.insertAdjacentHTML('beforeend', commentHtml);
+                    }
+                    
+                    // Добавляем обработчик удаления
+                    setTimeout(() => {
+                        this.addDeleteHandler(comment.id, comment.userId);
+                    }, 100);
+                });
+            } catch (error) {
+                console.error('Ошибка загрузки комментариев:', error);
+                
+                const errorHtml = `
+                    <div class="no-comments">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Ошибка загрузки комментариев</p>
+                    </div>
+                `;
+                
+                if (this.elements.commentsList) {
+                    this.elements.commentsList.innerHTML = errorHtml;
+                }
+                
+                if (this.elements.modalCommentsList) {
+                    this.elements.modalCommentsList.innerHTML = errorHtml;
+                }
+            }
+        }
+        
+        createCommentHtml(comment) {
+            const date = comment.createdAt ? 
+                comment.createdAt.toDate().toLocaleDateString('ru-RU', { 
+                    day: 'numeric', 
+                    month: 'long', 
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }) : 
+                'Недавно';
+            
+            const avatarStyle = comment.userAvatar ? `background-image: url(${comment.userAvatar})` : '';
+            const avatarContent = comment.userAvatar ? '' : comment.userName.charAt(0).toUpperCase();
+            const currentUser = this.authManager.currentUser;
+            const showDeleteBtn = currentUser && currentUser.uid === comment.userId;
+            
+            const deleteBtnHtml = showDeleteBtn 
+                ? `<button class="comment-delete-btn" data-comment-id="${comment.id}" title="Удалить комментарий">
+                    <i class="fas fa-trash"></i> Удалить
+                   </button>` 
+                : '';
+            
+            return `
+                <div class="comment-item" data-comment-id="${comment.id}">
+                    <div class="comment-header">
+                        <div class="comment-author">
+                            <div class="comment-author-avatar" style="${avatarStyle}">${avatarContent}</div>
+                            <div class="comment-author-info">
+                                <div class="comment-author-name">${comment.userName}</div>
+                                <div class="comment-author-role">${comment.userRole}</div>
+                            </div>
+                        </div>
+                        <div class="comment-date">${date}</div>
+                    </div>
+                    <div class="comment-content">${this.escapeHtml(comment.content)}</div>
+                    <div class="comment-episode-info">
+                        <div class="episode-text">
+                            <i class="fas fa-play-circle"></i> Серия ${comment.episodeId}: ${comment.episodeName}
+                        </div>
+                        ${deleteBtnHtml}
+                    </div>
+                </div>
+            `;
+        }
+        
+        addDeleteHandler(commentId, userId) {
+            const deleteBtns = document.querySelectorAll(`.comment-delete-btn[data-comment-id="${commentId}"]`);
+            deleteBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.deleteComment(commentId, userId);
+                });
+            });
+        }
+        
+        escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        async submitComment() {
+            const user = this.authManager.currentUser;
+            if (!user) {
+                alert('Пожалуйста, войдите в аккаунт, чтобы оставлять комментарии');
+                this.authManager.openAuthModal('login');
+                return;
+            }
+            
+            const commentText = this.elements.commentText ? this.elements.commentText.value.trim() : '';
+            
+            if (!commentText) {
+                alert('Пожалуйста, введите текст комментария');
+                return;
+            }
+            
+            if (commentText.length > 500) {
+                alert('Комментарий не должен превышать 500 символов');
+                return;
+            }
+            
+            try {
+                // Загружаем данные пользователя
+                let userData = {};
+                const userDoc = await this.firestore.getDoc(
+                    this.firestore.doc(this.db, 'users', user.uid)
+                );
+                if (userDoc.exists()) {
+                    userData = userDoc.data();
+                }
+                
+                const commentData = {
+                    episodeId: this.currentEpisodeId,
+                    userId: user.uid,
+                    userName: userData.username || user.displayName || user.email.split('@')[0],
+                    userRole: userData.role || 'Участник Лаборатории',
+                    userAvatar: userData.avatar || '',
+                    content: commentText,
+                    episodeName: this.currentEpisodeName,
+                    createdAt: this.firestore.serverTimestamp()
+                };
+                
+                // Добавляем комментарий в Firestore
+                const docRef = await this.firestore.addDoc(
+                    this.firestore.collection(this.db, 'comments'),
+                    commentData
+                );
+                
+                // Обновляем счетчик комментариев пользователя
+                await this.firestore.updateDoc(
+                    this.firestore.doc(this.db, 'users', user.uid),
+                    {
+                        commentCount: (userData.commentCount || 0) + 1
+                    }
+                );
+                
+                // Очищаем поле ввода
+                if (this.elements.commentText) {
+                    this.elements.commentText.value = '';
+                    this.updateCharCount({ target: this.elements.commentText }, this.elements.charCount);
+                }
+                
+                // Добавляем комментарий с временным ID
+                commentData.id = docRef.id;
+                commentData.createdAt = new Date();
+                
+                const commentHtml = this.createCommentHtml(commentData);
+                
+                // Убираем сообщение об отсутствии комментариев
+                const noCommentsElement = this.elements.commentsList.querySelector('.no-comments');
+                if (noCommentsElement) {
+                    noCommentsElement.remove();
+                }
+                
+                const modalNoCommentsElement = this.elements.modalCommentsList ? this.elements.modalCommentsList.querySelector('.no-comments') : null;
+                if (modalNoCommentsElement) {
+                    modalNoCommentsElement.remove();
+                }
+                
+                // Добавляем комментарий
+                if (this.elements.commentsList) {
+                    this.elements.commentsList.insertAdjacentHTML('afterbegin', commentHtml);
+                }
+                
+                if (this.elements.modalCommentsList) {
+                    this.elements.modalCommentsList.insertAdjacentHTML('afterbegin', commentHtml);
+                }
+                
+                // Добавляем обработчик удаления
+                this.addDeleteHandler(docRef.id, user.uid);
+                
+                // Показываем уведомление
+                this.showNotification('Комментарий успешно добавлен!', 'success');
+            } catch (error) {
+                console.error('Ошибка добавления комментария:', error);
+                this.showNotification('Ошибка при добавлении комментария', 'error');
+            }
+        }
+        
+        async submitModalComment() {
+            const user = this.authManager.currentUser;
+            if (!user) {
+                alert('Пожалуйста, войдите в аккаунт, чтобы оставлять комментарии');
+                this.authManager.openAuthModal('login');
+                return;
+            }
+            
+            const commentText = this.elements.modalCommentText ? this.elements.modalCommentText.value.trim() : '';
+            
+            if (!commentText) {
+                alert('Пожалуйста, введите текст комментария');
+                return;
+            }
+            
+            if (commentText.length > 500) {
+                alert('Комментарий не должен превышать 500 символов');
+                return;
+            }
+            
+            try {
+                // Загружаем данные пользователя
+                let userData = {};
+                const userDoc = await this.firestore.getDoc(
+                    this.firestore.doc(this.db, 'users', user.uid)
+                );
+                if (userDoc.exists()) {
+                    userData = userDoc.data();
+                }
+                
+                const commentData = {
+                    episodeId: this.currentEpisodeId,
+                    userId: user.uid,
+                    userName: userData.username || user.displayName || user.email.split('@')[0],
+                    userRole: userData.role || 'Участник Лаборатории',
+                    userAvatar: userData.avatar || '',
+                    content: commentText,
+                    episodeName: this.currentEpisodeName,
+                    createdAt: this.firestore.serverTimestamp()
+                };
+                
+                // Добавляем комментарий в Firestore
+                const docRef = await this.firestore.addDoc(
+                    this.firestore.collection(this.db, 'comments'),
+                    commentData
+                );
+                
+                // Обновляем счетчик комментариев пользователя
+                await this.firestore.updateDoc(
+                    this.firestore.doc(this.db, 'users', user.uid),
+                    {
+                        commentCount: (userData.commentCount || 0) + 1
+                    }
+                );
+                
+                // Очищаем поле ввода
+                if (this.elements.modalCommentText) {
+                    this.elements.modalCommentText.value = '';
+                    this.updateCharCount({ target: this.elements.modalCommentText }, this.elements.modalCharCount);
+                }
+                
+                // Добавляем комментарий с временным ID
+                commentData.id = docRef.id;
+                commentData.createdAt = new Date();
+                
+                const commentHtml = this.createCommentHtml(commentData);
+                
+                // Убираем сообщение об отсутствии комментариев
+                const noCommentsElement = this.elements.commentsList ? this.elements.commentsList.querySelector('.no-comments') : null;
+                if (noCommentsElement) {
+                    noCommentsElement.remove();
+                }
+                
+                const modalNoCommentsElement = this.elements.modalCommentsList.querySelector('.no-comments');
+                if (modalNoCommentsElement) {
+                    modalNoCommentsElement.remove();
+                }
+                
+                // Добавляем комментарий
+                if (this.elements.commentsList) {
+                    this.elements.commentsList.insertAdjacentHTML('afterbegin', commentHtml);
+                }
+                
+                if (this.elements.modalCommentsList) {
+                    this.elements.modalCommentsList.insertAdjacentHTML('afterbegin', commentHtml);
+                }
+                
+                // Добавляем обработчик удаления
+                this.addDeleteHandler(docRef.id, user.uid);
+                
+                // Показываем уведомление
+                this.showNotification('Комментарий успешно добавлен!', 'success');
+            } catch (error) {
+                console.error('Ошибка добавления комментария:', error);
+                this.showNotification('Ошибка при добавлении комментария', 'error');
+            }
+        }
+        
+        async deleteComment(commentId, userId) {
+            const user = this.authManager.currentUser;
+            if (!user || user.uid !== userId) return;
+            
+            if (!confirm('Вы уверены, что хотите удалить этот комментарий?')) {
+                return;
+            }
+            
+            try {
+                await this.firestore.deleteDoc(
+                    this.firestore.doc(this.db, 'comments', commentId)
+                );
+                
+                // Уменьшаем счетчик комментариев пользователя
+                const userDoc = await this.firestore.getDoc(
+                    this.firestore.doc(this.db, 'users', user.uid)
+                );
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    await this.firestore.updateDoc(
+                        this.firestore.doc(this.db, 'users', user.uid),
+                        {
+                            commentCount: Math.max(0, (userData.commentCount || 1) - 1)
+                        }
+                    );
+                }
+                
+                // Удаляем комментарий из DOM
+                const commentElements = document.querySelectorAll(`[data-comment-id="${commentId}"]`);
+                commentElements.forEach(commentElement => {
+                    if (commentElement) {
+                        commentElement.style.animation = 'fadeOut 0.3s ease';
+                        commentElement.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            if (commentElement.parentNode) {
+                                commentElement.parentNode.removeChild(commentElement);
+                            }
+                        }, 300);
+                    }
+                });
+                
+                // Проверяем, остались ли комментарии
+                const commentsQuery = this.firestore.query(
+                    this.firestore.collection(this.db, 'comments'),
+                    this.firestore.where('episodeId', '==', this.currentEpisodeId)
+                );
+                
+                const querySnapshot = await this.firestore.getDocs(commentsQuery);
+                
+                if (querySnapshot.empty) {
+                    const noCommentsHtml = `
+                        <div class="no-comments">
+                            <i class="fas fa-comment-slash"></i>
+                            <p>Пока нет комментариев.<br>Будьте первым, кто оставит отзыв!</p>
+                        </div>
+                    `;
+                    
+                    if (this.elements.commentsList && this.elements.commentsList.children.length === 0) {
+                        this.elements.commentsList.innerHTML = noCommentsHtml;
+                    }
+                    
+                    if (this.elements.modalCommentsList && this.elements.modalCommentsList.children.length === 0) {
+                        this.elements.modalCommentsList.innerHTML = noCommentsHtml;
+                    }
+                }
+                
+                this.showNotification('Комментарий удален!', 'success');
+            } catch (error) {
+                console.error('Ошибка удаления комментария:', error);
+                this.showNotification('Ошибка при удалении комментария', 'error');
+            }
+        }
+        
+        openCommentsModal() {
+            this.loadComments();
+            
+            if (this.elements.commentsModalOverlay) {
+                this.elements.commentsModalOverlay.classList.add('active');
+            }
+            
+            if (this.elements.commentsModal) {
+                this.elements.commentsModal.classList.add('active');
+            }
+            
+            document.body.style.overflow = 'hidden';
+        }
+        
+        closeCommentsModal() {
+            if (this.elements.commentsModalOverlay) {
+                this.elements.commentsModalOverlay.classList.remove('active');
+            }
+            
+            if (this.elements.commentsModal) {
+                this.elements.commentsModal.classList.remove('active');
+            }
+            
+            document.body.style.overflow = '';
+        }
+        
+        showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `auth-message ${type} show`;
+            notification.textContent = message;
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.right = '20px';
+            notification.style.zIndex = '10004';
+            notification.style.maxWidth = '300px';
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
         }
     }
 
@@ -6457,14 +6176,21 @@
     document.addEventListener('DOMContentLoaded', function() {
         console.log('Сайт Макисэ Курису загружен!');
         
-        // Инициализация системы авторизации
-        const authManager = new AuthManager();
+        // Проверяем, что Firebase инициализирован
+        if (!window.firebase || !window.firebase.auth) {
+            console.error('Firebase не инициализирован!');
+            alert('Ошибка инициализации Firebase. Пожалуйста, обновите страницу.');
+            return;
+        }
         
-        // Инициализация системы комментариев
-        const commentsManager = new CommentsManager(authManager);
+        // Инициализация Firebase менеджеров
+        const firebaseAuthManager = new FirebaseAuthManager();
+        const firebaseCommentsManager = new FirebaseCommentsManager(firebaseAuthManager);
         
-        // Сделаем commentsManager глобально доступным для обработчиков
-        window.commentsManager = commentsManager;
+        // Обновляем форму комментариев при изменении состояния авторизации
+        firebaseAuthManager.authFunctions.onAuthStateChanged(firebaseAuthManager.auth, (user) => {
+            firebaseCommentsManager.updateCommentForm();
+        });
         
         // ===========================================
         // 1. НАУЧНЫЕ ДОСТИЖЕНИЯ
@@ -6562,19 +6288,16 @@
         timelineModalOverlay.addEventListener('click', closeTimelineModal);
         
         // ===========================================
-        // 3. ПЛЕЕР СЕРИЙ - ИСПРАВЛЕННЫЙ
+        // 3. ПЛЕЕР СЕРИЙ
         // ===========================================
         const episodeItems = document.querySelectorAll('.episode-item:not(.disabled)');
         const videoFrame = document.getElementById('videoFrame');
         const videoLoading = document.getElementById('videoLoading');
         
-        // Улучшенная функция для получения URL Google Drive
         function getGoogleDriveVideoUrl(fileId) {
-            // Используем прямой iframe с preview для видео
             return `https://drive.google.com/file/d/${fileId}/preview`;
         }
         
-        // Анимация загрузки
         function showLoading() {
             if (videoLoading) {
                 videoLoading.style.display = 'flex';
@@ -6601,12 +6324,10 @@
                 showLoading();
                 videoFrame.src = getGoogleDriveVideoUrl(firstVideoId);
                 
-                // Скрываем загрузку после загрузки видео
                 videoFrame.onload = function() {
                     setTimeout(hideLoading, 1000);
                 };
                 
-                // На всякий случай скрываем через 5 секунд максимум
                 setTimeout(hideLoading, 5000);
             }
         }
@@ -6627,18 +6348,16 @@
                     showLoading();
                     videoFrame.src = getGoogleDriveVideoUrl(videoId);
                     
-                    // Скрываем загрузку после загрузки видео
                     videoFrame.onload = function() {
                         setTimeout(hideLoading, 1000);
                     };
                     
-                    // На всякий случай скрываем через 5 секунд максимум
                     setTimeout(hideLoading, 5000);
                 }
                 
                 // Обновляем комментарии для выбранной серии
-                if (commentsManager) {
-                    commentsManager.setCurrentEpisode(episodeId, episodeName);
+                if (firebaseCommentsManager) {
+                    firebaseCommentsManager.setCurrentEpisode(episodeId, episodeName);
                 }
                 
                 if (window.innerWidth < 768) {
@@ -6710,9 +6429,11 @@
                 } else if (modalOverlay.classList.contains('active')) {
                     closeModalWindow();
                 } else if (document.querySelector('.auth-modal-overlay.active')) {
-                    authManager.closeAuthModal();
+                    firebaseAuthManager.closeAuthModal();
                 } else if (document.querySelector('.comments-modal-overlay.active')) {
-                    commentsManager.closeCommentsModal();
+                    firebaseCommentsManager.closeCommentsModal();
+                } else if (document.querySelector('.edit-profile-modal.active')) {
+                    firebaseAuthManager.closeEditProfileModal();
                 }
             }
         });
@@ -6750,7 +6471,6 @@
                     ctx.shadowBlur = 22;
                     ctx.shadowColor = this.color;
                     
-                    // Рисуем вытянутую каплю с градиентом
                     const gradient = ctx.createLinearGradient(
                         this.x, this.y,
                         this.x, this.y + this.length
@@ -6767,13 +6487,11 @@
                     ctx.lineCap = 'round';
                     ctx.stroke();
                     
-                    // Рисуем округлость на конце капли
                     ctx.beginPath();
                     ctx.arc(this.x, this.y + this.length, this.size * 1.1, 0, Math.PI * 2);
                     ctx.fillStyle = gradient;
                     ctx.fill();
                     
-                    // Легкое свечение у верхней части капли
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.size/1.3, 0, Math.PI * 2);
                     ctx.fillStyle = this.color.replace('0.7)', '0.5)');
@@ -6786,7 +6504,6 @@
                 update: function() {
                     this.y += this.vy;
                     
-                    // Если капля ушла за нижнюю границу экрана, перезапускаем ее сверху
                     if (this.y > h + 50) {
                         this.init();
                         this.y = random(-200, -50);
@@ -6799,7 +6516,6 @@
                 w = canvas.width = window.innerWidth;
                 h = canvas.height = window.innerHeight;
                 
-                // При изменении размера окна пересоздаем капли
                 drops.length = 0;
                 setup();
             }
@@ -6808,14 +6524,12 @@
                 for (let i = 0; i < max; i++) {
                     const drop = new Raindrop();
                     drop.init();
-                    // Распределяем капли по всей высоте
                     drop.y = random(-h, h);
                     drops.push(drop);
                 }
             }
 
             function animate() {
-                // Более прозрачный фон для эффекта шлейфа
                 ctx.fillStyle = 'rgba(10, 10, 18, 0.07)';
                 ctx.fillRect(0, 0, w, h);
                 
@@ -6832,33 +6546,19 @@
         }
         
         // ===========================================
-        // 7. ФИНАЛЬНАЯ ПРОВЕРКА
+        // 7. АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ
         // ===========================================
-        console.log('Все системы работают!');
-        console.log('Доступные функции:');
-        console.log('- Система авторизации: вход/регистрация/профиль/выход');
-        console.log('- Система комментариев: добавление/просмотр/удаление комментариев к сериям');
-        console.log('- Научные достижения: клик по карточкам');
-        console.log('- Временная линия: клик по событиям');
-        console.log('- Плеер серий: переключение между эпизодами');
-        console.log('- Галерея: наведение для эффектов');
-        console.log('- Профиль пользователя: загрузка аватаров, редактирование профиля');
-        
-        // Адаптация для мобильных устройств
         function handleMobileResize() {
             if (window.innerWidth < 768) {
-                // Оптимизации для мобильных
                 document.querySelectorAll('.timeline-btn').forEach(btn => {
                     btn.style.transform = 'none';
                 });
                 
-                // Показываем кнопку открытия комментариев в модальном окне
                 const openCommentsBtn = document.getElementById('openCommentsBtn');
                 if (openCommentsBtn) {
                     openCommentsBtn.style.display = 'inline-flex';
                 }
             } else {
-                // Скрываем кнопку на десктопе
                 const openCommentsBtn = document.getElementById('openCommentsBtn');
                 if (openCommentsBtn) {
                     openCommentsBtn.style.display = 'none';
@@ -6868,6 +6568,18 @@
         
         window.addEventListener('resize', handleMobileResize);
         handleMobileResize();
+        
+        // ===========================================
+        // 8. ФИНАЛЬНАЯ ПРОВЕРКА
+        // ===========================================
+        console.log('Все системы работают!');
+        console.log('Доступные функции:');
+        console.log('- Firebase авторизация: вход/регистрация/профиль/выход');
+        console.log('- Firebase комментарии: добавление/просмотр/удаление');
+        console.log('- Научные достижения: клик по карточкам');
+        console.log('- Временная линия: клик по событиям');
+        console.log('- Плеер серий: переключение между эпизодами');
+        console.log('- Галерея: наведение для эффектов');
         
         // Эффект фейерверка при успешном входе
         function createFirework(x, y) {
@@ -6881,7 +6593,6 @@
             firework.style.boxShadow = '0 0 10px var(--primary)';
             document.body.appendChild(firework);
             
-            // Анимация
             const duration = 1000;
             const start = Date.now();
             
@@ -6889,7 +6600,6 @@
                 const elapsed = Date.now() - start;
                 const progress = Math.min(elapsed / duration, 1);
                 
-                // Увеличиваем и затем исчезаем
                 const scale = 1 + progress * 20;
                 const opacity = 1 - progress;
                 
@@ -6903,7 +6613,6 @@
                 }
             }
             
-            // Создаем частицы
             for (let i = 0; i < 12; i++) {
                 createParticle(x, y);
             }
@@ -6922,7 +6631,6 @@
             particle.style.boxShadow = '0 0 5px var(--lab-blue)';
             document.body.appendChild(particle);
             
-            // Случайное направление
             const angle = Math.random() * Math.PI * 2;
             const speed = 2 + Math.random() * 3;
             const vx = Math.cos(angle) * speed;
@@ -6935,7 +6643,6 @@
                 const elapsed = Date.now() - start;
                 const progress = Math.min(elapsed / duration, 1);
                 
-                // Движение
                 const currentX = x + vx * elapsed * 0.1;
                 const currentY = y + vy * elapsed * 0.1;
                 
@@ -6954,20 +6661,22 @@
         }
         
         // Добавляем фейерверк при успешном входе
-        const originalLogin = authManager.handleLogin;
-        authManager.handleLogin = function(e) {
-            const result = originalLogin.call(this, e);
+        const originalCheckAuthState = firebaseAuthManager.checkAuthState;
+        firebaseAuthManager.checkAuthState = function() {
+            const result = originalCheckAuthState.call(this);
             
-            if (result && result.success) {
-                // Запускаем фейерверки в случайных местах экрана
-                setTimeout(() => {
-                    for (let i = 0; i < 8; i++) {
-                        const x = Math.random() * window.innerWidth;
-                        const y = Math.random() * window.innerHeight;
-                        setTimeout(() => createFirework(x, y), i * 100);
-                    }
-                }, 500);
-            }
+            this.authFunctions.onAuthStateChanged(this.auth, (user) => {
+                if (user) {
+                    // Запускаем фейерверки
+                    setTimeout(() => {
+                        for (let i = 0; i < 8; i++) {
+                            const x = Math.random() * window.innerWidth;
+                            const y = Math.random() * window.innerHeight;
+                            setTimeout(() => createFirework(x, y), i * 100);
+                        }
+                    }, 500);
+                }
+            });
             
             return result;
         };
