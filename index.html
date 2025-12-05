@@ -5527,22 +5527,6 @@
         async submitComment() {
             const user = this.authManager.currentUser;
 
- // ДОБАВЬТЕ ЭТОТ ЛОГ
-  console.log('=== DEBUG submitComment ===');
-  console.log('Пользователь авторизован:', !!user);
-  console.log('User ID:', user?.uid);
-  console.log('User email:', user?.email);
-  
-  if (!user) {
-    console.log('❌ Пользователь не авторизован');
-    alert('Пожалуйста, войдите в аккаунт, чтобы оставлять комментарии');
-    this.authManager.openAuthModal('login');
-    return;
-  }
-  
-  const commentText = this.elements.commentText ? this.elements.commentText.value.trim() : '';
-  console.log('Текст комментария:', commentText);
-
             if (!user) {
                 alert('Пожалуйста, войдите в аккаунт, чтобы оставлять комментарии');
                 this.authManager.openAuthModal('login');
