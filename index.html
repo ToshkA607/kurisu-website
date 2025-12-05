@@ -4791,112 +4791,128 @@
         }
         
         checkAuthState() {
-            this.authFunctions.onAuthStateChanged(this.auth, (user) => {
-                if (user) {
-                    this.currentUser = user;
-                    this.showUserInfo();
-                    this.loadUserProfile(user.uid);
-                } else {
-                    this.currentUser = null;
-                    this.showAuthButtons();
-                }
+    console.log('Проверка состояния аутентификации...');
+    
+    this.authFunctions.onAuthStateChanged(this.auth, (user) => {
+        console.log('Состояние аутентификации изменилось:', user);
+        
+        if (user) {
+            console.log('Пользователь вошел:', {
+                uid: user.uid,
+                email: user.email,
+                displayName: user.displayName,
+                photoURL: user.photoURL
             });
+            
+            this.currentUser = user;
+            this.showUserInfo();
+            this.loadUserProfile(user.uid);
+        } else {
+            console.log('Пользователь вышел');
+            this.currentUser = null;
+            this.showAuthButtons();
         }
+    });
+}
         
-        async loadUserProfile(userId) {
-            try {
-                const userDoc = await this.firestore.getDoc(
-                    this.firestore.doc(this.db, 'users', userId)
-                );
-                
-                if (userDoc.exists()) {
-                    const userData = userDoc.data();
-                    this.updateUserInfo(userData);
-                } else {
-                    // Создаем профиль пользователя в Firestore
-                    await this.createUserProfile(userId);
-                }
-            } catch (error) {
-                console.error('Ошибка загрузки профиля:', error);
-            }
-        }
+       async loadUserProfile(userId) {
+    try {
+        const userDoc = await this.firestore.getDoc(
+            this.firestore.doc(this.db, 'users', userId)
+        );
         
-        async createUserProfile(userId) {
-            try {
-                const userData = {
-                    userId: userId,
-                    email: this.currentUser.email,
-                    username: this.currentUser.displayName || this.currentUser.email.split('@')[0],
-                    role: 'Участник Лаборатории',
-                    labId: `LAB-${String(Math.floor(Math.random() * 999) + 1).padStart(3, '0')}`,
-                    joinDate: new Date().toLocaleDateString('ru-RU'),
-                    avatar: '',
-                    commentCount: 0,
-                    createdAt: this.firestore.serverTimestamp()
-                };
-                
-                await this.firestore.setDoc(
-                    this.firestore.doc(this.db, 'users', userId),
-                    userData
-                );
-                
-                this.updateUserInfo(userData);
-            } catch (error) {
-                console.error('Ошибка создания профиля:', error);
-            }
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            this.updateUserInfo(userData);
+        } else {
+            // Создаем профиль пользователя в Firestore
+            await this.createUserProfile(userId, this.currentUser);
         }
+    } catch (error) {
+        console.error('Ошибка загрузки профиля:', error);
+    }
+}
+
+async createUserProfile(userId, firebaseUser) {
+    try {
+        const userData = {
+            userId: userId,
+            email: firebaseUser.email,
+            username: firebaseUser.displayName || firebaseUser.email.split('@')[0],
+            role: 'Участник Лаборатории',
+            labId: `LAB-${String(Math.floor(Math.random() * 999) + 1).padStart(3, '0')}`,
+            joinDate: new Date().toLocaleDateString('ru-RU'),
+            avatar: '',
+            commentCount: 0,
+            createdAt: this.firestore.serverTimestamp(),
+            displayName: firebaseUser.displayName || firebaseUser.email.split('@')[0]
+        };
         
-        updateUserInfo(userData) {
-            if (this.elements.userName) {
-                this.elements.userName.textContent = userData.username || 'Пользователь';
-            }
-            
-            if (this.elements.profileUserName) {
-                this.elements.profileUserName.textContent = userData.username || 'Пользователь';
-            }
-            
-            if (this.elements.profileUserRole) {
-                this.elements.profileUserRole.textContent = userData.role || 'Участник Лаборатории';
-            }
-            
-            if (this.elements.profileEmail) {
-                this.elements.profileEmail.textContent = this.currentUser.email;
-            }
-            
-            if (this.elements.profileUsername) {
-                this.elements.profileUsername.textContent = userData.username || this.currentUser.email.split('@')[0];
-            }
-            
-            if (this.elements.profileUserId) {
-                this.elements.profileUserId.textContent = userData.labId ? userData.labId.split('-')[1] : '001';
-            }
-            
-            if (this.elements.joinDate) {
-                this.elements.joinDate.textContent = userData.joinDate || new Date().toLocaleDateString('ru-RU');
-            }
-            
-            // Устанавливаем аватар
-            if (this.currentUser.photoURL) {
-                if (this.elements.userAvatar) {
-                    this.elements.userAvatar.style.backgroundImage = `url(${this.currentUser.photoURL})`;
-                    this.elements.userAvatar.textContent = '';
-                }
-                if (this.elements.profileAvatarLarge) {
-                    this.elements.profileAvatarLarge.style.backgroundImage = `url(${this.currentUser.photoURL})`;
-                    this.elements.profileAvatarLarge.textContent = '';
-                }
-            } else {
-                const firstLetter = userData.username ? userData.username.charAt(0).toUpperCase() : 'П';
-                if (this.elements.userAvatar) {
-                    this.elements.userAvatar.style.backgroundImage = '';
-                    this.elements.userAvatar.textContent = firstLetter;
-                }
-                if (this.elements.profileAvatarLarge) {
-                    this.elements.profileAvatarLarge.style.backgroundImage = '';
-                    this.elements.profileAvatarLarge.textContent = firstLetter;
-                }
-            }
+        await this.firestore.setDoc(
+            this.firestore.doc(this.db, 'users', userId),
+            userData
+        );
+        
+        this.updateUserInfo(userData);
+    } catch (error) {
+        console.error('Ошибка создания профиля:', error);
+    }
+}
+
+updateUserInfo(userData) {
+    // Используем реальные данные из userData вместо жестких значений
+    if (this.elements.userName) {
+        this.elements.userName.textContent = userData.username || userData.displayName || 'Пользователь';
+    }
+    
+    if (this.elements.profileUserName) {
+        this.elements.profileUserName.textContent = userData.username || userData.displayName || 'Пользователь';
+    }
+    
+    if (this.elements.profileUserRole) {
+        this.elements.profileUserRole.textContent = userData.role || 'Участник Лаборатории';
+    }
+    
+    if (this.elements.profileEmail) {
+        this.elements.profileEmail.textContent = userData.email || this.currentUser.email || 'user@example.com';
+    }
+    
+    if (this.elements.profileUsername) {
+        this.elements.profileUsername.textContent = userData.username || userData.displayName || 'username';
+    }
+    
+    if (this.elements.profileUserId) {
+        this.elements.profileUserId.textContent = userData.labId ? userData.labId.split('-')[1] : '001';
+    }
+    
+    if (this.elements.joinDate) {
+        this.elements.joinDate.textContent = userData.joinDate || new Date().toLocaleDateString('ru-RU');
+    }
+    
+    // Устанавливаем аватар
+    const displayName = userData.username || userData.displayName || 'П';
+    const firstLetter = displayName.charAt(0).toUpperCase();
+    
+    if (this.currentUser.photoURL) {
+        if (this.elements.userAvatar) {
+            this.elements.userAvatar.style.backgroundImage = `url(${this.currentUser.photoURL})`;
+            this.elements.userAvatar.textContent = '';
         }
+        if (this.elements.profileAvatarLarge) {
+            this.elements.profileAvatarLarge.style.backgroundImage = `url(${this.currentUser.photoURL})`;
+            this.elements.profileAvatarLarge.textContent = '';
+        }
+    } else {
+        if (this.elements.userAvatar) {
+            this.elements.userAvatar.style.backgroundImage = '';
+            this.elements.userAvatar.textContent = firstLetter;
+        }
+        if (this.elements.profileAvatarLarge) {
+            this.elements.profileAvatarLarge.style.backgroundImage = '';
+            this.elements.profileAvatarLarge.textContent = firstLetter;
+        }
+    }
+}
         
         showAuthButtons() {
             if (this.elements.authButtons) {
@@ -5038,72 +5054,71 @@
         }
         
         async handleRegister(e) {
-            e.preventDefault();
-            this.clearMessages();
+    e.preventDefault();
+    this.clearMessages();
+    
+    const email = document.getElementById('registerEmail').value.trim();
+    const username = document.getElementById('registerUsername').value.trim();
+    const password = document.getElementById('registerPassword').value;
+    const confirmPassword = document.getElementById('registerConfirmPassword').value;
+    const acceptTerms = document.getElementById('acceptTerms') ? document.getElementById('acceptTerms').checked : false;
+    
+    if (!email || !username || !password || !confirmPassword) {
+        this.showMessage(this.elements.registerMessage, 'Заполните все поля', 'error');
+        return;
+    }
+    
+    if (!acceptTerms) {
+        this.showMessage(this.elements.registerMessage, 'Необходимо принять условия использования', 'error');
+        return;
+    }
+    
+    if (password !== confirmPassword) {
+        this.showMessage(this.elements.registerMessage, 'Пароли не совпадают', 'error');
+        return;
+    }
+    
+    if (password.length < 6) {
+        this.showMessage(this.elements.registerMessage, 'Пароль должен содержать минимум 6 символов', 'error');
+        return;
+    }
+    
+    try {
+        // Создаем пользователя в Firebase Auth
+        const userCredential = await this.authFunctions.createUserWithEmailAndPassword(
+            this.auth, email, password
+        );
+        
+        // Обновляем отображаемое имя
+        await this.authFunctions.updateProfile(userCredential.user, {
+            displayName: username
+        });
+        
+        // Сразу создаем профиль в Firestore
+        await this.createUserProfile(userCredential.user.uid, userCredential.user);
+        
+        this.showMessage(this.elements.registerMessage, 'Регистрация успешна! Создаю профиль...', 'success');
+        
+        setTimeout(() => {
+            this.showMessage(this.elements.registerMessage, 'Профиль создан! Перенаправляю...', 'success');
             
-            const email = document.getElementById('registerEmail').value.trim();
-            const username = document.getElementById('registerUsername').value.trim();
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('registerConfirmPassword').value;
-            const acceptTerms = document.getElementById('acceptTerms') ? document.getElementById('acceptTerms').checked : false;
-            
-            if (!email || !username || !password || !confirmPassword) {
-                this.showMessage(this.elements.registerMessage, 'Заполните все поля', 'error');
-                return;
-            }
-            
-            if (!acceptTerms) {
-                this.showMessage(this.elements.registerMessage, 'Необходимо принять условия использования', 'error');
-                return;
-            }
-            
-            if (password !== confirmPassword) {
-                this.showMessage(this.elements.registerMessage, 'Пароли не совпадают', 'error');
-                return;
-            }
-            
-            if (password.length < 6) {
-                this.showMessage(this.elements.registerMessage, 'Пароль должен содержать минимум 6 символов', 'error');
-                return;
-            }
-            
-            try {
-                // Создаем пользователя в Firebase Auth
-                const userCredential = await this.authFunctions.createUserWithEmailAndPassword(
-                    this.auth, email, password
-                );
-                
-                // Обновляем отображаемое имя
-                await this.authFunctions.updateProfile(userCredential.user, {
-                    displayName: username
-                });
-                
-                this.showMessage(this.elements.registerMessage, 'Регистрация успешна!', 'success');
-                
-                if (this.elements.registerForm) {
-                    this.elements.registerForm.reset();
-                }
-                
-                setTimeout(() => {
-                    this.switchTab('login');
-                    const loginEmail = document.getElementById('loginEmail');
-                    if (loginEmail) {
-                        loginEmail.value = email;
-                        loginEmail.focus();
-                    }
-                }, 2000);
-            } catch (error) {
-                let errorMessage = 'Ошибка регистрации';
-                if (error.code === 'auth/email-already-in-use') {
-                    errorMessage = 'Пользователь с таким email уже существует';
-                } else if (error.code === 'auth/invalid-email') {
-                    errorMessage = 'Неверный формат email';
-                } else if (error.code === 'auth/weak-password') {
-                    errorMessage = 'Пароль слишком слабый';
-                }
-                this.showMessage(this.elements.registerMessage, errorMessage, 'error');
-            }
+            setTimeout(() => {
+                this.closeAuthModal();
+                this.showMainPage();
+            }, 1000);
+        }, 1500);
+    } catch (error) {
+        let errorMessage = 'Ошибка регистрации';
+        if (error.code === 'auth/email-already-in-use') {
+            errorMessage = 'Пользователь с таким email уже существует';
+        } else if (error.code === 'auth/invalid-email') {
+            errorMessage = 'Неверный формат email';
+        } else if (error.code === 'auth/weak-password') {
+            errorMessage = 'Пароль слишком слабый';
         }
+        this.showMessage(this.elements.registerMessage, errorMessage, 'error');
+    }
+}
         
         async handleLogout() {
             try {
@@ -5360,108 +5375,134 @@
         }
         
         async loadComments() {
-            try {
-                const commentsQuery = this.firestore.query(
-                    this.firestore.collection(this.db, 'comments'),
-                    this.firestore.where('episodeId', '==', this.currentEpisodeId),
-                    this.firestore.orderBy('createdAt', 'desc')
-                );
-                
-                const querySnapshot = await this.firestore.getDocs(commentsQuery);
-                
-                // Очищаем список комментариев
-                if (this.elements.commentsList) {
-                    this.elements.commentsList.innerHTML = '';
-                }
-                
-                if (this.elements.modalCommentsList) {
-                    this.elements.modalCommentsList.innerHTML = '';
-                }
-                
-                if (querySnapshot.empty) {
-                    const noCommentsHtml = `
-                        <div class="no-comments">
-                            <i class="fas fa-comment-slash"></i>
-                            <p>Пока нет комментариев.<br>Будьте первым, кто оставит отзыв!</p>
-                        </div>
-                    `;
-                    
-                    if (this.elements.commentsList) {
-                        this.elements.commentsList.innerHTML = noCommentsHtml;
-                    }
-                    
-                    if (this.elements.modalCommentsList) {
-                        this.elements.modalCommentsList.innerHTML = noCommentsHtml;
-                    }
-                    
-                    return;
-                }
-                
-                // Загружаем данные пользователей для комментариев
-                const commentsWithUserData = [];
-                
-                for (const doc of querySnapshot.docs) {
-                    const comment = doc.data();
-                    comment.id = doc.id;
-                    
-                    // Загружаем данные пользователя
-                    let userData = {};
-                    try {
-                        const userDoc = await this.firestore.getDoc(
-                            this.firestore.doc(this.db, 'users', comment.userId)
-                        );
-                        if (userDoc.exists()) {
-                            userData = userDoc.data();
-                        }
-                    } catch (error) {
-                        console.error('Ошибка загрузки данных пользователя:', error);
-                    }
-                    
-                    commentsWithUserData.push({
-                        ...comment,
-                        userName: userData.username || 'Аноним',
-                        userRole: userData.role || 'Участник Лаборатории',
-                        userAvatar: userData.avatar || '',
-                        userDataLoaded: true
-                    });
-                }
-                
-                // Отображаем комментарии
-                commentsWithUserData.forEach(comment => {
-                    const commentHtml = this.createCommentHtml(comment);
-                    
-                    if (this.elements.commentsList) {
-                        this.elements.commentsList.insertAdjacentHTML('beforeend', commentHtml);
-                    }
-                    
-                    if (this.elements.modalCommentsList) {
-                        this.elements.modalCommentsList.insertAdjacentHTML('beforeend', commentHtml);
-                    }
-                    
-                    // Добавляем обработчик удаления
-                    setTimeout(() => {
-                        this.addDeleteHandler(comment.id, comment.userId);
-                    }, 100);
-                });
-            } catch (error) {
-                console.error('Ошибка загрузки комментариев:', error);
-                
-                const errorHtml = `
-                    <div class="no-comments">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p>Ошибка загрузки комментариев</p>
-                    </div>
-                `;
-                
-                if (this.elements.commentsList) {
-                    this.elements.commentsList.innerHTML = errorHtml;
-                }
-                
-                if (this.elements.modalCommentsList) {
-                    this.elements.modalCommentsList.innerHTML = errorHtml;
-                }
-            }
+    try {
+        // Показываем индикатор загрузки
+        if (this.elements.commentsList) {
+            this.elements.commentsList.innerHTML = `
+                <div class="loading-comments">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Загрузка комментариев...</p>
+                </div>
+            `;
         }
+        
+        if (this.elements.modalCommentsList) {
+            this.elements.modalCommentsList.innerHTML = `
+                <div class="loading-comments">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Загрузка комментариев...</p>
+                </div>
+            `;
+        }
+        
+        const commentsQuery = this.firestore.query(
+            this.firestore.collection(this.db, 'comments'),
+            this.firestore.where('episodeId', '==', this.currentEpisodeId),
+            this.firestore.orderBy('createdAt', 'desc')
+        );
+        
+        const querySnapshot = await this.firestore.getDocs(commentsQuery);
+        
+        // Очищаем список комментариев
+        if (this.elements.commentsList) {
+            this.elements.commentsList.innerHTML = '';
+        }
+        
+        if (this.elements.modalCommentsList) {
+            this.elements.modalCommentsList.innerHTML = '';
+        }
+        
+        if (querySnapshot.empty) {
+            const noCommentsHtml = `
+                <div class="no-comments">
+                    <i class="fas fa-comment-slash"></i>
+                    <p>Пока нет комментариев.<br>Будьте первым, кто оставит отзыв!</p>
+                </div>
+            `;
+            
+            if (this.elements.commentsList) {
+                this.elements.commentsList.innerHTML = noCommentsHtml;
+            }
+            
+            if (this.elements.modalCommentsList) {
+                this.elements.modalCommentsList.innerHTML = noCommentsHtml;
+            }
+            
+            return;
+        }
+        
+        // Загружаем данные пользователей для комментариев
+        const commentsWithUserData = [];
+        
+        for (const doc of querySnapshot.docs) {
+            const comment = doc.data();
+            comment.id = doc.id;
+            
+            // Если createdAt не существует, создаем его
+            if (!comment.createdAt) {
+                comment.createdAt = new Date();
+            }
+            
+            // Загружаем данные пользователя
+            let userData = {};
+            try {
+                const userDoc = await this.firestore.getDoc(
+                    this.firestore.doc(this.db, 'users', comment.userId)
+                );
+                if (userDoc.exists()) {
+                    userData = userDoc.data();
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки данных пользователя:', error);
+            }
+            
+            commentsWithUserData.push({
+                ...comment,
+                userName: userData.username || userData.displayName || 'Аноним',
+                userRole: userData.role || 'Участник Лаборатории',
+                userAvatar: userData.avatar || '',
+                userDataLoaded: true
+            });
+        }
+        
+        // Отображаем комментарии
+        commentsWithUserData.forEach(comment => {
+            const commentHtml = this.createCommentHtml(comment);
+            
+            if (this.elements.commentsList) {
+                this.elements.commentsList.insertAdjacentHTML('beforeend', commentHtml);
+            }
+            
+            if (this.elements.modalCommentsList) {
+                this.elements.modalCommentsList.insertAdjacentHTML('beforeend', commentHtml);
+            }
+            
+            // Добавляем обработчик удаления
+            setTimeout(() => {
+                this.addDeleteHandler(comment.id, comment.userId);
+            }, 100);
+        });
+    } catch (error) {
+        console.error('Ошибка загрузки комментариев:', error);
+        console.error('Детали ошибки:', error.code, error.message);
+        
+        const errorHtml = `
+            <div class="no-comments">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Ошибка загрузки комментариев</p>
+                <p style="font-size: 0.8rem; margin-top: 10px;">Пожалуйста, проверьте подключение к Firebase</p>
+            </div>
+        `;
+        
+        if (this.elements.commentsList) {
+            this.elements.commentsList.innerHTML = errorHtml;
+        }
+        
+        if (this.elements.modalCommentsList) {
+            this.elements.modalCommentsList.innerHTML = errorHtml;
+        }
+    }
+}
         
         createCommentHtml(comment) {
             const date = comment.createdAt ? 
