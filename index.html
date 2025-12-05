@@ -8,32 +8,31 @@
     
     <!-- Firebase SDK -->
     <script type="module">
-        // Импортируем Firebase модули
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { 
-            getAuth, 
-            createUserWithEmailAndPassword, 
-            signInWithEmailAndPassword, 
-            signOut, 
-            onAuthStateChanged,
-            updateProfile
-        } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-        
-import { 
-    getFirestore,
-    collection,
-    addDoc,
-    getDocs,
-    query,
-    where,
-    orderBy,
-    deleteDoc,
-    doc,
-    updateDoc,
-    serverTimestamp,
-    getDoc,
-    setDoc // ← ДОБАВЬ ЭТО!
-} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { 
+        getAuth, 
+        createUserWithEmailAndPassword, 
+        signInWithEmailAndPassword, 
+        signOut, 
+        onAuthStateChanged,
+        updateProfile
+    } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+    
+    import { 
+        getFirestore,
+        collection,
+        addDoc,
+        getDocs,
+        query,
+        where,
+        orderBy,
+        deleteDoc,
+        doc,
+        updateDoc,
+        serverTimestamp,
+        getDoc,
+        setDoc // ← ДОБАВЬ ЭТУ СТРОЧКУ!
+    } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
         // Конфигурация Firebase
         const firebaseConfig = {
