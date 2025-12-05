@@ -5686,68 +5686,68 @@ updateUserInfo(userData) {
     }
 }
         
-        createCommentHtml(comment) {
-            const date = comment.createdAt ? 
-                (comment.createdAt.toDate ? comment.createdAt.toDate() : new Date(comment.createdAt)).toLocaleDateString('ru-RU', { 
-                    day: 'numeric', 
-                    month: 'long', 
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                }) : 
-                'Недавно';
-            
-            const avatarStyle = comment.userAvatar ? `background-image: url(${comment.userAvatar})` : '';
-            const avatarContent = comment.userAvatar ? '' : (comment.userName ? comment.userName.charAt(0).toUpperCase() : 'А');
-            const currentUser = this.authManager.currentUser;
-            const showDeleteBtn = currentUser && currentUser.uid === comment.userId;
-            
-            // Проверяем, лайкнул ли текущий пользователь этот комментарий
-            const isLiked = comment.likedBy && currentUser ? comment.likedBy.includes(currentUser.uid) : false;
-            const likesCount = comment.likes || 0;
-            
-            const deleteBtnHtml = showDeleteBtn 
-                ? `<button class="comment-delete-btn" data-comment-id="${comment.id}" title="Удалить комментарий">
-                    <i class="fas fa-trash"></i> Удалить
-                   </button>` 
-                : '';
-            
-            // Кнопка лайка
-            const likeBtnHtml = currentUser ? `
-                <button class="comment-like-btn ${isLiked ? 'liked' : ''}" data-comment-id="${comment.id}" title="${isLiked ? 'Убрать лайк' : 'Поставить лайк'}">
-                    <i class="fas fa-heart"></i> <span class="like-count">${likesCount}</span>
-                </button>
-            ` : `
-                <div class="comment-like-btn disabled" title="Войдите, чтобы ставить лайки">
-                    <i class="fas fa-heart"></i> <span class="like-count">${likesCount}</span>
-                </div>
-            `;
-            
-            return `
-                <div class="comment-item" data-comment-id="${comment.id}">
-                    <div class="comment-header">
-                        <div class="comment-author">
-                            <div class="comment-author-avatar" style="${avatarStyle}">${avatarContent}</div>
-                            <div class="comment-author-info">
-                                <div class="comment-author-name">${comment.userName || 'Аноним'}</div>
-                                <div class="comment-author-role">${comment.userRole}</div>
-                            </div>
-                        </div>
-                        <div class="comment-date">${date}</div>
-                    </div>
-                    <div class="comment-content">${this.escapeHtml(comment.content)}</div>
-                    <div class="comment-actions">
-                        ${likeBtnHtml}
-                        ${deleteBtnHtml}
-                    </div>
-                    <div class="comment-episode-info">
-                        <div class="episode-text">
-                            <i class="fas fa-play-circle"></i> Серия ${comment.episodeId}: ${comment.episodeName}
-                        </div>
+       createCommentHtml(comment) {
+    const date = comment.createdAt ? 
+        (comment.createdAt.toDate ? comment.createdAt.toDate() : new Date(comment.createdAt)).toLocaleDateString('ru-RU', { 
+            day: 'numeric', 
+            month: 'long', 
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        }) : 
+        'Недавно';
+    
+    const avatarStyle = comment.userAvatar ? `background-image: url(${comment.userAvatar})` : '';
+    const avatarContent = comment.userAvatar ? '' : (comment.userName ? comment.userName.charAt(0).toUpperCase() : 'А');
+    const currentUser = this.authManager.currentUser;
+    const showDeleteBtn = currentUser && currentUser.uid === comment.userId;
+    
+    // Проверяем, лайкнул ли текущий пользователь этот комментарий
+    const isLiked = comment.likedBy && currentUser ? comment.likedBy.includes(currentUser.uid) : false;
+    const likesCount = comment.likes || 0;
+    
+    const deleteBtnHtml = showDeleteBtn 
+        ? `<button class="comment-delete-btn" data-comment-id="${comment.id}" title="Удалить комментарий">
+            <i class="fas fa-trash"></i> Удалить
+           </button>` 
+        : '';
+    
+    // Кнопка лайка
+    const likeBtnHtml = currentUser ? `
+        <button class="comment-like-btn ${isLiked ? 'liked' : ''}" data-comment-id="${comment.id}" title="${isLiked ? 'Убрать лайк' : 'Поставить лайк'}">
+            <i class="fas fa-heart"></i> <span class="like-count">${likesCount}</span>
+        </button>
+    ` : `
+        <div class="comment-like-btn disabled" title="Войдите, чтобы ставить лайки">
+            <i class="fas fa-heart"></i> <span class="like-count">${likesCount}</span>
+        </div>
+    `;
+    
+    return `
+        <div class="comment-item" data-comment-id="${comment.id}">
+            <div class="comment-header">
+                <div class="comment-author">
+                    <div class="comment-author-avatar" style="${avatarStyle}">${avatarContent}</div>
+                    <div class="comment-author-info">
+                        <div class="comment-author-name">${comment.userName || 'Аноним'}</div>
+                        <div class="comment-author-role">${comment.userRole}</div>
                     </div>
                 </div>
-            `;
-        }
+                <div class="comment-date">${date}</div>
+            </div>
+            <div class="comment-content">${this.escapeHtml(comment.content)}</div>
+            <div class="comment-actions">
+                ${likeBtnHtml}
+                ${deleteBtnHtml}
+            </div>
+            <div class="comment-episode-info">
+                <div class="episode-text">
+                    <i class="fas fa-play-circle"></i> Серия ${comment.episodeId}: ${comment.episodeName}
+                </div>
+            </div>
+        </div>
+    `;
+}
         
         addDeleteHandler(commentId, userId) {
             const deleteBtns = document.querySelectorAll(`.comment-delete-btn[data-comment-id="${commentId}"]`);
@@ -5760,78 +5760,123 @@ updateUserInfo(userData) {
         }
         
         addLikeHandler(commentId) {
-            const likeBtns = document.querySelectorAll(`.comment-like-btn[data-comment-id="${commentId}"]`);
-            likeBtns.forEach(btn => {
-                btn.addEventListener('click', async (e) => {
-                    e.stopPropagation();
-                    
-                    const user = this.authManager.currentUser;
-                    if (!user) {
-                        this.authManager.openAuthModal('login');
-                        return;
+    const likeBtns = document.querySelectorAll(`.comment-like-btn[data-comment-id="${commentId}"]`);
+    
+    likeBtns.forEach(btn => {
+        // Пропускаем кнопки disabled (для незалогиненных)
+        if (btn.classList.contains('disabled')) return;
+        
+        btn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            
+            const user = this.authManager.currentUser;
+            if (!user) {
+                this.authManager.openAuthModal('login');
+                return;
+            }
+            
+            console.log('Клик по лайку:', commentId, 'Пользователь:', user.uid);
+            
+            const isCurrentlyLiked = btn.classList.contains('liked');
+            const likeCountSpan = btn.querySelector('.like-count');
+            const currentLikes = parseInt(likeCountSpan.textContent) || 0;
+            
+            // Сразу обновляем UI для лучшего UX
+            if (isCurrentlyLiked) {
+                btn.classList.remove('liked');
+                btn.title = 'Поставить лайк';
+                likeCountSpan.textContent = Math.max(0, currentLikes - 1);
+            } else {
+                btn.classList.add('liked');
+                btn.title = 'Убрать лайк';
+                likeCountSpan.textContent = currentLikes + 1;
+            }
+            
+            // Обновляем все кнопки лайка для этого комментария
+            document.querySelectorAll(`.comment-like-btn[data-comment-id="${commentId}"]`).forEach(otherBtn => {
+                if (otherBtn !== btn && !otherBtn.classList.contains('disabled')) {
+                    const otherLikeCount = otherBtn.querySelector('.like-count');
+                    if (otherLikeCount) {
+                        otherLikeCount.textContent = isCurrentlyLiked ? 
+                            Math.max(0, currentLikes - 1) : 
+                            currentLikes + 1;
                     }
-                    
-                    const isCurrentlyLiked = btn.classList.contains('liked');
-                    const likeCountSpan = btn.querySelector('.like-count');
-                    
-                    try {
-                        const commentRef = this.firestore.doc(this.db, 'comments', commentId);
-                        const commentDoc = await this.firestore.getDoc(commentRef);
-                        
-                        if (!commentDoc.exists()) {
-                            console.error('Комментарий не найден');
-                            return;
-                        }
-                        
-                        const commentData = commentDoc.data();
-                        const currentLikes = commentData.likes || 0;
-                        const likedBy = commentData.likedBy || [];
-                        
-                        let newLikes = currentLikes;
-                        let newLikedBy = [...likedBy];
-                        
-                        if (isCurrentlyLiked) {
-                            // Убираем лайк
-                            newLikes = Math.max(0, currentLikes - 1);
-                            newLikedBy = likedBy.filter(id => id !== user.uid);
-                            btn.classList.remove('liked');
-                            btn.title = 'Поставить лайк';
-                        } else {
-                            // Добавляем лайк
-                            newLikes = currentLikes + 1;
-                            newLikedBy.push(user.uid);
-                            btn.classList.add('liked');
-                            btn.title = 'Убрать лайк';
-                        }
-                        
-                        // Обновляем в Firestore
-                        await this.firestore.updateDoc(commentRef, {
-                            likes: newLikes,
-                            likedBy: newLikedBy
-                        });
-                        
-                        // Обновляем отображение
-                        if (likeCountSpan) {
-                            likeCountSpan.textContent = newLikes;
-                        }
-                        
-                        // Обновляем все кнопки лайка для этого комментария
-                        document.querySelectorAll(`.comment-like-btn[data-comment-id="${commentId}"]`).forEach(otherBtn => {
-                            if (otherBtn !== btn) {
-                                const otherLikeCount = otherBtn.querySelector('.like-count');
-                                if (otherLikeCount) otherLikeCount.textContent = newLikes;
-                                otherBtn.classList.toggle('liked', !isCurrentlyLiked);
-                                otherBtn.title = !isCurrentlyLiked ? 'Убрать лайк' : 'Поставить лайк';
-                            }
-                        });
-                        
-                    } catch (error) {
-                        console.error('Ошибка при обновлении лайка:', error);
-                        this.showNotification('Ошибка при обновлении лайка', 'error');
+                    otherBtn.classList.toggle('liked', !isCurrentlyLiked);
+                    otherBtn.title = !isCurrentlyLiked ? 'Убрать лайк' : 'Поставить лайк';
+                }
+            });
+            
+            try {
+                const commentRef = this.firestore.doc(this.db, 'comments', commentId);
+                const commentDoc = await this.firestore.getDoc(commentRef);
+                
+                if (!commentDoc.exists()) {
+                    console.error('Комментарий не найден:', commentId);
+                    return;
+                }
+                
+                const commentData = commentDoc.data();
+                const commentLikes = commentData.likes || 0;
+                const likedBy = commentData.likedBy || [];
+                
+                let newLikes = commentLikes;
+                let newLikedBy = [...likedBy];
+                
+                if (isCurrentlyLiked) {
+                    // Убираем лайк
+                    newLikes = Math.max(0, commentLikes - 1);
+                    newLikedBy = likedBy.filter(id => id !== user.uid);
+                } else {
+                    // Добавляем лайк
+                    newLikes = commentLikes + 1;
+                    newLikedBy.push(user.uid);
+                }
+                
+                // Обновляем в Firestore
+                await this.firestore.updateDoc(commentRef, {
+                    likes: newLikes,
+                    likedBy: newLikedBy,
+                    updatedAt: this.firestore.serverTimestamp()
+                });
+                
+                console.log('Лайк обновлен:', {
+                    commentId,
+                    newLikes,
+                    newLikedBy,
+                    wasLiked: isCurrentlyLiked
+                });
+                
+            } catch (error) {
+                console.error('Ошибка при обновлении лайка:', error);
+                console.error('Детали ошибки:', error.code, error.message);
+                
+                // Откатываем изменения UI в случае ошибки
+                if (isCurrentlyLiked) {
+                    btn.classList.add('liked');
+                    btn.title = 'Убрать лайк';
+                    likeCountSpan.textContent = currentLikes;
+                } else {
+                    btn.classList.remove('liked');
+                    btn.title = 'Поставить лайк';
+                    likeCountSpan.textContent = Math.max(0, currentLikes - 1);
+                }
+                
+                // Обновляем другие кнопки
+                document.querySelectorAll(`.comment-like-btn[data-comment-id="${commentId}"]`).forEach(otherBtn => {
+                    if (otherBtn !== btn && !otherBtn.classList.contains('disabled')) {
+                        const otherLikeCount = otherBtn.querySelector('.like-count');
+                        if (otherLikeCount) otherLikeCount.textContent = currentLikes;
+                        otherBtn.classList.toggle('liked', isCurrentlyLiked);
+                        otherBtn.title = isCurrentlyLiked ? 'Убрать лайк' : 'Поставить лайк';
                     }
                 });
-            });
-        }
+                
+                this.showNotification('Ошибка при обновлении лайка: ' + error.message, 'error');
+            }
+        });
+    });
+}
         
         escapeHtml(text) {
             const div = document.createElement('div');
