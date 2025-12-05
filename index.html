@@ -4848,6 +4848,7 @@ async createUserProfile(userId, firebaseUser) {
             displayName: firebaseUser.displayName || firebaseUser.email.split('@')[0]
         };
         
+        // ИСПРАВЛЕННАЯ СТРОКА:
         await this.firestore.setDoc(
             this.firestore.doc(this.db, 'users', userId),
             userData
@@ -4856,9 +4857,17 @@ async createUserProfile(userId, firebaseUser) {
         this.updateUserInfo(userData);
     } catch (error) {
         console.error('Ошибка создания профиля:', error);
+        // Если ошибка setDoc, пробуем addDoc
+        try {
+            await this.firestore.addDoc(
+                this.firestore.collection(this.db, 'users'),
+                userData
+            );
+        } catch (e) {
+            console.error('Ошибка при попытке addDoc:', e);
+        }
     }
 }
-
 updateUserInfo(userData) {
     // Используем реальные данные из userData вместо жестких значений
     if (this.elements.userName) {
