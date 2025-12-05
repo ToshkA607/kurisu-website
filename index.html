@@ -31,7 +31,7 @@
         updateDoc,
         serverTimestamp,
         getDoc,
-        setDoc // ← ДОБАВЬ ЭТУ СТРОЧКУ!
+        setDoc
     } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
         // Конфигурация Firebase
@@ -73,7 +73,8 @@
                 doc,
                 updateDoc,
                 serverTimestamp,
-                getDoc
+                getDoc,
+                setDoc
             }
         };
         
@@ -253,6 +254,55 @@
             cursor: not-allowed;
         }
         
+        /* Стили для кнопок лайков */
+        .comment-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .comment-like-btn {
+            background: rgba(244, 67, 54, 0.1);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .comment-like-btn:hover:not(.disabled) {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+        }
+        
+        .comment-like-btn.liked {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border-color: #f44336;
+        }
+        
+        .comment-like-btn.liked i {
+            color: #f44336;
+        }
+        
+        .comment-like-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .like-count {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
         .login-to-comment {
             text-align: center;
             padding: 20px;
@@ -318,6 +368,7 @@
             font-size: 1rem;
             background-size: cover;
             background-position: center;
+            object-fit: cover;
         }
         
         .comment-author-info {
@@ -382,7 +433,6 @@
             align-items: center;
             gap: 5px;
             opacity: 0.8;
-            margin-left: auto;
         }
         
         .comment-item:hover .comment-delete-btn {
@@ -631,6 +681,12 @@
             .comment-delete-btn {
                 opacity: 1;
             }
+            
+            .comment-actions {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -670,8 +726,6 @@
             }
             
             .comment-delete-btn {
-                margin-left: 0;
-                margin-top: 5px;
                 align-self: flex-end;
             }
         }
@@ -949,6 +1003,7 @@
             transition: all 0.3s ease;
             background-size: cover;
             background-position: center;
+            object-fit: cover;
         }
         
         .user-avatar:hover {
@@ -1350,6 +1405,7 @@
             cursor: pointer;
             background-size: cover;
             background-position: center;
+            object-fit: cover;
         }
         
         .profile-avatar-large:hover::before {
@@ -4703,7 +4759,9 @@
                 editProfileModalOverlay: document.getElementById('editProfileModalOverlay'),
                 editProfileModal: document.getElementById('editProfileModal'),
                 closeEditProfileModal: document.getElementById('closeEditProfileModal'),
-                editProfileForm: document.getElementById('editProfileForm')
+                editProfileForm: document.getElementById('editProfileForm'),
+                avatarInput: document.getElementById('avatarInput'),
+                avatarUploadBtn: document.getElementById('avatarUploadBtn')
             };
         }
         
@@ -4766,6 +4824,21 @@
             
             if (this.elements.editProfileForm) {
                 this.elements.editProfileForm.addEventListener('submit', (e) => this.handleEditProfileSubmit(e));
+            }
+            
+            if (this.elements.avatarUploadBtn) {
+                this.elements.avatarUploadBtn.addEventListener('click', () => {
+                    this.elements.avatarInput.click();
+                });
+            }
+            
+            if (this.elements.avatarInput) {
+                this.elements.avatarInput.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        this.handleAvatarUpload(file);
+                    }
+                });
             }
             
             // Переключение видимости пароля
@@ -4849,58 +4922,22 @@ async createUserProfile(userId, firebaseUser) {
             avatar: '',
             commentCount: 0,
             createdAt: this.firestore.serverTimestamp(),
-            displayName: firebaseUser.displayName || firebaseUser.email.split('@')[0]
+            displayName: firebaseUser.displayName || firebaseUser.email.split('@')[0],
+            likesCount: 0
         };
         
         // Создаем ссылку на документ
         const userDocRef = this.firestore.doc(this.db, 'users', userId);
         
-        // Проверяем, существует ли уже документ
-        const docSnap = await this.firestore.getDoc(userDocRef);
-        
-        if (docSnap.exists()) {
-            console.log('Профиль уже существует, обновляем');
-            await this.firestore.updateDoc(userDocRef, userData);
-        } else {
-            console.log('Создаем новый профиль');
-            // Используем setDoc для создания нового документа
-            await this.firestore.setDoc(userDocRef, userData);
-        }
+        // Используем setDoc для создания нового документа
+        await this.firestore.setDoc(userDocRef, userData);
         
         this.updateUserInfo(userData);
-        console.log('Профиль успешно создан/обновлен');
+        console.log('Профиль успешно создан');
         return true;
     } catch (error) {
         console.error('Ошибка создания профиля:', error);
-        
-        // Попробуем альтернативный способ
-        try {
-            console.log('Пробуем альтернативный метод создания профиля...');
-            
-            const userData = {
-                userId: userId,
-                email: firebaseUser.email,
-                username: firebaseUser.displayName || firebaseUser.email.split('@')[0],
-                role: 'Участник Лаборатории',
-                labId: `LAB-${String(Math.floor(Math.random() * 999) + 1).padStart(3, '0')}`,
-                joinDate: new Date().toLocaleDateString('ru-RU'),
-                avatar: '',
-                commentCount: 0,
-                createdAt: this.firestore.serverTimestamp(),
-                displayName: firebaseUser.displayName || firebaseUser.email.split('@')[0]
-            };
-            
-            // Создаем документ с автоматическим ID, но с указанием userId в данных
-            const usersCollection = this.firestore.collection(this.db, 'users');
-            await this.firestore.addDoc(usersCollection, userData);
-            
-            console.log('Профиль создан через addDoc');
-            this.updateUserInfo(userData);
-            return true;
-        } catch (e) {
-            console.error('Ошибка при попытке addDoc:', e);
-            return false;
-        }
+        return false;
     }
 }
 updateUserInfo(userData) {
@@ -4937,13 +4974,14 @@ updateUserInfo(userData) {
     const displayName = userData.username || userData.displayName || 'П';
     const firstLetter = displayName.charAt(0).toUpperCase();
     
-    if (this.currentUser.photoURL) {
+    if (userData.avatar && userData.avatar.startsWith('data:image')) {
+        // Это base64 аватар
         if (this.elements.userAvatar) {
-            this.elements.userAvatar.style.backgroundImage = `url(${this.currentUser.photoURL})`;
+            this.elements.userAvatar.style.backgroundImage = `url(${userData.avatar})`;
             this.elements.userAvatar.textContent = '';
         }
         if (this.elements.profileAvatarLarge) {
-            this.elements.profileAvatarLarge.style.backgroundImage = `url(${this.currentUser.photoURL})`;
+            this.elements.profileAvatarLarge.style.backgroundImage = `url(${userData.avatar})`;
             this.elements.profileAvatarLarge.textContent = '';
         }
     } else {
@@ -5198,7 +5236,8 @@ updateUserInfo(userData) {
                 await this.firestore.updateDoc(
                     this.firestore.doc(this.db, 'users', this.currentUser.uid),
                     {
-                        username: newUsername
+                        username: newUsername,
+                        displayName: newUsername
                     }
                 );
                 
@@ -5214,18 +5253,86 @@ updateUserInfo(userData) {
                 }
                 
                 // Обновляем аватар
-                if (this.elements.userAvatar && !this.currentUser.photoURL) {
-                    this.elements.userAvatar.textContent = newUsername.charAt(0).toUpperCase();
-                }
-                if (this.elements.profileAvatarLarge && !this.currentUser.photoURL) {
-                    this.elements.profileAvatarLarge.textContent = newUsername.charAt(0).toUpperCase();
+                const userDoc = await this.firestore.getDoc(
+                    this.firestore.doc(this.db, 'users', this.currentUser.uid)
+                );
+                const userData = userDoc.exists() ? userDoc.data() : {};
+                
+                if (!userData.avatar || !userData.avatar.startsWith('data:image')) {
+                    if (this.elements.userAvatar) {
+                        this.elements.userAvatar.textContent = newUsername.charAt(0).toUpperCase();
+                    }
+                    if (this.elements.profileAvatarLarge) {
+                        this.elements.profileAvatarLarge.textContent = newUsername.charAt(0).toUpperCase();
+                    }
                 }
                 
                 this.closeEditProfileModal();
-                alert('Профиль успешно обновлен!');
+                this.showNotification('Профиль успешно обновлен!', 'success');
             } catch (error) {
                 console.error('Ошибка обновления профиля:', error);
-                alert('Ошибка при обновлении профиля');
+                this.showNotification('Ошибка при обновлении профиля', 'error');
+            }
+        }
+        
+        async handleAvatarUpload(file) {
+            try {
+                if (!file) return;
+                
+                // Проверяем размер файла (макс 2MB)
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('Файл слишком большой. Максимальный размер: 2MB');
+                    return;
+                }
+                
+                // Проверяем тип файла
+                if (!file.type.match('image.*')) {
+                    alert('Пожалуйста, выберите изображение');
+                    return;
+                }
+                
+                const user = this.currentUser;
+                if (!user) {
+                    alert('Пожалуйста, войдите в аккаунт');
+                    return;
+                }
+                
+                // Создаем превью
+                const reader = new FileReader();
+                reader.onload = async (e) => {
+                    const avatarData = e.target.result;
+                    
+                    // Показываем превью
+                    if (this.elements.userAvatar) {
+                        this.elements.userAvatar.style.backgroundImage = `url(${avatarData})`;
+                        this.elements.userAvatar.textContent = '';
+                    }
+                    if (this.elements.profileAvatarLarge) {
+                        this.elements.profileAvatarLarge.style.backgroundImage = `url(${avatarData})`;
+                        this.elements.profileAvatarLarge.textContent = '';
+                    }
+                    
+                    // Сохраняем в Firestore
+                    await this.firestore.updateDoc(
+                        this.firestore.doc(this.db, 'users', user.uid),
+                        {
+                            avatar: avatarData,
+                            updatedAt: this.firestore.serverTimestamp()
+                        }
+                    );
+                    
+                    this.showNotification('Аватар успешно обновлен!', 'success');
+                };
+                
+                reader.onerror = () => {
+                    this.showNotification('Ошибка при чтении файла', 'error');
+                };
+                
+                reader.readAsDataURL(file);
+                
+            } catch (error) {
+                console.error('Ошибка загрузки аватара:', error);
+                this.showNotification('Ошибка при загрузке аватара', 'error');
             }
         }
         
@@ -5235,15 +5342,22 @@ updateUserInfo(userData) {
             
             // Обновляем данные в профиле
             if (this.elements.profileAvatarLarge) {
-                if (user.photoURL) {
-                    this.elements.profileAvatarLarge.style.backgroundImage = `url(${user.photoURL})`;
-                    this.elements.profileAvatarLarge.textContent = '';
-                } else {
-                    this.elements.profileAvatarLarge.style.backgroundImage = '';
-                    this.elements.profileAvatarLarge.textContent = user.displayName ? 
-                        user.displayName.charAt(0).toUpperCase() : 
-                        user.email.charAt(0).toUpperCase();
-                }
+                const userDoc = this.firestore.getDoc(
+                    this.firestore.doc(this.db, 'users', user.uid)
+                ).then(doc => {
+                    if (doc.exists()) {
+                        const userData = doc.data();
+                        if (userData.avatar && userData.avatar.startsWith('data:image')) {
+                            this.elements.profileAvatarLarge.style.backgroundImage = `url(${userData.avatar})`;
+                            this.elements.profileAvatarLarge.textContent = '';
+                        } else {
+                            this.elements.profileAvatarLarge.style.backgroundImage = '';
+                            this.elements.profileAvatarLarge.textContent = userData.displayName ? 
+                                userData.displayName.charAt(0).toUpperCase() : 
+                                user.email.charAt(0).toUpperCase();
+                        }
+                    }
+                });
             }
             
             // Скрываем основное содержимое и показываем профиль
@@ -5287,6 +5401,28 @@ updateUserInfo(userData) {
                     element.classList.remove('show');
                 }, 5000);
             }
+        }
+        
+        showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `auth-message ${type} show`;
+            notification.textContent = message;
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.right = '20px';
+            notification.style.zIndex = '10004';
+            notification.style.maxWidth = '300px';
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
         }
         
         clearMessages() {
@@ -5502,10 +5638,11 @@ updateUserInfo(userData) {
             
             commentsWithUserData.push({
                 ...comment,
-                userName: userData.username || userData.displayName || 'Аноним',
-                userRole: userData.role || 'Участник Лаборатории',
-                userAvatar: userData.avatar || '',
-                userDataLoaded: true
+                userName: userData.username || userData.displayName || comment.userName || 'Аноним',
+                userRole: userData.role || comment.userRole || 'Участник Лаборатории',
+                userAvatar: comment.userAvatar || userData.avatar || '',
+                likes: comment.likes || 0,
+                likedBy: comment.likedBy || []
             });
         }
         
@@ -5521,9 +5658,10 @@ updateUserInfo(userData) {
                 this.elements.modalCommentsList.insertAdjacentHTML('beforeend', commentHtml);
             }
             
-            // Добавляем обработчик удаления
+            // Добавляем обработчики
             setTimeout(() => {
                 this.addDeleteHandler(comment.id, comment.userId);
+                this.addLikeHandler(comment.id);
             }, 100);
         });
     } catch (error) {
@@ -5550,7 +5688,7 @@ updateUserInfo(userData) {
         
         createCommentHtml(comment) {
             const date = comment.createdAt ? 
-                comment.createdAt.toDate().toLocaleDateString('ru-RU', { 
+                (comment.createdAt.toDate ? comment.createdAt.toDate() : new Date(comment.createdAt)).toLocaleDateString('ru-RU', { 
                     day: 'numeric', 
                     month: 'long', 
                     year: 'numeric',
@@ -5560,9 +5698,13 @@ updateUserInfo(userData) {
                 'Недавно';
             
             const avatarStyle = comment.userAvatar ? `background-image: url(${comment.userAvatar})` : '';
-            const avatarContent = comment.userAvatar ? '' : comment.userName.charAt(0).toUpperCase();
+            const avatarContent = comment.userAvatar ? '' : (comment.userName ? comment.userName.charAt(0).toUpperCase() : 'А');
             const currentUser = this.authManager.currentUser;
             const showDeleteBtn = currentUser && currentUser.uid === comment.userId;
+            
+            // Проверяем, лайкнул ли текущий пользователь этот комментарий
+            const isLiked = comment.likedBy && currentUser ? comment.likedBy.includes(currentUser.uid) : false;
+            const likesCount = comment.likes || 0;
             
             const deleteBtnHtml = showDeleteBtn 
                 ? `<button class="comment-delete-btn" data-comment-id="${comment.id}" title="Удалить комментарий">
@@ -5570,24 +5712,38 @@ updateUserInfo(userData) {
                    </button>` 
                 : '';
             
+            // Кнопка лайка
+            const likeBtnHtml = currentUser ? `
+                <button class="comment-like-btn ${isLiked ? 'liked' : ''}" data-comment-id="${comment.id}" title="${isLiked ? 'Убрать лайк' : 'Поставить лайк'}">
+                    <i class="fas fa-heart"></i> <span class="like-count">${likesCount}</span>
+                </button>
+            ` : `
+                <div class="comment-like-btn disabled" title="Войдите, чтобы ставить лайки">
+                    <i class="fas fa-heart"></i> <span class="like-count">${likesCount}</span>
+                </div>
+            `;
+            
             return `
                 <div class="comment-item" data-comment-id="${comment.id}">
                     <div class="comment-header">
                         <div class="comment-author">
                             <div class="comment-author-avatar" style="${avatarStyle}">${avatarContent}</div>
                             <div class="comment-author-info">
-                                <div class="comment-author-name">${comment.userName}</div>
+                                <div class="comment-author-name">${comment.userName || 'Аноним'}</div>
                                 <div class="comment-author-role">${comment.userRole}</div>
                             </div>
                         </div>
                         <div class="comment-date">${date}</div>
                     </div>
                     <div class="comment-content">${this.escapeHtml(comment.content)}</div>
+                    <div class="comment-actions">
+                        ${likeBtnHtml}
+                        ${deleteBtnHtml}
+                    </div>
                     <div class="comment-episode-info">
                         <div class="episode-text">
                             <i class="fas fa-play-circle"></i> Серия ${comment.episodeId}: ${comment.episodeName}
                         </div>
-                        ${deleteBtnHtml}
                     </div>
                 </div>
             `;
@@ -5599,6 +5755,80 @@ updateUserInfo(userData) {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     this.deleteComment(commentId, userId);
+                });
+            });
+        }
+        
+        addLikeHandler(commentId) {
+            const likeBtns = document.querySelectorAll(`.comment-like-btn[data-comment-id="${commentId}"]`);
+            likeBtns.forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    
+                    const user = this.authManager.currentUser;
+                    if (!user) {
+                        this.authManager.openAuthModal('login');
+                        return;
+                    }
+                    
+                    const isCurrentlyLiked = btn.classList.contains('liked');
+                    const likeCountSpan = btn.querySelector('.like-count');
+                    
+                    try {
+                        const commentRef = this.firestore.doc(this.db, 'comments', commentId);
+                        const commentDoc = await this.firestore.getDoc(commentRef);
+                        
+                        if (!commentDoc.exists()) {
+                            console.error('Комментарий не найден');
+                            return;
+                        }
+                        
+                        const commentData = commentDoc.data();
+                        const currentLikes = commentData.likes || 0;
+                        const likedBy = commentData.likedBy || [];
+                        
+                        let newLikes = currentLikes;
+                        let newLikedBy = [...likedBy];
+                        
+                        if (isCurrentlyLiked) {
+                            // Убираем лайк
+                            newLikes = Math.max(0, currentLikes - 1);
+                            newLikedBy = likedBy.filter(id => id !== user.uid);
+                            btn.classList.remove('liked');
+                            btn.title = 'Поставить лайк';
+                        } else {
+                            // Добавляем лайк
+                            newLikes = currentLikes + 1;
+                            newLikedBy.push(user.uid);
+                            btn.classList.add('liked');
+                            btn.title = 'Убрать лайк';
+                        }
+                        
+                        // Обновляем в Firestore
+                        await this.firestore.updateDoc(commentRef, {
+                            likes: newLikes,
+                            likedBy: newLikedBy
+                        });
+                        
+                        // Обновляем отображение
+                        if (likeCountSpan) {
+                            likeCountSpan.textContent = newLikes;
+                        }
+                        
+                        // Обновляем все кнопки лайка для этого комментария
+                        document.querySelectorAll(`.comment-like-btn[data-comment-id="${commentId}"]`).forEach(otherBtn => {
+                            if (otherBtn !== btn) {
+                                const otherLikeCount = otherBtn.querySelector('.like-count');
+                                if (otherLikeCount) otherLikeCount.textContent = newLikes;
+                                otherBtn.classList.toggle('liked', !isCurrentlyLiked);
+                                otherBtn.title = !isCurrentlyLiked ? 'Убрать лайк' : 'Поставить лайк';
+                            }
+                        });
+                        
+                    } catch (error) {
+                        console.error('Ошибка при обновлении лайка:', error);
+                        this.showNotification('Ошибка при обновлении лайка', 'error');
+                    }
                 });
             });
         }
@@ -5643,11 +5873,13 @@ updateUserInfo(userData) {
                 const commentData = {
                     episodeId: this.currentEpisodeId,
                     userId: user.uid,
-                    userName: userData.username || user.displayName || user.email.split('@')[0],
+                    userName: userData.username || userData.displayName || user.displayName || user.email.split('@')[0],
                     userRole: userData.role || 'Участник Лаборатории',
                     userAvatar: userData.avatar || '',
                     content: commentText,
                     episodeName: this.currentEpisodeName,
+                    likes: 0,
+                    likedBy: [],
                     createdAt: this.firestore.serverTimestamp()
                 };
                 
@@ -5697,8 +5929,9 @@ updateUserInfo(userData) {
                     this.elements.modalCommentsList.insertAdjacentHTML('afterbegin', commentHtml);
                 }
                 
-                // Добавляем обработчик удаления
+                // Добавляем обработчики
                 this.addDeleteHandler(docRef.id, user.uid);
+                this.addLikeHandler(docRef.id);
                 
                 // Показываем уведомление
                 this.showNotification('Комментарий успешно добавлен!', 'success');
@@ -5741,11 +5974,13 @@ updateUserInfo(userData) {
                 const commentData = {
                     episodeId: this.currentEpisodeId,
                     userId: user.uid,
-                    userName: userData.username || user.displayName || user.email.split('@')[0],
+                    userName: userData.username || userData.displayName || user.displayName || user.email.split('@')[0],
                     userRole: userData.role || 'Участник Лаборатории',
                     userAvatar: userData.avatar || '',
                     content: commentText,
                     episodeName: this.currentEpisodeName,
+                    likes: 0,
+                    likedBy: [],
                     createdAt: this.firestore.serverTimestamp()
                 };
                 
@@ -5795,8 +6030,9 @@ updateUserInfo(userData) {
                     this.elements.modalCommentsList.insertAdjacentHTML('afterbegin', commentHtml);
                 }
                 
-                // Добавляем обработчик удаления
+                // Добавляем обработчики
                 this.addDeleteHandler(docRef.id, user.uid);
+                this.addLikeHandler(docRef.id);
                 
                 // Показываем уведомление
                 this.showNotification('Комментарий успешно добавлен!', 'success');
