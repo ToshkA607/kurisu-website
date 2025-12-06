@@ -406,19 +406,19 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .comment-like-btn {
-            background: rgba(244, 67, 54, 0.1);
-            border: 1px solid rgba(244, 67, 54, 0.3);
-            color: var(--text-secondary);
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
+       .comment-like-btn {
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    color: var(--text-secondary);
+    padding: 4px 8px; /* Уменьшили padding */
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.85rem; /* Уменьшили шрифт */
+    display: inline-flex;
+    align-items: center;
+    gap: 3px; /* Уменьшили расстояние между иконкой и текстом */
+}
         
         .comment-like-btn:hover:not(.disabled) {
             background: rgba(244, 67, 54, 0.2);
@@ -467,15 +467,16 @@
         }
         
         .comment-item {
-            background: var(--comment-bg);
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 4px solid var(--lab-blue);
-            transition: all 0.3s;
-            animation: fadeIn 0.5s ease-out;
-            position: relative;
-            overflow: hidden;
-        }
+    background: var(--comment-bg);
+    padding: 15px; /* Уменьшили с 20px до 15px */
+    border-radius: 12px;
+    border-left: 4px solid var(--lab-blue);
+    transition: all 0.3s;
+    animation: fadeIn 0.5s ease-out;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 10px; /* Уменьшили расстояние между комментариями */
+}
         
         .comment-item:hover {
             transform: translateX(5px);
@@ -483,13 +484,13 @@
         }
         
         .comment-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px; /* Уменьшили с 12px до 8px */
+    flex-wrap: wrap;
+    gap: 8px; /* Уменьшили с 10px до 8px */
+}
         
         .comment-author {
             display: flex;
@@ -497,21 +498,21 @@
             gap: 12px;
         }
         
-        .comment-author-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--lab-blue), var(--profile-purple));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            font-size: 1rem;
-            background-size: cover;
-            background-position: center;
-            object-fit: cover;
-        }
+       .comment-author-avatar {
+    width: 36px; /* Уменьшили с 40px до 36px */
+    height: 36px; /* Уменьшили с 40px до 36px */
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--lab-blue), var(--profile-purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    font-size: 0.9rem; /* Уменьшили шрифт */
+    background-size: cover;
+    background-position: center;
+    object-fit: cover;
+}
         
         .comment-author-info {
             display: flex;
@@ -520,9 +521,10 @@
         }
         
         .comment-author-name {
-            font-weight: 600;
-            color: var(--lab-blue);
-        }
+    font-weight: 600;
+    color: var(--lab-blue);
+    font-size: 0.95rem; /* Добавили уменьшенный размер */
+}
         
         .comment-author-role {
             font-size: 0.8rem;
@@ -538,45 +540,48 @@
             color: var(--text-secondary);
         }
         
-        .comment-content {
-            margin-top: 10px;
-            line-height: 1.7;
-            color: var(--text);
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        
+       .comment-content {
+    margin-top: 5px; /* Было 10px */
+    line-height: 1.7;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
 .comment-content-text {
-    margin-bottom: 10px;
-    font-size: 1rem; /* Добавить эту строку */
-    line-height: 1.6; /* И эту тоже */
+    margin-bottom: 8px; /* Уменьшили */
+    font-size: 1rem;
+    line-height: 1.5; /* Уменьшили межстрочный интервал */
+}
+
+.comment-stickers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 8px; /* Уменьшили */
 }
         
-        .comment-stickers {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-top: 10px;
-        }
-        
        .comment-sticker {
-    max-width: 70px;  /* Увеличить с 50px до 70px */
-    max-height: 70px; /* Увеличить с 50px до 70px */
+    width: 80px; /* Фиксированная ширина */
+    height: 80px; /* Фиксированная высота */
     object-fit: contain;
     border-radius: 5px;
     border: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 5px;
 }
         
         .comment-episode-info {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+    margin-top: 8px; /* Уменьшили с 10px до 8px */
+    font-size: 0.85rem; /* Уменьшили шрифт */
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 8px; /* Добавили верхний отступ */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Добавили разделитель */
+}
         
         .comment-episode-info i {
             color: var(--primary);
