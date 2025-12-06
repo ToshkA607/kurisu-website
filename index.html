@@ -540,18 +540,18 @@
             color: var(--text-secondary);
         }
         
-       .comment-content {
-    margin-top: 5px; /* Было 10px */
-    line-height: 1.7;
+       .comment-content-text {
+    margin-bottom: 8px;
+    font-size: 1rem;
+    line-height: 1.5;
     color: var(--text);
-    white-space: pre-wrap;
     word-wrap: break-word;
 }
 
-.comment-content-text {
-    margin-bottom: 8px; /* Уменьшили */
-    font-size: 1rem;
-    line-height: 1.5; /* Уменьшили межстрочный интервал */
+/* Если у вас остался .comment-content, сделайте его минимальным */
+.comment-content {
+    margin: 0;
+    padding: 0;
 }
 
 .comment-stickers {
@@ -6126,32 +6126,30 @@ updateUserInfo(userData) {
     }
     
     return `
-        <div class="comment-item" data-comment-id="${comment.id}">
-            <div class="comment-header">
-                <div class="comment-author">
-                    <div class="comment-author-avatar" style="${avatarStyle}">${avatarContent}</div>
-                    <div class="comment-author-info">
-                        <div class="comment-author-name">${comment.userName || 'Аноним'}</div>
-                        <div class="comment-author-role">${comment.userRole}</div>
-                    </div>
+    <div class="comment-item" data-comment-id="${comment.id}">
+        <div class="comment-header">
+            <div class="comment-author">
+                <div class="comment-author-avatar" style="${avatarStyle}">${avatarContent}</div>
+                <div class="comment-author-info">
+                    <div class="comment-author-name">${comment.userName || 'Аноним'}</div>
+                    <div class="comment-author-role">${comment.userRole}</div>
                 </div>
-                <div class="comment-date">${date}</div>
             </div>
-            <div class="comment-content">
-                <div class="comment-content-text">${this.escapeHtml(comment.content)}</div>
-                ${stickersHtml}
-            </div>
-            <div class="comment-actions">
-                ${likeBtnHtml}
-                ${deleteBtnHtml}
-            </div>
-            <div class="comment-episode-info">
-                <div class="episode-text">
-                    <i class="fas fa-play-circle"></i> Серия ${comment.episodeId}: ${comment.episodeName}
-                </div>
+            <div class="comment-date">${date}</div>
+        </div>
+        ${comment.content ? `<div class="comment-content-text">${this.escapeHtml(comment.content)}</div>` : ''}
+        ${stickersHtml}
+        <div class="comment-actions">
+            ${likeBtnHtml}
+            ${deleteBtnHtml}
+        </div>
+        <div class="comment-episode-info">
+            <div class="episode-text">
+                <i class="fas fa-play-circle"></i> Серия ${comment.episodeId}: ${comment.episodeName}
             </div>
         </div>
-    `;
+    </div>
+`;
 }
         
         addDeleteHandler(commentId, userId) {
