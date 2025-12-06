@@ -5585,44 +5585,67 @@ updateUserInfo(userData) {
         }
         
         initStickers() {
-            this.stickers = [
-                { id: 1, url: 'https://i.postimg.cc/MZP1CnBg/0xf09f9881.webp', name: '😁' },
-                { id: 2, url: 'https://i.postimg.cc/QN4c2F74/12xf09f9888.webp', name: '😈' },
-                { id: 3, url: 'https://i.postimg.cc/v8q5J49R/15xf09f9892.webp', name: '😒' },
-                { id: 4, url: 'https://i.postimg.cc/mZX7vPMG/19xe29d93.webp', name: '⚡' },
-                { id: 5, url: 'https://i.postimg.cc/WpW0BdZ9/19xf09f9982.webp', name: '🦂' },
-                { id: 6, url: 'https://i.postimg.cc/44LpDYtR/1xf09f918d.webp', name: '🤍' },
-                { id: 7, url: 'https://i.postimg.cc/WpW0BdZf/20xf09f9894.webp', name: '😔' },
-                { id: 8, url: 'https://i.postimg.cc/9X8y6D9n/24xf09f9882.webp', name: '😂' },
-                { id: 9, url: 'https://i.postimg.cc/xjxLwXmh/26xf09f9983.webp', name: '🦃' },
-                { id: 10, url: 'https://i.postimg.cc/MZP1CnB3/3xf09f9181.webp', name: '🆑' },
-                { id: 11, url: 'https://i.postimg.cc/CMPb3R83/3xf09f918d.webp', name: '🤍' },
-                { id: 12, url: 'https://i.postimg.cc/h4yVkXxB/8xe29da4efb88f.webp', name: '⛏️' }
-            ];
-            
-            this.renderStickers();
-        }
+    this.stickers = [
+        { id: 1, url: 'https://i.postimg.cc/MZP1CnBg/0xf09f9881.webp', name: '😁', alt: 'Улыбка' },
+        { id: 2, url: 'https://i.postimg.cc/QN4c2F74/12xf09f9888.webp', name: '😈', alt: 'Дьявол' },
+        { id: 3, url: 'https://i.postimg.cc/v8q5J49R/15xf09f9892.webp', name: '😒', alt: 'Разочарование' },
+        { id: 4, url: 'https://i.postimg.cc/mZX7vPMG/19xe29d93.webp', name: '⚡', alt: 'Молния' },
+        { id: 5, url: 'https://i.postimg.cc/WpW0BdZ9/19xf09f9982.webp', name: '🦂', alt: 'Скорпион' },
+        { id: 6, url: 'https://i.postimg.cc/44LpDYtR/1xf09f918d.webp', name: '🤍', alt: 'Сердце' },
+        { id: 7, url: 'https://i.postimg.cc/WpW0BdZf/20xf09f9894.webp', name: '😔', alt: 'Грусть' },
+        { id: 8, url: 'https://i.postimg.cc/9X8y6D9n/24xf09f9882.webp', name: '😂', alt: 'Смех' },
+        { id: 9, url: 'https://i.postimg.cc/xjxLwXmh/26xf09f9983.webp', name: '🦃', alt: 'Индейка' },
+        { id: 10, url: 'https://i.postimg.cc/MZP1CnB3/3xf09f9181.webp', name: '🆑', alt: 'CL' },
+        { id: 11, url: 'https://i.postimg.cc/CMPb3R83/3xf09f918d.webp', name: '🤍', alt: 'Сердце2' },
+        { id: 12, url: 'https://i.postimg.cc/h4yVkXxB/8xe29da4efb88f.webp', name: '⛏️', alt: 'Кирка' }
+    ];
+    
+    // Альтернативные ссылки, если основные не работают
+    this.alternativeStickers = [
+        '😁', '😈', '😒', '⚡', '🦂', '🤍', '😔', '😂', '🦃', '🆑', '🤍', '⛏️'
+    ];
+    
+    this.renderStickers();
+}
         
-        renderStickers() {
-            const stickerGrid = document.querySelector('.sticker-grid');
-            const modalStickerGrid = document.querySelector('#modalStickerPicker .sticker-grid');
-            
-            if (stickerGrid) {
-                stickerGrid.innerHTML = this.stickers.map(sticker => `
-                    <div class="sticker-item" data-sticker-id="${sticker.id}">
-                        <img src="${sticker.url}" alt="${sticker.name}" loading="lazy">
-                    </div>
-                `).join('');
-            }
-            
-            if (modalStickerGrid) {
-                modalStickerGrid.innerHTML = this.stickers.map(sticker => `
-                    <div class="sticker-item" data-sticker-id="${sticker.id}">
-                        <img src="${sticker.url}" alt="${sticker.name}" loading="lazy">
-                    </div>
-                `).join('');
-            }
-        }
+       renderStickers() {
+    const stickerGrid = document.querySelector('.sticker-grid');
+    const modalStickerGrid = document.querySelector('#modalStickerPicker .sticker-grid');
+    
+    const stickerHtml = this.stickers.map((sticker, index) => `
+        <div class="sticker-item" data-sticker-id="${sticker.id}">
+            <img src="${sticker.url}" alt="${sticker.name}" loading="lazy"
+                 onerror="this.onerror=null; this.style.display='none'; 
+                         this.parentElement.innerHTML='<div style=\'font-size: 24px; color: var(--profile-purple); display: flex; align-items: center; justify-content: center; height: 100%;\'>${this.alternativeStickers[index]}</div>'">
+        </div>
+    `).join('');
+    
+    if (stickerGrid) {
+        stickerGrid.innerHTML = stickerHtml;
+    }
+    
+    if (modalStickerGrid) {
+        modalStickerGrid.innerHTML = stickerHtml;
+    }
+}
+
+testStickersLoading() {
+    console.log('Проверка загрузки стикеров...');
+    
+    this.stickers.forEach((sticker, index) => {
+        const img = new Image();
+        img.onload = () => {
+            console.log(`✓ Стикер ${index + 1} загружен: ${sticker.url}`);
+        };
+        img.onerror = () => {
+            console.log(`✗ Стикер ${index + 1} не загружается: ${sticker.url}`);
+            console.log(`Используем эмодзи: ${this.alternativeStickers[index]}`);
+        };
+        img.src = sticker.url;
+    });
+}
+
+        
         
         bindEvents() {
             if (this.elements.commentText) {
