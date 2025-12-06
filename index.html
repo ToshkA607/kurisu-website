@@ -127,6 +127,184 @@
         }
         
         /* =========================================== */
+        /* СТИЛИ ДЛЯ СТИКЕРОВ */
+        /* =========================================== */
+        
+        .sticker-selector {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .sticker-btn {
+            padding: 8px 15px;
+            background: linear-gradient(135deg, var(--profile-purple), #6a1b9a);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .sticker-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.3);
+        }
+
+        .sticker-picker {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 2px solid rgba(156, 39, 176, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 320px;
+            max-height: 400px;
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .sticker-picker.active {
+            display: flex;
+        }
+
+        .sticker-picker-header {
+            padding: 15px;
+            background: linear-gradient(90deg, rgba(156, 39, 176, 0.2), transparent);
+            border-bottom: 1px solid rgba(156, 39, 176, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sticker-picker-header h5 {
+            margin: 0;
+            color: var(--profile-purple);
+            font-size: 1rem;
+        }
+
+        .close-sticker-picker {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .close-sticker-picker:hover {
+            color: var(--profile-purple);
+            transform: rotate(90deg);
+        }
+
+        .sticker-grid {
+            padding: 15px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        .sticker-item {
+            width: 100%;
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .sticker-item:hover {
+            transform: scale(1.1);
+            border-color: var(--profile-purple);
+            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.3);
+        }
+
+        .sticker-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 5px;
+        }
+
+        .selected-stickers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+            min-height: 60px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .selected-sticker {
+            position: relative;
+            width: 50px;
+            height: 50px;
+        }
+
+        .selected-sticker img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .remove-sticker {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 0.7rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .selected-sticker:hover .remove-sticker {
+            opacity: 1;
+        }
+
+        /* Стили для комментариев со стикерами */
+        .comment-stickers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .comment-sticker {
+            width: 40px;
+            height: 40px;
+        }
+
+        .comment-sticker img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        /* =========================================== */
         /* СТИЛИ КОММЕНТАРИЕВ */
         /* =========================================== */
         
@@ -618,118 +796,6 @@
             animation: slideInUp 0.4s ease-out;
         }
         
-        /* Адаптивность комментариев */
-        @media (max-width: 768px) {
-            .comments-section {
-                padding: 20px;
-                margin-top: 30px;
-            }
-            
-            .comments-title {
-                font-size: 1.5rem;
-            }
-            
-            .comment-form {
-                padding: 20px;
-            }
-            
-            .comment-input-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .comment-form-actions {
-                flex-direction: column;
-                gap: 10px;
-                align-items: stretch;
-            }
-            
-            .comment-submit-btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .comment-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-            
-            .comments-modal {
-                width: 98%;
-                height: 95vh;
-                border-radius: 15px;
-            }
-            
-            .comments-modal-header {
-                padding: 15px 20px;
-            }
-            
-            .comments-modal-title {
-                font-size: 1.3rem;
-            }
-            
-            .comments-modal-body {
-                padding: 20px;
-            }
-            
-            .open-comments-btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .comment-delete-btn {
-                opacity: 1;
-            }
-            
-            .comment-actions {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .comments-section {
-                padding: 15px;
-            }
-            
-            .comment-form {
-                padding: 15px;
-            }
-            
-            .comment-textarea {
-                min-height: 80px;
-                padding: 12px;
-                font-size: 0.95rem;
-            }
-            
-            .comment-item {
-                padding: 15px;
-            }
-            
-            .comment-author {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-            
-            .comment-author-avatar {
-                width: 35px;
-                height: 35px;
-                font-size: 0.9rem;
-            }
-            
-            .comment-episode-info {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .comment-delete-btn {
-                align-self: flex-end;
-            }
-        }
-        
         /* Стили для скроллбара комментариев */
         .comments-modal-body::-webkit-scrollbar,
         .comments-list::-webkit-scrollbar {
@@ -749,7 +815,7 @@
         .comments-modal-body::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(to bottom, var(--secondary-light), var(--lab-blue));
         }
-
+        
         /* Остальные стили из вашего файла остаются без изменений */
         /* Стили для эффекта фейерверка */
         .firework {
@@ -4220,14 +4286,35 @@
                 <h4 class="comment-form-title">
                     <i class="fas fa-edit"></i> Оставить комментарий
                 </h4>
+                
+                <div class="sticker-selector">
+                    <button type="button" class="sticker-btn" id="modalOpenStickerPicker">
+                        <i class="fas fa-smile"></i> Стикеры
+                    </button>
+                    <div class="sticker-picker" id="modalStickerPicker">
+                        <div class="sticker-picker-header">
+                            <h5>Выберите стикер</h5>
+                            <button type="button" class="close-sticker-picker">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="sticker-grid">
+                            <!-- Стикеры будут добавляться сюда динамически -->
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="comment-input-container">
                     <div class="comment-input-wrapper">
+                        <div class="selected-stickers" id="modalSelectedStickers"></div>
+                        
                         <textarea 
                             class="comment-textarea" 
                             id="modalCommentText" 
-                            placeholder="Напишите ваш комментарий..." 
+                            placeholder="Напишите ваш комментарий или выберите стикер..." 
                             maxlength="500"
                         ></textarea>
+                        
                         <div class="comment-form-actions">
                             <div class="comment-char-count" id="modalCharCount">0/500</div>
                             <button type="button" class="comment-submit-btn" id="modalSubmitComment">
@@ -4665,14 +4752,35 @@
                 <h4 class="comment-form-title">
                     <i class="fas fa-edit"></i> Оставить комментарий
                 </h4>
+                
+                <div class="sticker-selector">
+                    <button type="button" class="sticker-btn" id="openStickerPicker">
+                        <i class="fas fa-smile"></i> Стикеры
+                    </button>
+                    <div class="sticker-picker" id="stickerPicker">
+                        <div class="sticker-picker-header">
+                            <h5>Выберите стикер</h5>
+                            <button type="button" class="close-sticker-picker">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="sticker-grid">
+                            <!-- Стикеры будут добавляться сюда динамически -->
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="comment-input-container">
                     <div class="comment-input-wrapper">
+                        <div class="selected-stickers" id="selectedStickers"></div>
+                        
                         <textarea 
                             class="comment-textarea" 
                             id="commentText" 
-                            placeholder="Напишите ваш комментарий..." 
+                            placeholder="Напишите ваш комментарий или выберите стикер..." 
                             maxlength="500"
                         ></textarea>
+                        
                         <div class="comment-form-actions">
                             <div class="comment-char-count" id="charCount">0/500</div>
                             <button type="button" class="comment-submit-btn" id="submitComment">
@@ -5442,8 +5550,11 @@ updateUserInfo(userData) {
             this.firestore = window.firebase.firestoreFunctions;
             this.currentEpisodeId = 1;
             this.currentEpisodeName = 'Начало и конец';
+            this.selectedStickers = [];
+            this.modalSelectedStickers = [];
             this.initElements();
             this.bindEvents();
+            this.initStickers();
             this.loadComments();
         }
         
@@ -5463,8 +5574,54 @@ updateUserInfo(userData) {
                 openCommentsBtn: document.getElementById('openCommentsBtn'),
                 commentsModalOverlay: document.getElementById('commentsModalOverlay'),
                 commentsModal: document.getElementById('commentsModal'),
-                commentsCloseModal: document.getElementById('commentsCloseModal')
+                commentsCloseModal: document.getElementById('commentsCloseModal'),
+                openStickerPicker: document.getElementById('openStickerPicker'),
+                stickerPicker: document.getElementById('stickerPicker'),
+                modalOpenStickerPicker: document.getElementById('modalOpenStickerPicker'),
+                modalStickerPicker: document.getElementById('modalStickerPicker'),
+                selectedStickers: document.getElementById('selectedStickers'),
+                modalSelectedStickers: document.getElementById('modalSelectedStickers')
             };
+        }
+        
+        initStickers() {
+            this.stickers = [
+                { id: 1, url: 'https://i.postimg.cc/MZP1CnBg/0xf09f9881.webp', name: '😁' },
+                { id: 2, url: 'https://i.postimg.cc/QN4c2F74/12xf09f9888.webp', name: '😈' },
+                { id: 3, url: 'https://i.postimg.cc/v8q5J49R/15xf09f9892.webp', name: '😒' },
+                { id: 4, url: 'https://i.postimg.cc/mZX7vPMG/19xe29d93.webp', name: '⚡' },
+                { id: 5, url: 'https://i.postimg.cc/WpW0BdZ9/19xf09f9982.webp', name: '🦂' },
+                { id: 6, url: 'https://i.postimg.cc/44LpDYtR/1xf09f918d.webp', name: '🤍' },
+                { id: 7, url: 'https://i.postimg.cc/WpW0BdZf/20xf09f9894.webp', name: '😔' },
+                { id: 8, url: 'https://i.postimg.cc/9X8y6D9n/24xf09f9882.webp', name: '😂' },
+                { id: 9, url: 'https://i.postimg.cc/xjxLwXmh/26xf09f9983.webp', name: '🦃' },
+                { id: 10, url: 'https://i.postimg.cc/MZP1CnB3/3xf09f9181.webp', name: '🆑' },
+                { id: 11, url: 'https://i.postimg.cc/CMPb3R83/3xf09f918d.webp', name: '🤍' },
+                { id: 12, url: 'https://i.postimg.cc/h4yVkXxB/8xe29da4efb88f.webp', name: '⛏️' }
+            ];
+            
+            this.renderStickers();
+        }
+        
+        renderStickers() {
+            const stickerGrid = document.querySelector('.sticker-grid');
+            const modalStickerGrid = document.querySelector('#modalStickerPicker .sticker-grid');
+            
+            if (stickerGrid) {
+                stickerGrid.innerHTML = this.stickers.map(sticker => `
+                    <div class="sticker-item" data-sticker-id="${sticker.id}">
+                        <img src="${sticker.url}" alt="${sticker.name}" loading="lazy">
+                    </div>
+                `).join('');
+            }
+            
+            if (modalStickerGrid) {
+                modalStickerGrid.innerHTML = this.stickers.map(sticker => `
+                    <div class="sticker-item" data-sticker-id="${sticker.id}">
+                        <img src="${sticker.url}" alt="${sticker.name}" loading="lazy">
+                    </div>
+                `).join('');
+            }
         }
         
         bindEvents() {
@@ -5505,11 +5662,153 @@ updateUserInfo(userData) {
                     }
                 });
             });
+            
+            // Обработчики для стикеров
+            this.bindStickerEvents();
+        }
+        
+        bindStickerEvents() {
+            // Открытие/закрытие выбора стикеров
+            if (this.elements.openStickerPicker && this.elements.stickerPicker) {
+                this.elements.openStickerPicker.addEventListener('click', () => {
+                    this.elements.stickerPicker.classList.toggle('active');
+                });
+            }
+            
+            if (this.elements.modalOpenStickerPicker && this.elements.modalStickerPicker) {
+                this.elements.modalOpenStickerPicker.addEventListener('click', () => {
+                    this.elements.modalStickerPicker.classList.toggle('active');
+                });
+            }
+            
+            // Закрытие по клику вне области
+            document.addEventListener('click', (e) => {
+                if (this.elements.stickerPicker && !this.elements.stickerPicker.contains(e.target) && 
+                    this.elements.openStickerPicker && !this.elements.openStickerPicker.contains(e.target)) {
+                    this.elements.stickerPicker.classList.remove('active');
+                }
+                
+                if (this.elements.modalStickerPicker && !this.elements.modalStickerPicker.contains(e.target) && 
+                    this.elements.modalOpenStickerPicker && !this.elements.modalOpenStickerPicker.contains(e.target)) {
+                    this.elements.modalStickerPicker.classList.remove('active');
+                }
+            });
+            
+            // Закрытие по кнопке
+            document.querySelectorAll('.close-sticker-picker').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (this.elements.stickerPicker) {
+                        this.elements.stickerPicker.classList.remove('active');
+                    }
+                    if (this.elements.modalStickerPicker) {
+                        this.elements.modalStickerPicker.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Выбор стикеров
+            document.addEventListener('click', (e) => {
+                const stickerItem = e.target.closest('.sticker-item');
+                if (stickerItem) {
+                    const stickerId = parseInt(stickerItem.dataset.stickerId);
+                    const sticker = this.stickers.find(s => s.id === stickerId);
+                    
+                    if (sticker) {
+                        // Определяем, откуда был клик
+                        if (this.elements.stickerPicker && this.elements.stickerPicker.classList.contains('active')) {
+                            this.addStickerToMain(sticker);
+                            this.elements.stickerPicker.classList.remove('active');
+                        } else if (this.elements.modalStickerPicker && this.elements.modalStickerPicker.classList.contains('active')) {
+                            this.addStickerToModal(sticker);
+                            this.elements.modalStickerPicker.classList.remove('active');
+                        }
+                    }
+                }
+            });
+            
+            // Удаление стикеров
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.remove-sticker')) {
+                    const stickerItem = e.target.closest('.selected-sticker');
+                    const stickerId = parseInt(stickerItem.dataset.stickerId);
+                    
+                    if (stickerItem.parentNode.id === 'selectedStickers') {
+                        this.removeStickerFromMain(stickerId);
+                    } else if (stickerItem.parentNode.id === 'modalSelectedStickers') {
+                        this.removeStickerFromModal(stickerId);
+                    }
+                }
+            });
+        }
+        
+        addStickerToMain(sticker) {
+            if (!this.selectedStickers.some(s => s.id === sticker.id)) {
+                this.selectedStickers.push(sticker);
+                this.renderSelectedStickers();
+            }
+        }
+        
+        addStickerToModal(sticker) {
+            if (!this.modalSelectedStickers.some(s => s.id === sticker.id)) {
+                this.modalSelectedStickers.push(sticker);
+                this.renderModalSelectedStickers();
+            }
+        }
+        
+        removeStickerFromMain(stickerId) {
+            this.selectedStickers = this.selectedStickers.filter(s => s.id !== stickerId);
+            this.renderSelectedStickers();
+        }
+        
+        removeStickerFromModal(stickerId) {
+            this.modalSelectedStickers = this.modalSelectedStickers.filter(s => s.id !== stickerId);
+            this.renderModalSelectedStickers();
+        }
+        
+        renderSelectedStickers() {
+            const container = document.getElementById('selectedStickers');
+            if (container) {
+                container.innerHTML = this.selectedStickers.map(sticker => `
+                    <div class="selected-sticker" data-sticker-id="${sticker.id}">
+                        <img src="${sticker.url}" alt="${sticker.name}">
+                        <button type="button" class="remove-sticker" title="Удалить">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `).join('');
+                
+                // Показываем контейнер, если есть стикеры
+                container.style.display = this.selectedStickers.length > 0 ? 'flex' : 'none';
+            }
+        }
+        
+        renderModalSelectedStickers() {
+            const container = document.getElementById('modalSelectedStickers');
+            if (container) {
+                container.innerHTML = this.modalSelectedStickers.map(sticker => `
+                    <div class="selected-sticker" data-sticker-id="${sticker.id}">
+                        <img src="${sticker.url}" alt="${sticker.name}">
+                        <button type="button" class="remove-sticker" title="Удалить">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `).join('');
+                
+                container.style.display = this.modalSelectedStickers.length > 0 ? 'flex' : 'none';
+            }
+        }
+        
+        clearStickers() {
+            this.selectedStickers = [];
+            this.modalSelectedStickers = [];
+            this.renderSelectedStickers();
+            this.renderModalSelectedStickers();
         }
         
         setCurrentEpisode(episodeId, episodeName) {
             this.currentEpisodeId = episodeId;
             this.currentEpisodeName = episodeName;
+            this.clearStickers();
             this.loadComments();
         }
         
@@ -5642,7 +5941,8 @@ updateUserInfo(userData) {
                 userRole: userData.role || comment.userRole || 'Участник Лаборатории',
                 userAvatar: comment.userAvatar || userData.avatar || '',
                 likes: comment.likes || 0,
-                likedBy: comment.likedBy || []
+                likedBy: comment.likedBy || [],
+                stickers: comment.stickers || []
             });
         }
         
@@ -5723,6 +6023,26 @@ updateUserInfo(userData) {
         </div>
     `;
     
+    // Отображение стикеров
+    let stickersHtml = '';
+    if (comment.stickers && comment.stickers.length > 0) {
+        stickersHtml = `
+            <div class="comment-stickers">
+                ${comment.stickers.map(sticker => `
+                    <div class="comment-sticker">
+                        <img src="${sticker.url}" alt="${sticker.name}" loading="lazy">
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+    
+    // Отображение текста, если есть
+    let contentHtml = '';
+    if (comment.content && comment.content.trim() !== '') {
+        contentHtml = `<div class="comment-content">${this.escapeHtml(comment.content)}</div>`;
+    }
+    
     return `
         <div class="comment-item" data-comment-id="${comment.id}">
             <div class="comment-header">
@@ -5735,7 +6055,8 @@ updateUserInfo(userData) {
                 </div>
                 <div class="comment-date">${date}</div>
             </div>
-            <div class="comment-content">${this.escapeHtml(comment.content)}</div>
+            ${contentHtml}
+            ${stickersHtml}
             <div class="comment-actions">
                 ${likeBtnHtml}
                 ${deleteBtnHtml}
@@ -5895,13 +6216,14 @@ updateUserInfo(userData) {
             
             const commentText = this.elements.commentText ? this.elements.commentText.value.trim() : '';
             
-            if (!commentText) {
-                alert('Пожалуйста, введите текст комментария');
+            // Проверяем, есть ли текст или стикеры
+            if (!commentText && this.selectedStickers.length === 0) {
+                alert('Пожалуйста, введите текст комментария или выберите стикер');
                 return;
             }
             
             if (commentText.length > 500) {
-                alert('Комментарий не должен превышать 500 символов');
+                alert('Текст комментария не должен превышать 500 символов');
                 return;
             }
             
@@ -5922,6 +6244,11 @@ updateUserInfo(userData) {
                     userRole: userData.role || 'Участник Лаборатории',
                     userAvatar: userData.avatar || '',
                     content: commentText,
+                    stickers: this.selectedStickers.map(s => ({
+                        id: s.id,
+                        url: s.url,
+                        name: s.name
+                    })),
                     episodeName: this.currentEpisodeName,
                     likes: 0,
                     likedBy: [],
@@ -5942,11 +6269,12 @@ updateUserInfo(userData) {
                     }
                 );
                 
-                // Очищаем поле ввода
+                // Очищаем форму
                 if (this.elements.commentText) {
                     this.elements.commentText.value = '';
                     this.updateCharCount({ target: this.elements.commentText }, this.elements.charCount);
                 }
+                this.clearStickers();
                 
                 // Добавляем комментарий с временным ID
                 commentData.id = docRef.id;
@@ -5996,13 +6324,14 @@ updateUserInfo(userData) {
             
             const commentText = this.elements.modalCommentText ? this.elements.modalCommentText.value.trim() : '';
             
-            if (!commentText) {
-                alert('Пожалуйста, введите текст комментария');
+            // Проверяем, есть ли текст или стикеры
+            if (!commentText && this.modalSelectedStickers.length === 0) {
+                alert('Пожалуйста, введите текст комментария или выберите стикер');
                 return;
             }
             
             if (commentText.length > 500) {
-                alert('Комментарий не должен превышать 500 символов');
+                alert('Текст комментария не должен превышать 500 символов');
                 return;
             }
             
@@ -6023,6 +6352,11 @@ updateUserInfo(userData) {
                     userRole: userData.role || 'Участник Лаборатории',
                     userAvatar: userData.avatar || '',
                     content: commentText,
+                    stickers: this.modalSelectedStickers.map(s => ({
+                        id: s.id,
+                        url: s.url,
+                        name: s.name
+                    })),
                     episodeName: this.currentEpisodeName,
                     likes: 0,
                     likedBy: [],
@@ -6043,11 +6377,12 @@ updateUserInfo(userData) {
                     }
                 );
                 
-                // Очищаем поле ввода
+                // Очищаем форму
                 if (this.elements.modalCommentText) {
                     this.elements.modalCommentText.value = '';
                     this.updateCharCount({ target: this.elements.modalCommentText }, this.elements.modalCharCount);
                 }
+                this.clearStickers();
                 
                 // Добавляем комментарий с временным ID
                 commentData.id = docRef.id;
@@ -6943,6 +7278,7 @@ updateUserInfo(userData) {
         console.log('Доступные функции:');
         console.log('- Firebase авторизация: вход/регистрация/профиль/выход');
         console.log('- Firebase комментарии: добавление/просмотр/удаление');
+        console.log('- Стикеры в комментариях: выбор из 12 стикеров');
         console.log('- Научные достижения: клик по карточкам');
         console.log('- Временная линия: клик по событиям');
         console.log('- Плеер серий: переключение между эпизодами');
