@@ -4523,13 +4523,18 @@
 
 <!-- Герой секция -->
 <section class="hero">
-    <!-- Видео фон -->
+    <!-- Видео фон через iframe -->
     <div class="video-background">
-        <video autoplay muted loop playsinline id="bgVideo">
-            <source src="https://drive.google.com/uc?export=download&id=1NuwnofMQ_NWa9mhXTENix9ZvIYYaYvpc" type="video/mp4">
-            <!-- Альтернативные форматы для кроссбраузерности -->
-            <source src="https://drive.google.com/uc?export=download&id=1NuwnofMQ_NWa9mhXTENix9ZvIYYaYvpc" type="video/mp4">
-        </video>
+        <div class="video-iframe-container">
+            <iframe 
+                src="https://drive.google.com/file/d/1NuwnofMQ_NWa9mhXTENix9ZvIYYaYvpc/preview?autoplay=1&mute=1&loop=1"
+                frameborder="0"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowfullscreen
+                style="width:100%; height:100%; position:absolute; top:0; left:0; border:none;"
+                id="videoIframe"
+            ></iframe>
+        </div>
         <div class="video-overlay"></div>
     </div>
     
@@ -4548,7 +4553,8 @@
             <img src="https://i.postimg.cc/tCRgbBnx/kurisu.png" alt="Макисэ Курису" class="hero-character">
         </div>
     </div>
-</section><!-- Секция "О персонаже" -->
+</section>
+    <!-- Секция "О персонаже" -->
 <section id="about" class="about">
     <div class="container">
         <h2 class="section-title">О персонаже</h2>
