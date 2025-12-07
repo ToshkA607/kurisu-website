@@ -82,6 +82,60 @@
     </script>
     
     <style>
+
+/* Видео фон */
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.video-background video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 18, 0.6); /* Полупрозрачный темный оверлей */
+    z-index: 1;
+}
+
+/* Обновляем герой секцию */
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding-top: 80px;
+}
+
+.hero-container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Убираем старый фон */
+.hero::before {
+    display: none;
+}
+
         /* Глобальные стили и переменные */
         :root {
             --primary: #c62828;
@@ -2140,26 +2194,25 @@
         
         /* Герой секция */
         .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            padding-top: 80px;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(198, 40, 40, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(41, 121, 255, 0.1) 0%, transparent 50%);
-            z-index: -1;
-        }
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 80px;
+    background: var(--bg-dark); /* Добавляем сплошной фон */
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-dark); /* Заменяем радиальный градиент на сплошной цвет */
+    z-index: -1;
+}
         
         .hero-container {
             display: flex;
@@ -2712,6 +2765,16 @@
             padding: 60px 0;
         }
         
+        #raindrop-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
         .timeline-overlay {
             position: absolute;
             top: 0;
@@ -2907,6 +2970,27 @@
         
         .timeline-btn:hover .timeline-text {
             transform: translateZ(50px);
+        }
+        
+        .world-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        .world-line {
+            position: absolute;
+            color: var(--lab-green);
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--lab-green);
+            animation: fadeIn 1s;
         }
         
         /* МОДАЛЬНОЕ ОКНО ДЛЯ ВРЕМЕННОЙ ЛИНИИ */
@@ -3303,6 +3387,28 @@
             font-size: 0.9rem;
         }
         
+        /* Бинарный фон */
+        .binary-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        /* Частицы */
+        .particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
         /* =========================================== */
         /* АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
         /* =========================================== */
@@ -3605,6 +3711,15 @@
                 font-size: 1.8rem;
             }
             
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .gallery-item {
+                height: 200px;
+            }
+            
             .timeline-item {
                 padding-left: 60px;
                 margin-bottom: 60px;
@@ -3823,6 +3938,15 @@
             
             .stat-label {
                 font-size: 0.8rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .gallery-item {
+                height: 250px;
             }
             
             .timeline-item {
@@ -4055,6 +4179,10 @@
                 transform: none;
             }
             
+            .gallery-item:hover {
+                transform: none;
+            }
+            
             .timeline-btn:hover {
                 transform: none;
             }
@@ -4109,6 +4237,12 @@
     </style>
 </head>
 <body>
+    <!-- Бинарный фон с мировыми линиями -->
+    <div class="binary-bg" id="binaryBg"></div>
+    
+    <!-- Частицы -->
+    <div id="particles-js" class="particles-js"></div>
+    
     <!-- Навигация с авторизацией -->
     <nav>
         <div class="container nav-auth-container">
@@ -4389,7 +4523,18 @@
 
 <!-- Герой секция -->
 <section class="hero">
+    <!-- Видео фон -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline id="bgVideo">
+            <source src="https://raw.githubusercontent.com/ВАШ_НИКНЕЙМ/kurisu/main/compressed_2025-12-07%2016-12-10%20(online-video-cutter.com)%20(2).mp4" type="video/mp4">
+            <!-- Альтернативные форматы для кроссбраузерности -->
+            <source src="https://raw.githubusercontent.com/ВАШ_НИКНЕЙМ/kurisu/main/compressed_2025-12-07%2016-12-10%20(online-video-cutter.com)%20(2).mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    
     <div class="container hero-container">
+        <!-- Остальной контент героя -->
         <div class="hero-content">
             <h1 class="hero-title">
                 <span class="glitch" data-text="Макисэ Курису">Макисэ Курису</span>
@@ -4403,9 +4548,7 @@
             <img src="https://i.postimg.cc/tCRgbBnx/kurisu.png" alt="Макисэ Курису" class="hero-character">
         </div>
     </div>
-</section>
-
-<!-- Секция "О персонаже" -->
+</section><!-- Секция "О персонаже" -->
 <section id="about" class="about">
     <div class="container">
         <h2 class="section-title">О персонаже</h2>
@@ -4520,7 +4663,14 @@
 
 <!-- Секция "Временная линия" -->
 <section id="timeline" class="timeline-section">
+    <!-- Canvas с анимацией капель -->
+    <canvas id="raindrop-canvas"></canvas>
+    
+    <!-- Затемнение фона -->
     <div class="timeline-overlay"></div>
+    
+    <!-- Мировые линии -->
+    <div class="world-lines" id="worldLines"></div>
     
     <div class="container timeline-content">
         <h2 class="section-title">Временная линия</h2>
@@ -4755,6 +4905,7 @@
     </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
     // ===========================================
     // СТИКЕРЫ
@@ -6450,6 +6601,40 @@ updateUserInfo(userData) {
     // ОСНОВНОЙ КОД САЙТА
     // ===========================================
 
+    // Инициализация частиц для фона
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 80, density: { enable: true, value_area: 800 } },
+            color: { value: "#c62828" },
+            shape: { type: "circle" },
+            opacity: { value: 0.5, random: true },
+            size: { value: 3, random: true },
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: "#1a237e",
+                opacity: 0.4,
+                width: 1
+            },
+            move: {
+                enable: true,
+                speed: 2,
+                direction: "none",
+                random: true,
+                straight: false,
+                out_mode: "out",
+                bounce: false
+            }
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: {
+                onhover: { enable: true, mode: "repulse" },
+                onclick: { enable: true, mode: "push" }
+            }
+        }
+    });
+    
     // Плавная прокрутка для навигации
     document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -6465,7 +6650,37 @@ updateUserInfo(userData) {
             }
         });
     });
-
+    
+    // Бинарный фон
+    const binaryBg = document.getElementById('binaryBg');
+    const chars = '01';
+    const worldLines = [];
+    
+    for (let i = 0; i < 50; i++) {
+        const worldLine = document.createElement('div');
+        worldLine.className = 'world-line';
+        worldLine.style.left = Math.random() * 100 + 'vw';
+        worldLine.style.top = Math.random() * 100 + 'vh';
+        worldLine.textContent = 'МИРОВАЯ ЛИНИЯ ' + Math.floor(Math.random() * 1000000);
+        worldLine.style.opacity = Math.random() * 0.5 + 0.1;
+        binaryBg.appendChild(worldLine);
+        worldLines.push(worldLine);
+    }
+    
+    // Анимация мировых линий
+    function animateWorldLines() {
+        worldLines.forEach(line => {
+            line.style.top = (parseFloat(line.style.top) + 0.1) + 'vh';
+            if (parseFloat(line.style.top) > 100) {
+                line.style.top = '-10vh';
+                line.style.left = Math.random() * 100 + 'vw';
+            }
+        });
+        requestAnimationFrame(animateWorldLines);
+    }
+    
+    animateWorldLines();
+    
     // ===========================================
     // ДАННЫЕ ДЛЯ ВСЕХ СЕКЦИЙ
     // ===========================================
@@ -6949,6 +7164,19 @@ updateUserInfo(userData) {
             }, 200 + (index * 100));
         });
         
+        // Анимация карточек галереи
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                item.style.opacity = '1';
+                item.style.transform = 'scale(1)';
+            }, 300 + (index * 100));
+        });
+        
         // ===========================================
         // 5. ОБРАБОТКА КЛАВИШ
         // ===========================================
@@ -6969,7 +7197,114 @@ updateUserInfo(userData) {
         });
         
         // ===========================================
-        // 6. АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ
+        // 6. АНИМАЦИЯ КАПЕЛЬ ДЛЯ ВРЕМЕННОЙ ЛИНИИ
+        // ===========================================
+        const canvas = document.getElementById('raindrop-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let w = canvas.width = window.innerWidth;
+            let h = canvas.height = window.innerHeight;
+            const clearColor = 'rgba(10, 10, 18, 0.05)';
+            const max = 35;
+            const drops = [];
+
+            function random(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            function Raindrop() {}
+
+            Raindrop.prototype = {
+                init: function() {
+                    this.x = random(0, w);
+                    this.y = random(-200, -50);
+                    this.color = `hsla(${random(180, 200)}, 100%, ${random(50, 70)}%, 0.7)`;
+                    this.vy = random(5, 10);
+                    this.size = random(1.5, 3);
+                    this.length = random(36, 60);
+                },
+                
+                draw: function() {
+                    ctx.fillStyle = this.color;
+                    ctx.shadowBlur = 22;
+                    ctx.shadowColor = this.color;
+                    
+                    const gradient = ctx.createLinearGradient(
+                        this.x, this.y,
+                        this.x, this.y + this.length
+                    );
+                    gradient.addColorStop(0, this.color.replace('0.7)', '0.9)'));
+                    gradient.addColorStop(0.7, this.color.replace('0.7)', '0.5)'));
+                    gradient.addColorStop(1, this.color.replace('0.7)', '0.2)'));
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(this.x, this.y);
+                    ctx.lineTo(this.x, this.y + this.length);
+                    ctx.lineWidth = this.size;
+                    ctx.strokeStyle = gradient;
+                    ctx.lineCap = 'round';
+                    ctx.stroke();
+                    
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y + this.length, this.size * 1.1, 0, Math.PI * 2);
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                    
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size/1.3, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color.replace('0.7)', '0.5)');
+                    ctx.fill();
+                    
+                    ctx.shadowBlur = 0;
+                    this.update();
+                },
+                
+                update: function() {
+                    this.y += this.vy;
+                    
+                    if (this.y > h + 50) {
+                        this.init();
+                        this.y = random(-200, -50);
+                        this.length = random(36, 60);
+                    }
+                }
+            };
+
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+                
+                drops.length = 0;
+                setup();
+            }
+
+            function setup() {
+                for (let i = 0; i < max; i++) {
+                    const drop = new Raindrop();
+                    drop.init();
+                    drop.y = random(-h, h);
+                    drops.push(drop);
+                }
+            }
+
+            function animate() {
+                ctx.fillStyle = 'rgba(10, 10, 18, 0.07)';
+                ctx.fillRect(0, 0, w, h);
+                
+                for (let i = 0; i < drops.length; i++) {
+                    drops[i].draw();
+                }
+                
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', resize);
+            setup();
+            animate();
+        }
+        
+        // ===========================================
+        // 7. АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ
         // ===========================================
         function handleMobileResize() {
             if (window.innerWidth < 768) {
@@ -6993,7 +7328,7 @@ updateUserInfo(userData) {
         handleMobileResize();
         
         // ===========================================
-        // 7. ФИНАЛЬНАЯ ПРОВЕРКА
+        // 8. ФИНАЛЬНАЯ ПРОВЕРКА
         // ===========================================
         console.log('Все системы работают!');
         console.log('Доступные функции:');
@@ -7003,6 +7338,7 @@ updateUserInfo(userData) {
         console.log('- Научные достижения: клик по карточкам');
         console.log('- Временная линия: клик по событиям');
         console.log('- Плеер серий: переключение между эпизодами');
+        console.log('- Галерея: наведение для эффектов');
         
         // Эффект фейерверка при успешном входе
         function createFirework(x, y) {
