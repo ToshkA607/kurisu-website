@@ -170,8 +170,10 @@ body{background-color:var(--bg-dark);color:var(--text);line-height:1.6;overflow-
 .comment-item{animation:slideInUp 0.4s ease-out}
 nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(10,10,18,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.1);padding:15px 0;min-height:70px}
 .nav-container{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;padding:0 20px;width:100%}
-.nav-logo{color:var(--primary);font-weight:bold;font-size:1.2rem;display:flex;align-items:center;gap:10px}
-.nav-logo i{color:var(--primary)}
+/* Обновленный стиль для логотипа */
+.nav-logo{color:var(--primary);font-weight:bold;font-size:1.2rem;display:flex;align-items:center;gap:10px;height:60px}
+.nav-logo-img{height:100%;width:auto;max-width:200px;object-fit:contain;filter:drop-shadow(0 0 5px rgba(198,40,40,0.5));transition:all 0.3s ease}
+.nav-logo-img:hover{filter:drop-shadow(0 0 10px rgba(198,40,40,0.7))}
 .nav-links-desktop{display:flex;list-style:none;margin:0;padding:0;flex-wrap:nowrap;gap:25px}
 .nav-links-desktop li{margin:0}
 .nav-links-desktop a{color:var(--text);text-decoration:none;font-weight:500;transition:color 0.3s;position:relative;font-size:1rem;white-space:nowrap;padding:5px 0}
@@ -679,10 +681,9 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
     <!-- Навигация -->
     <nav>
         <div class="nav-container">
-            <!-- Логотип -->
+            <!-- Обновленный логотип с PNG изображением -->
             <div class="nav-logo">
-                <i class="fas fa-brain"></i>
-                <span>Лаборатория Будущего</span>
+                <img src="https://i.postimg.cc/g2xRF6L9/Group-6.png" alt="Лаборатория Будущего" class="nav-logo-img">
             </div>
             
             <!-- Кнопка гамбургер-меню для мобильных -->
