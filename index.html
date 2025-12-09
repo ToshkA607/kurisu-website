@@ -89,12 +89,31 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI','Noto Sans',Tahoma,Geneva,Verdana,sans-serif}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background-color:var(--bg-dark);color:var(--text);line-height:1.6;overflow-x:hidden;min-height:100vh;background-image:radial-gradient(circle at 10% 20%,rgba(198,40,40,0.05) 0%,transparent 20%),radial-gradient(circle at 90% 80%,rgba(26,35,126,0.05) 0%,transparent 20%)}
-.video-background{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden}
-.video-background video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:auto;height:auto;transform:translate(-50%,-50%);object-fit:cover}
-.video-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(10,10,18,0.6);z-index:1}
+
+/* ИСПРАВЛЕНО: Видео-фон */
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(10,10,18,0.6);z-index:1;pointer-events:none}
 .hero{position:relative;height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:80px}
 .hero-container{position:relative;z-index:2}
 .hero::before{display:none}
+
+/* Остальные стили остаются без изменений... */
 .stickers-section{margin-bottom:20px;border-radius:12px;background:rgba(41,121,255,0.1);border:1px solid rgba(41,121,255,0.3);overflow:hidden}
 .stickers-header{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(41,121,255,0.2);cursor:pointer;transition:all 0.3s ease}
 .stickers-header:hover{background:rgba(41,121,255,0.3)}
@@ -1508,19 +1527,14 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
     </div>
 
 <section class="hero">
+    <!-- Видео фон -->
     <div class="video-background">
-        <div class="video-iframe-container">
-            <iframe 
-                src="https://drive.google.com/file/d/1NuwnofMQ_NWa9mhXTENix9ZvIYYaYvpc/preview?autoplay=1&mute=1&loop=1"
-                frameborder="0"
-                allow="autoplay; encrypted-media; picture-in-picture"
-                allowfullscreen
-                style="width:100%; height:100%; position:absolute; top:0; left:0; border:none;"
-                id="videoIframe"
-            ></iframe>
-        </div>
+        <video id="bg-video" autoplay muted loop playsinline>
+            <source src="https://raw.githubusercontent.com/ToshkA607/kurisu-website/main/media/fon.mp4" type="video/mp4">
+        </video>
         <div class="video-overlay"></div>
     </div>
+    
     <div class="container hero-container">
         <div class="hero-content">
             <h1 class="hero-title">
@@ -1531,13 +1545,10 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
             <a href="#about" class="btn" style="margin-top: 30px;">Узнать больше</a>
         </div>
         <div class="hero-image">
-            <div class="hero-bg-element"></div>
             <img src="https://i.postimg.cc/tCRgbBnx/kurisu.png" alt="Макисэ Курису" class="hero-character">
         </div>
     </div>
-</section>
-
-<section id="about" class="about">
+</section><section id="about" class="about">
     <div class="container">
         <h2 class="section-title">О персонаже</h2>
         <div class="about-content">
@@ -1734,122 +1745,122 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
                 <!-- Обновленный список всех 24 серий -->
                 <div class="episode-item active" data-episode="1" data-video-id="1zW3oQUWhUCQcgi7j3584s0bg0uUh8q_J">
                     <div class="episode-number">01</div>
-                    <div class="episode-name">Начало и конец</div>
+                    <div class="episode-name">«Пролог начала и конца</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="2" data-video-id="1_bzkFMbJ0JL2BRuppghXTeEtg5VZNxX-">
                     <div class="episode-number">02</div>
-                    <div class="episode-name">Параноидальный разрыв</div>
+                    <div class="episode-name">Паранойя путешествий во времени</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="3" data-video-id="1ao-jabFzPD_epxWiqO2b-N88qELA-yD3">
                     <div class="episode-number">03</div>
-                    <div class="episode-name">Параллетический монетизм</div>
+                    <div class="episode-name">Паранойя параллельного мира</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="4" data-video-id="1XqsLnO5LfehFPjgFnENEYVTOJNSffmEK">
                     <div class="episode-number">04</div>
-                    <div class="episode-name">Искривление интерпретации</div>
+                    <div class="episode-name">Рандеву с блуждающими абстракциями</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="5" data-video-id="1Hztc9K3hB_VY3FpQS968kP6FeZcGJgZ8">
                     <div class="episode-number">05</div>
-                    <div class="episode-name">Вектор столкновения</div>
+                    <div class="episode-name">Рандеву с коллизией электрических разрядов</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="6" data-video-id="1zHA1SS_NJhr2iDGPzMaQWHY1KnG8tLon">
                     <div class="episode-number">06</div>
-                    <div class="episode-name">Дивергенция дивергенции</div>
+                    <div class="episode-name">Дивергенция эффекта бабочки</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="7" data-video-id="1OVnY0FkXyRxSfJ8be7ulEwAGeHh0ms4M">
                     <div class="episode-number">07</div>
-                    <div class="episode-name">Трансцендентальное деление</div>
+                    <div class="episode-name">Дивергенция сдвига</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="8" data-video-id="1q4tm9_PX-Pyq7vk1Ppgg7MiTmFVlPDUz">
                     <div class="episode-number">08</div>
-                    <div class="episode-name">Двуслойное возмущение</div>
+                    <div class="episode-name">Гомеостаз фантазий</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="9" data-video-id="1yzf5UAYEuSo1NNC1hcmzJ6qXTb15fEaf">
                     <div class="episode-number">09</div>
-                    <div class="episode-name">Хаос и проницание</div>
+                    <div class="episode-name">Гомеостаз иллюзий</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="10" data-video-id="1j_jynD57UzSL9GKBqFH_AuH8vvzCXR0a">
                     <div class="episode-number">10</div>
-                    <div class="episode-name">Слоистая догма</div>
+                    <div class="episode-name">Гомеостаз сдвоенного роста</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="11" data-video-id="1xTXt8j4S2rpbLekb0bVuvBeKOP99zusD">
                     <div class="episode-number">11</div>
-                    <div class="episode-name">Дежанвё на расстоянии</div>
+                    <div class="episode-name">Догма горизонта событий</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="12" data-video-id="1NmZ4HYCz5DBb28ftDIt7y5lzReuSt21V">
                     <div class="episode-number">12</div>
-                    <div class="episode-name">Собачий бог</div>
+                    <div class="episode-name">Догма предела статичности</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="13" data-video-id="1YQUK3BSkUlq5HvqV3ORP6DbFNR7-6Vr7">
                     <div class="episode-number">13</div>
-                    <div class="episode-name">Метастазный симплекс</div>
+                    <div class="episode-name">Метафизический некроз</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="14" data-video-id="10VTdYY4PI2RFIa8pA6TDbKcarBB_-yv7">
                     <div class="episode-number">14</div>
-                    <div class="episode-name">Физическая психоз</div>
+                    <div class="episode-name">Физический некроз</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="15" data-video-id="119_1w8H5o5AU8JGFnSRQ7jG8R3El3gBt">
                     <div class="episode-number">15</div>
-                    <div class="episode-name">Клеточный энтропия</div>
+                    <div class="episode-name">Некроз недостающего звена</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="16" data-video-id="17MAHjUVWJq14qNd1YBTmc72X_yeDcKCg">
                     <div class="episode-number">16</div>
-                    <div class="episode-name">Парадигма оттока</div>
+                    <div class="episode-name">Необратимый некроз</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="17" data-video-id="1mbwhDxyw1lc-xG2sg8Awvcqm7dc0q1XZ">
                     <div class="episode-number">17</div>
-                    <div class="episode-name">Сложное искажение</div>
+                    <div class="episode-name">Комплекс искажения мнимого изображения</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="18" data-video-id="1jMUDLA68Sb14GJJwTPGQ4_yfat5TdTCn">
                     <div class="episode-number">18</div>
-                    <div class="episode-name">Фрактальный эндшпиль</div>
+                    <div class="episode-name">Андрогенез самоподобного объекта</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="19" data-video-id="1oyoZUGRYCX-BwscUIuOvMRCA5OpY1XKc">
                     <div class="episode-number">19</div>
-                    <div class="episode-name">Врата Штейна</div>
+                    <div class="episode-name">Апоптоз бесконечной цепи</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="20" data-video-id="1A4A6vnd7gxx08YIWZemwFCA11BpYIMLJ">
                     <div class="episode-number">20</div>
-                    <div class="episode-name">Фабрика судьбы</div>
+                    <div class="episode-name">Апоптоз исчезнувшего недовольства</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="21" data-video-id="1jIZJDE6_L-gPgx90rUKEGCUmTxlRy81T">
                     <div class="episode-number">21</div>
-                    <div class="episode-name">Парадокс Зенона</div>
+                    <div class="episode-name">Расплавление причинности</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="22" data-video-id="1hG4zHnpCVyf0Rf9wkZ55nOBFmm6foe7Y">
                     <div class="episode-number">22</div>
-                    <div class="episode-name">Спираль бытия</div>
+                    <div class="episode-name">Расплавление понимания существования</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="23" data-video-id="1OK7gHrnjh1XFJYV3qC7pbC_gvnYuFIAX">
                     <div class="episode-number">23</div>
-                    <div class="episode-name">Вскрытая реальность</div>
+                    <div class="episode-name">На границе Врат Штейна</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
                 <div class="episode-item" data-episode="24" data-video-id="1FbnhGAiTeNqTL84vNtT-KBk7YDKbxHEH">
                     <div class="episode-number">24</div>
-                    <div class="episode-name">Убежище небытия</div>
+                    <div class="episode-name">Пролог конца и начала</div>
                     <div class="episode-duration">24 мин</div>
                 </div>
             </div>
