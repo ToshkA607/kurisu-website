@@ -312,7 +312,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:#000000;backd
 .auth-form-check label{color:var(--text-secondary);font-size:0.85rem;cursor:pointer}
 .auth-form-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;border:none;border-radius:8px;font-weight:600;font-size:1rem;cursor:pointer;transition:none;position:relative;overflow:hidden}
 .auth-form-btn:hover{transform:none;box-shadow:none}
-.auth-form-btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height=100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:0.5s}
+.auth-form-btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:0.5s}
 .auth-form-btn:hover::after{left:100%}
 .auth-message{padding:12px;border-radius:8px;margin-bottom:20px;display:none;animation:fadeIn 0.3s ease-out;font-size:0.9rem}
 .auth-message.success{background:rgba(0,230,118,0.1);border:1px solid rgba(0,230,118,0.3);color:#00e676}
@@ -365,7 +365,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:#000000;backd
 .profile-tabs{display:flex;gap:10px;margin-bottom:30px;border-bottom:2px solid rgba(255,255,255,0.1);padding-bottom:15px}
 .profile-tab-btn{padding:12px 25px;background:transparent;border:none;color:var(--text-secondary);font-size:1rem;font-weight:600;cursor:pointer;transition:none;border-radius:10px;position:relative}
 .profile-tab-btn.active{color:var(--lab-blue);background:rgba(41,121,255,0.1)}
-.profile-tab-btn.active::after{content:'';position:absolute;bottom:-17px;left:0;width:100%;height=3px;background:linear-gradient(90deg,var(--lab-blue),var(--secondary-light))}
+.profile-tab-btn.active::after{content:'';position:absolute;bottom:-17px;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--lab-blue),var(--secondary-light))}
 .profile-tab-content{display:none;animation:fadeIn 0.5s ease-out}
 .profile-tab-content.active{display:block}
 .profile-info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:30px}
@@ -377,7 +377,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:#000000;backd
 .back-btn:hover{background:transparent;transform:none;box-shadow:none}
 .logout-btn{padding:14px 35px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;border:none;border-radius:30px;font-weight:600;cursor:pointer;transition:none;position:relative;overflow:hidden;display:flex;align-items:center;gap:10px;font-size:1rem}
 .logout-btn:hover{transform:none;box-shadow:none}
-.logout-btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height=100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:0.5s}
+.logout-btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:0.5s}
 .logout-btn:hover::after{left:100%}
 .edit-profile-btn{padding:14px 35px;background:linear-gradient(135deg,var(--lab-blue),var(--secondary-dark));color:white;border:none;border-radius:30px;font-weight:600;cursor:pointer;transition:none;display:flex;align-items:center;gap:10px;font-size:1rem}
 .edit-profile-btn:hover{transform:none;box-shadow:none}
@@ -402,15 +402,15 @@ section{padding:60px 0;position:relative}
 .section-title::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:60px;height=4px;background:linear-gradient(90deg,var(--primary),var(--lab-blue));border-radius:2px}
 .btn{display:inline-block;padding:12px 30px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;border:none;border-radius:30px;font-weight:600;text-decoration:none;cursor:pointer;transition:none;position:relative;overflow:hidden}
 .btn:hover{transform:none;box-shadow:none}
-.btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height=100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:0.5s}
+.btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:0.5s}
 .btn:hover::after{left:100%}
 .hero{height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:80px;background:var(--bg-dark)}
-.hero::before{content:'';position:absolute;top:0;left:0;width:100%;height=100%;background:var(--bg-dark);z-index:-1}
+.hero::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:var(--bg-dark);z-index:-1}
 .hero-container{display:flex;align-items:center;justify-content:space-between;width:100%;height:100%;position:relative}
 .hero-content{max-width:600px;animation:slideInLeft 1s ease-out;z-index:2}
 .hero-title{font-size:3.5rem;margin-bottom:20px;line-height:1.2}
 .hero-title .glitch{position:relative;display:inline-block}
-.hero-title .glitch::before,.hero-title .glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height=100%}
+.hero-title .glitch::before,.hero-title .glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%}
 .hero-title .glitch::before{left:2px;text-shadow:-2px 0 var(--lab-blue);clip:rect(44px,450px,56px,0);animation:glitch 3s infinite linear alternate-reverse}
 .hero-title .glitch::after{left:-2px;text-shadow:-2px 0 var(--primary);clip:rect(44px,450px,56px,0);animation:glitch 2s infinite linear alternate-reverse}
 .hero-subtitle{font-size:1.5rem;margin-bottom:30px;color:var(--text-secondary)}
@@ -428,7 +428,7 @@ section{padding:60px 0;position:relative}
 .stat-value{font-size:2rem;font-weight:700;color:var(--primary);margin-bottom:5px}
 .stat-label{font-size:0.9rem;color:var(--text-secondary)}
 .achievements{background:linear-gradient(135deg,rgba(10,10,18,0.95),rgba(21,21,34,0.98));position:relative;overflow:hidden}
-.achievements::before{content:'';position:absolute;top:0;left:0;width:100%;height=100%;background:radial-gradient(circle at 20% 30%,rgba(198,40,40,0.1) 0%,transparent 40%),radial-gradient(circle at 80% 70%,rgba(41,121,255,0.1) 0%,transparent 40%);z-index:0}
+.achievements::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 20% 30%,rgba(198,40,40,0.1) 0%,transparent 40%),radial-gradient(circle at 80% 70%,rgba(41,121,255,0.1) 0%,transparent 40%);z-index:0}
 .tabs-wrapper{display:flex;flex-direction:column;gap:40px;max-width:1200px;margin:0 auto}
 .tabs-header{display:grid;grid-template-columns:repeat(4,1fr);gap:25px;margin-bottom:10px}
 .tab-btn{width:100%;height:380px;aspect-ratio:2/3;background:linear-gradient(145deg,rgba(21,21,34,0.9),rgba(10,10,18,0.95));color:var(--text);border:2px solid rgba(198,40,40,0.3);padding:35px 25px;font-weight:600;cursor:pointer;transition:none;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.1);text-align:center}
@@ -471,34 +471,34 @@ section{padding:60px 0;position:relative}
 @keyframes buttonPress{0%{transform:translateY(-8px) scale(1)}50%{transform:translateY(-8px) scale(0.95)}100%{transform:translateY(-8px) scale(1)}}
 .timeline-section{background:linear-gradient(135deg,rgba(10,10,18,0.85),rgba(21,21,34,0.9));position:relative;overflow:hidden;padding:60px 0}
 #raindrop-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
-.timeline-overlay{position:absolute;top:0;left:0;width:100%;height=100%;background:rgba(10,10,18,0.7);z-index:1}
+.timeline-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(10,10,18,0.7);z-index:1}
 .timeline-content{position:relative;z-index:2}
 .timeline{position:relative;max-width:1000px;margin:0 auto;padding:50px 0}
-.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width=6px;background:linear-gradient(to bottom,transparent,var(--timeline-blue),var(--timeline-glow),var(--timeline-blue),transparent);transform:translateX(-50%);border-radius:10px;box-shadow:0 0 40px var(--timeline-blue),0 0 80px var(--timeline-glow),inset 0 0 20px rgba(0,229,255,0.3);animation:glow 3s ease-in-out infinite;z-index:2}
-.timeline-pulse{position:absolute;left:50%;top:0;width=8px;height:150px;background:linear-gradient(to bottom,transparent,var(--timeline-blue),var(--timeline-glow),var(--timeline-blue),transparent);transform:translateX(-50%);animation:pulseFlow 8s ease-in-out infinite;border-radius:10px;filter:blur(3px);z-index:3;box-shadow:0 0 50px var(--timeline-blue)}
-.timeline-item{position:relative;margin-bottom:100px;width=50%;padding:0 40px;opacity:0;transform:translateY(50px);transition:all 0.8s cubic-bezier(0.175,0.885,0.32,1.275)}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:6px;background:linear-gradient(to bottom,transparent,var(--timeline-blue),var(--timeline-glow),var(--timeline-blue),transparent);transform:translateX(-50%);border-radius:10px;box-shadow:0 0 40px var(--timeline-blue),0 0 80px var(--timeline-glow),inset 0 0 20px rgba(0,229,255,0.3);animation:glow 3s ease-in-out infinite;z-index:2}
+.timeline-pulse{position:absolute;left:50%;top:0;width:8px;height:150px;background:linear-gradient(to bottom,transparent,var(--timeline-blue),var(--timeline-glow),var(--timeline-blue),transparent);transform:translateX(-50%);animation:pulseFlow 8s ease-in-out infinite;border-radius:10px;filter:blur(3px);z-index:3;box-shadow:0 0 50px var(--timeline-blue)}
+.timeline-item{position:relative;margin-bottom:100px;width:50%;padding:0 40px;opacity:0;transform:translateY(50px);transition:all 0.8s cubic-bezier(0.175,0.885,0.32,1.275)}
 .timeline-item.visible{opacity:1;transform:translateY(0)}
 .timeline-item:nth-child(odd){left:0}
 .timeline-item:nth-child(even){left:50%}
-.timeline-btn{background:linear-gradient(135deg,rgba(21,21,34,0.85),rgba(10,10,18,0.9));padding:35px;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.6),0 0 40px rgba(0,229,255,0.25),inset 0 0 20px rgba(255,255,255,0.05);position:relative;border:1px solid rgba(0,229,255,0.4);transition:none;transform-style:preserve-3d;overflow:hidden;backdrop-filter:blur(10px);cursor:pointer;width=100%;text-align:left;border:none;color:inherit;font-size:inherit}
+.timeline-btn{background:linear-gradient(135deg,rgba(21,21,34,0.85),rgba(10,10,18,0.9));padding:35px;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.6),0 0 40px rgba(0,229,255,0.25),inset 0 0 20px rgba(255,255,255,0.05);position:relative;border:1px solid rgba(0,229,255,0.4);transition:none;transform-style:preserve-3d;overflow:hidden;backdrop-filter:blur(10px);cursor:pointer;width:100%;text-align:left;border:none;color:inherit;font-size:inherit}
 .timeline-btn:hover{transform:none;box-shadow:0 15px 40px rgba(0,0,0,0.6),0 0 40px rgba(0,229,255,0.25),inset 0 0 20px rgba(255,255,255,0.05);border-color:rgba(0,229,255,0.4)}
-.timeline-btn::before{content:'';position:absolute;top:0;left:0;right:0;height=3px;background:linear-gradient(90deg,transparent,var(--timeline-blue),transparent);animation:pulse 2s infinite}
-.timeline-btn::after{content:'';position:absolute;top:50%;width=24px;height:24px;border-radius:50%;background:radial-gradient(circle,var(--timeline-blue),var(--timeline-glow));border:4px solid var(--bg-dark);animation:nodePulse 2s ease-in-out infinite;box-shadow:0 0 0 0 rgba(0,229,255,0.9),0 0 30px var(--timeline-blue),0 0 50px rgba(0,229,255,0.4);transform:translateY(-50%);z-index:4}
+.timeline-btn::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--timeline-blue),transparent);animation:pulse 2s infinite}
+.timeline-btn::after{content:'';position:absolute;top:50%;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle,var(--timeline-blue),var(--timeline-glow));border:4px solid var(--bg-dark);animation:nodePulse 2s ease-in-out infinite;box-shadow:0 0 0 0 rgba(0,229,255,0.9),0 0 30px var(--timeline-blue),0 0 50px rgba(0,229,255,0.4);transform:translateY(-50%);z-index:4}
 .timeline-item:nth-child(odd) .timeline-btn::after{right:-52px}
 .timeline-item:nth-child(even) .timeline-btn::after{left:-52px}
 .timeline-date{color:var(--timeline-blue);font-weight:700;margin-bottom:20px;display:flex;align-items:center;font-family:'Courier New',monospace;text-shadow:0 0 20px rgba(0,229,255,0.8);font-size:1.2rem;position:relative;padding-left:35px;transform:translateZ(30px)}
 .timeline-date i{margin-right:15px;animation:glow 2s ease-in-out infinite;position:absolute;left:0;font-size:1.3rem;color:var(--timeline-blue)}
 .timeline-text{color:var(--text);line-height:1.7;font-size:1.1rem;position:relative;z-index:2;transform:translateZ(20px);transition:none}
 .timeline-btn:hover .timeline-text{transform:translateZ(20px)}
-.world-lines{position:absolute;top:0;left:0;width=100%;height=100%;pointer-events:none;z-index:1;opacity:0.3}
+.world-lines{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0.3}
 .world-line{position:absolute;color:var(--lab-green);font-family:'Courier New',monospace;font-size:14px;font-weight:bold;text-shadow:0 0 10px var(--lab-green);animation:fadeIn 1s}
-.timeline-modal-overlay{position:fixed;top:0;left:0;width=100%;height=100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);z-index:9998;opacity:0;visibility:hidden;transition:all 0.5s cubic-bezier(0.175,0.885,0.32,1.275)}
+.timeline-modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);z-index:9998;opacity:0;visibility:hidden;transition:all 0.5s cubic-bezier(0.175,0.885,0.32,1.275)}
 .timeline-modal-overlay.active{opacity:1;visibility:visible}
-.timeline-modal-content{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);width=90%;max-width:1000px;height=85vh;max-height:700px;background:linear-gradient(135deg,rgba(21,21,34,0.98),rgba(10,10,18,0.99));border-radius:20px;border:2px solid rgba(0,229,255,0.4);box-shadow:0 30px 80px rgba(0,0,0,0.8),0 0 80px rgba(0,229,255,0.4),inset 0 0 50px rgba(255,255,255,0.1);z-index:9999;opacity:0;visibility:hidden;overflow:hidden;transition:all 0.6s cubic-bezier(0.175,0.885,0.32,1.275);display:flex;flex-direction:column}
+.timeline-modal-content{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);width:90%;max-width:1000px;height:85vh;max-height:700px;background:linear-gradient(135deg,rgba(21,21,34,0.98),rgba(10,10,18,0.99));border-radius:20px;border:2px solid rgba(0,229,255,0.4);box-shadow:0 30px 80px rgba(0,0,0,0.8),0 0 80px rgba(0,229,255,0.4),inset 0 0 50px rgba(255,255,255,0.1);z-index:9999;opacity:0;visibility:hidden;overflow:hidden;transition:all 0.6s cubic-bezier(0.175,0.885,0.32,1.275);display:flex;flex-direction:column}
 .timeline-modal-content.active{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
 .timeline-modal-header{padding:25px 40px;background:linear-gradient(90deg,rgba(0,229,255,0.2),transparent);border-bottom:1px solid rgba(0,229,255,0.3);display:flex;justify-content:space-between;align-items:center}
 .timeline-modal-title{font-size:2rem;color:var(--timeline-blue);text-shadow:0 0 20px rgba(0,229,255,0.5);margin:0;font-family:'Courier New',monospace}
-.timeline-close-modal{background:rgba(0,229,255,0.2);border:2px solid rgba(0,229,255,0.4);color:var(--text);width=45px;height:45px;border-radius:50%;font-size:1.5rem;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center}
+.timeline-close-modal{background:rgba(0,229,255,0.2);border:2px solid rgba(0,229,255,0.4);color:var(--text);width:45px;height:45px;border-radius:50%;font-size:1.5rem;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center}
 .timeline-close-modal:hover{background:rgba(0,229,255,0.4);transform:rotate(90deg);box-shadow:0 0 20px rgba(0,229,255,0.5)}
 .timeline-modal-body{padding:40px;flex:1;overflow-y:auto}
 .timeline-details{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;opacity:0;transform:translateY(30px);transition:all 0.8s cubic-bezier(0.175,0.885,0.32,1.275) 0.2s}
@@ -511,15 +511,15 @@ section{padding:60px 0;position:relative}
 .timeline-visual{text-align:center;position:relative}
 .timeline-visual img{max-width:100%;border-radius:15px;box-shadow:0 20px 40px rgba(0,0,0,0.5),0 0 40px rgba(0,229,255,0.2);border:2px solid rgba(0,229,255,0.4);transition:none}
 .timeline-visual img:hover{transform:none}
-.timeline-visual-label{margin-top:15px;background:rgba(10,10,18,0.85);padding:12px 15px;font-family:'Courier New',monospace;font-size:0.95rem;color:var(--timeline-blue);text-shadow:0 0 10px rgba(0,229,255,0.7);border-radius:8px;border:1px solid rgba(0,229,255,0.3);backdrop-filter:blur(5px);text-align:center;width=100%}
+.timeline-visual-label{margin-top:15px;background:rgba(10,10,18,0.85);padding:12px 15px;font-family:'Courier New',monospace;font-size:0.95rem;color:var(--timeline-blue);text-shadow:0 0 10px rgba(0,229,255,0.7);border-radius:8px;border:1px solid rgba(0,229,255,0.3);backdrop-filter:blur(5px);text-align:center;width:100%}
 .episodes-section{padding:60px 0;background:var(--bg-dark);position:relative}
 .episodes-container{max-width:1200px;margin:0 auto}
 .episodes-title{font-size:2.2rem;margin-bottom:30px;color:var(--primary);text-align:center}
 .episodes-content{display:grid;grid-template-columns:2fr 1fr;gap:30px}
-.episode-player{position:relative;border-radius:15px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.4);border:2px solid var(--primary);background:#000;width=100%;height:550px}
-.video-iframe-container{position:relative;width=100%;height=100%;overflow:hidden}
-.video-iframe{width=100%;height=100%;border:none;background:#000}
-.video-iframe iframe{width=100%;height=100%;border:none;pointer-events:auto}
+.episode-player{position:relative;border-radius:15px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.4);border:2px solid var(--primary);background:#000;width:100%;height:550px}
+.video-iframe-container{position:relative;width:100%;height:100%;overflow:hidden}
+.video-iframe{width:100%;height:100%;border:none;background:#000}
+.video-iframe iframe{width:100%;height:100%;border:none;pointer-events:auto}
 .video-iframe iframe::-webkit-media-controls,.video-iframe iframe::-webkit-media-controls-enclosure,.video-iframe iframe::-webkit-media-controls-panel,.video-iframe iframe::-webkit-media-controls-play-button,.video-iframe iframe::-webkit-media-controls-volume-slider,.video-iframe iframe::-webkit-media-controls-mute-button,.video-iframe iframe::-webkit-media-controls-timeline,.video-iframe iframe::-webkit-media-controls-current-time-display,.video-iframe iframe::-webkit-media-controls-time-remaining-display,.video-iframe iframe::-webkit-media-controls-fullscreen-button{display:none!important}
 .video-iframe iframe::-moz-media-controls{display:none!important}
 .episodes-list{background:var(--bg-card);border-radius:10px;padding:20px;box-shadow:0 10px 20px rgba(0,0,0,0.2);max-height:550px;overflow-y:auto}
@@ -531,229 +531,13 @@ section{padding:60px 0;position:relative}
 .episode-number{font-weight:bold;color:var(--primary);margin-right:10px}
 .episode-name{color:var(--text);font-weight:500}
 .episode-duration{color:var(--text-secondary);font-size:0.8rem;margin-top:5px}
-.video-loading{position:absolute;top:0;left:0;width=100%;height=100%;background:rgba(10,10,18,0.9);display:none;flex-direction:column;justify-content:center;align-items:center;z-index:10}
+.video-loading{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(10,10,18,0.9);display:none;flex-direction:column;justify-content:center;align-items:center;z-index:10}
 .loading-spinner{font-size:3rem;color:var(--primary);margin-bottom:20px;animation:spin 1s linear infinite}
 footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
 .footer-content{max-width:800px;margin:0 auto}
 .el-psy-congroo{font-family:'Courier New',monospace;margin-top:30px;color:var(--text-secondary);font-size:0.9rem}
-.binary-bg{position:fixed;top:0;left:0;width=100%;height=100%;pointer-events:none;z-index:-1;opacity:0.1}
-.particles-js{position:fixed;width=100%;height=100%;top:0;left:0;z-index:-1}
-
-/* Новые стили для кнопки обратной связи */
-.feedback-btn {
-    margin-top: 25px;
-    padding: 12px 30px;
-    background: linear-gradient(135deg, var(--lab-blue), var(--secondary-dark));
-    color: white;
-    border: none;
-    border-radius: 25px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1rem;
-    text-decoration: none;
-}
-
-.feedback-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(41,121,255,0.3);
-}
-
-.feedback-btn i {
-    font-size: 1.1rem;
-}
-
-/* Модальное окно обратной связи */
-.feedback-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(10px);
-    z-index: 10004;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.5s cubic-bezier(0.175,0.885,0.32,1.275);
-}
-
-.feedback-modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.feedback-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%) scale(0.8);
-    width: 90%;
-    max-width: 500px;
-    background: linear-gradient(135deg,rgba(21,21,34,0.98),rgba(10,10,18,0.99));
-    border-radius: 20px;
-    border: 2px solid rgba(41,121,255,0.4);
-    box-shadow: 0 30px 80px rgba(0,0,0,0.8),0 0 80px rgba(41,121,255,0.4),inset 0 0 50px rgba(255,255,255,0.1);
-    z-index: 10005;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.6s cubic-bezier(0.175,0.885,0.32,1.275);
-}
-
-.feedback-modal.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(-50%,-50%) scale(1);
-}
-
-.feedback-modal-header {
-    padding: 25px 30px;
-    background: linear-gradient(90deg,rgba(41,121,255,0.2),transparent);
-    border-bottom: 1px solid rgba(41,121,255,0.3);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.feedback-modal-title {
-    font-size: 1.8rem;
-    color: var(--lab-blue);
-    text-shadow: 0 0 20px rgba(41,121,255,0.5);
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.feedback-close-modal {
-    background: rgba(41,121,255,0.2);
-    border: 2px solid rgba(41,121,255,0.4);
-    color: var(--text);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.feedback-close-modal:hover {
-    background: rgba(41,121,255,0.4);
-    transform: rotate(90deg);
-    box-shadow: 0 0 20px rgba(41,121,255,0.5);
-}
-
-.feedback-modal-body {
-    padding: 30px;
-}
-
-.feedback-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.feedback-form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.feedback-form-label {
-    color: var(--text);
-    font-weight: 500;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.feedback-form-control {
-    width: 100%;
-    padding: 12px 15px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    color: var(--text);
-    font-size: 1rem;
-    transition: all 0.3s;
-    font-family: inherit;
-}
-
-.feedback-form-control:focus {
-    outline: none;
-    border-color: var(--lab-blue);
-    box-shadow: 0 0 0 3px rgba(41,121,255,0.2);
-    background: rgba(255,255,255,0.07);
-}
-
-.feedback-form-control::placeholder {
-    color: var(--text-secondary);
-}
-
-.feedback-textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-.feedback-submit-btn {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, var(--lab-blue), var(--secondary-dark));
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.feedback-submit-btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(41,121,255,0.3);
-}
-
-.feedback-submit-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.feedback-message {
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    display: none;
-    animation: fadeIn 0.3s ease-out;
-    font-size: 0.9rem;
-}
-
-.feedback-message.success {
-    background: rgba(0,230,118,0.1);
-    border: 1px solid rgba(0,230,118,0.3);
-    color: #00e676;
-}
-
-.feedback-message.error {
-    background: rgba(255,82,82,0.1);
-    border: 1px solid rgba(255,82,82,0.3);
-    color: #ff5252;
-}
-
-.feedback-message.show {
-    display: block;
-}
+.binary-bg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;opacity:0.1}
+.particles-js{position:fixed;width:100%;height:100%;top:0;left:0;z-index:-1}
 
 /* Медиа-запросы */
 @media(max-width:1200px){
@@ -787,13 +571,13 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
     .modal-title{font-size:1.8rem}
     .timeline::before{left:30px}
     .timeline-pulse{left:30px}
-    .timeline-item{width=100%;left:0!important;padding-left:80px;padding-right:20px}
+    .timeline-item{width:100%;left:0!important;padding-left:80px;padding-right:20px}
     .timeline-btn::after{left:-52px!important;right:auto!important}
     .timeline-details{grid-template-columns:1fr;gap:40px}
     .timeline-description{padding-right:0}
     .hero-container{flex-direction:column;justify-content:center;text-align:center;padding-top:60px}
     .hero-content{max-width:100%;margin-bottom:40px;padding:0 20px}
-    .hero-image{position:relative;width=100%;max-width:500px;margin:0 auto;top:auto;transform:none;right:auto}
+    .hero-image{position:relative;width:100%;max-width:500px;margin:0 auto;top:auto;transform:none;right:auto}
     .hero-bg-element{display:none}
     .hero-title{font-size:2.8rem}
     .hero-subtitle{font-size:1.3rem}
@@ -809,20 +593,15 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
     .stickers-grid{grid-template-columns:repeat(3,1fr)}
     .comment-input-container{flex-direction:column;align-items:center}
     .comment-form-actions{flex-direction:column;gap:10px;align-items:stretch}
-    .comment-submit-btn{width=100%;justify-content:center}
+    .comment-submit-btn{width:100%;justify-content:center}
     .comment-header{flex-direction:column;align-items:flex-start;gap:8px}
-    .comments-modal{width=98%;height=95vh;border-radius:15px}
+    .comments-modal{width:98%;height:95vh;border-radius:15px}
     .comments-modal-header{padding:15px 20px}
     .comments-modal-title{font-size:1.3rem}
     .comments-modal-body{padding:20px}
-    .open-comments-btn{width=100%;justify-content:center}
+    .open-comments-btn{width:100%;justify-content:center}
     .comment-delete-btn{opacity:1}
     .comment-actions{flex-direction:column;align-items:flex-start;gap:10px}
-    /* Стили для модального окна обратной связи на мобильных */
-    .feedback-modal{width=95%;border-radius:15px}
-    .feedback-modal-header{padding:20px}
-    .feedback-modal-title{font-size:1.5rem}
-    .feedback-modal-body{padding:20px}
 }
 
 @media(max-width:768px){
@@ -833,7 +612,7 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
     .tab-btn-icon{font-size:3rem;margin-bottom:18px;height:65px}
     .tab-btn-title{font-size:1.2rem;height:50px;margin-bottom:15px}
     .tab-btn-description{font-size:0.9rem;-webkit-line-clamp:5}
-    .modal-content{width=95%;height=90vh;max-height:none}
+    .modal-content{width:95%;height:90vh;max-height:none}
     .modal-title{font-size:1.6rem}
     .achievement-description{font-size:1.1rem}
     .hero{height:auto;min-height:100vh}
@@ -847,7 +626,7 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
     .timeline-btn{padding:25px}
     .timeline-date{font-size:1.1rem}
     .timeline-text{font-size:1rem}
-    .timeline-modal-content{width=95%;height=90vh;max-height:none}
+    .timeline-modal-content{width:95%;height:90vh;max-height:none}
     .timeline-modal-title{font-size:1.6rem}
     .timeline-modal-body{padding:30px}
     .timeline-modal-header{padding:20px 30px}
@@ -872,8 +651,6 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
     .comment-author-avatar{width:35px;height:35px;font-size:0.9rem}
     .comment-episode-info{flex-direction:column;align-items:flex-start}
     .comment-delete-btn{align-self:flex-end}
-    /* Стили для обратной связи */
-    .feedback-btn{padding:10px 25px;font-size:0.95rem}
 }
 
 @media(max-width:576px){
@@ -915,13 +692,6 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
     .profile-main-title{font-size:1.8rem}
     .profile-user-name{font-size:1.5rem}
     .profile-avatar-large{width:120px;height:120px;font-size:2.2rem}
-    /* Стили для обратной связи */
-    .feedback-modal{width=95%}
-    .feedback-modal-header{padding:15px 20px}
-    .feedback-modal-title{font-size:1.3rem}
-    .feedback-modal-body{padding:15px}
-    .feedback-form-control{padding:10px 12px}
-    .feedback-submit-btn{padding:12px}
 }
 
 @media(max-width:375px){
@@ -935,8 +705,6 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
     .timeline-date{font-size:0.9rem}
     .timeline-text{font-size:0.9rem}
     .episode-player{height:280px}
-    /* Стили для обратной связи */
-    .feedback-btn{padding:8px 20px;font-size:0.9rem}
 }
 
 /* Стили для скроллбаров */
@@ -947,7 +715,7 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
 .profile-main::-webkit-scrollbar,
 .comments-modal-body::-webkit-scrollbar,
 .comments-list::-webkit-scrollbar,
-.stickers-grid::-webkit-scrollbar{width=8px}
+.stickers-grid::-webkit-scrollbar{width:8px}
 .modal-body::-webkit-scrollbar-track{background:rgba(198,40,40,0.1);border-radius:4px}
 .modal-body::-webkit-scrollbar-thumb{background:linear-gradient(to bottom,var(--primary),var(--primary-dark));border-radius:4px}
 .modal-body::-webkit-scrollbar-thumb:hover{background:linear-gradient(to bottom,var(--primary),var(--primary-dark))}
@@ -968,8 +736,8 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
 
 /* Отключение hover-эффектов на мобильных устройствах */
 @media(hover:none) and (pointer:coarse){
-    .tab-btn:hover,.stat-item:hover,.timeline-btn:hover,.episode-item:hover:not(.disabled),.btn:hover,.auth-btn:hover,.profile-btn:hover,.profile-stat-item:hover,.feedback-btn:hover{transform:none}
-    .tab-btn,.stat-item,.episode-item,.timeline-btn,.btn,.auth-btn,.profile-btn,.profile-stat-item,.feedback-btn{cursor:pointer;-webkit-tap-highlight-color:transparent}
+    .tab-btn:hover,.stat-item:hover,.timeline-btn:hover,.episode-item:hover:not(.disabled),.btn:hover,.auth-btn:hover,.profile-btn:hover,.profile-stat-item:hover{transform:none}
+    .tab-btn,.stat-item,.episode-item,.timeline-btn,.btn,.auth-btn,.profile-btn,.profile-stat-item{cursor:pointer;-webkit-tap-highlight-color:transparent}
     .nav-links a{padding:10px 5px;-webkit-tap-highlight-color:transparent}
     .episode-player{touch-action:manipulation}
     .video-iframe{touch-action:pan-x pan-y pinch-zoom}
@@ -1109,8 +877,8 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
             <form class="auth-form active" id="loginForm">
                 <div class="auth-message" id="loginMessage"></div>
                 <div class="auth-form-group">
-                    <label for="loginUsername">Логин</label>
-                    <input type="text" id="loginUsername" class="auth-form-control" placeholder="Введите ваш логин" required>
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="auth-form-control" placeholder="Введите ваш email" required>
                 </div>
                 <div class="auth-form-group">
                     <label for="loginPassword">Пароль</label>
@@ -1132,12 +900,12 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
             <form class="auth-form" id="registerForm">
                 <div class="auth-message" id="registerMessage"></div>
                 <div class="auth-form-group">
-                    <label for="registerUsername">Логин</label>
-                    <input type="text" id="registerUsername" class="auth-form-control" placeholder="Придумайте логин" required>
-                </div>
-                <div class="auth-form-group">
                     <label for="registerEmail">Email</label>
                     <input type="email" id="registerEmail" class="auth-form-control" placeholder="Введите ваш email" required>
+                </div>
+                <div class="auth-form-group">
+                    <label for="registerUsername">Имя пользователя</label>
+                    <input type="text" id="registerUsername" class="auth-form-control" placeholder="Придумайте имя пользователя" required>
                 </div>
                 <div class="auth-form-group">
                     <label for="registerPassword">Пароль</label>
@@ -1262,45 +1030,6 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
                 </div>
             </div>
             <div class="comments-list" id="modalCommentsList"></div>
-        </div>
-    </div>
-    
-    <!-- Модальное окно обратной связи -->
-    <div class="feedback-modal-overlay" id="feedbackModalOverlay"></div>
-    <div class="feedback-modal" id="feedbackModal">
-        <div class="feedback-modal-header">
-            <h3 class="feedback-modal-title">
-                <i class="fas fa-comment-alt"></i> Обратная связь
-            </h3>
-            <button class="feedback-close-modal" id="feedbackCloseModal">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="feedback-modal-body">
-            <div class="feedback-message" id="feedbackMessage"></div>
-            <form class="feedback-form" id="feedbackForm">
-                <div class="feedback-form-group">
-                    <label class="feedback-form-label" for="feedbackName">
-                        <i class="fas fa-user"></i> Ваше имя
-                    </label>
-                    <input type="text" id="feedbackName" class="feedback-form-control" placeholder="Введите ваше имя" required>
-                </div>
-                <div class="feedback-form-group">
-                    <label class="feedback-form-label" for="feedbackEmail">
-                        <i class="fas fa-envelope"></i> Email
-                    </label>
-                    <input type="email" id="feedbackEmail" class="feedback-form-control" placeholder="Введите ваш email для ответа" required>
-                </div>
-                <div class="feedback-form-group">
-                    <label class="feedback-form-label" for="feedbackMessageText">
-                        <i class="fas fa-edit"></i> Сообщение
-                    </label>
-                    <textarea id="feedbackMessageText" class="feedback-form-control feedback-textarea" placeholder="Напишите ваше сообщение..." required></textarea>
-                </div>
-                <button type="submit" class="feedback-submit-btn">
-                    <i class="fas fa-paper-plane"></i> Отправить сообщение
-                </button>
-            </form>
         </div>
     </div>
     
@@ -1764,10 +1493,6 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
         <div class="footer-content">
             <p>Официальный сайт-визитка Макисэ Курису</p>
             <p>Исследования в области нейробиологии и временных технологий</p>
-            <!-- Добавленная кнопка обратной связи -->
-            <button class="feedback-btn" id="openFeedbackModal">
-                <i class="fas fa-comment-alt"></i> Обратная связь
-            </button>
             <div class="el-psy-congroo">El Psy Congroo</div>
         </div>
     </div>
@@ -2030,21 +1755,13 @@ class FirebaseAuthManager{
     }
     showAuthButtons(){if(this.elements.authButtons){this.elements.authButtons.style.display='flex'}if(this.elements.userInfo){this.elements.userInfo.style.display='none'}this.showMainPage();if(this.mobileMenuManager){this.mobileMenuManager.updateMobileUserInfo({})}}
     showUserInfo(){if(this.elements.authButtons){this.elements.authButtons.style.display='none'}if(this.elements.userInfo){this.elements.userInfo.style.display='flex'}}
-    openAuthModal(tab='login'){if(this.elements.authModalOverlay){this.elements.authModalOverlay.classList.add('active')}if(this.elements.authModal){this.elements.authModal.classList.add('active')}document.body.style.overflow='hidden';this.switchTab(tab);if(tab==='login'){const loginUsername=document.getElementById('loginUsername');if(loginUsername)loginUsername.focus()}else{const registerUsername=document.getElementById('registerUsername');if(registerUsername)registerUsername.focus()}}
+    openAuthModal(tab='login'){if(this.elements.authModalOverlay){this.elements.authModalOverlay.classList.add('active')}if(this.elements.authModal){this.elements.authModal.classList.add('active')}document.body.style.overflow='hidden';this.switchTab(tab);if(tab==='login'){const loginEmail=document.getElementById('loginEmail');if(loginEmail)loginEmail.focus()}else{const registerEmail=document.getElementById('registerEmail');if(registerEmail)registerEmail.focus()}}
     closeAuthModal(){if(this.elements.authModalOverlay){this.elements.authModalOverlay.classList.remove('active')}if(this.elements.authModal){this.elements.authModal.classList.remove('active')}document.body.style.overflow='';this.clearMessages();if(this.elements.loginForm){this.elements.loginForm.reset()}if(this.elements.registerForm){this.elements.registerForm.reset()}}
     openEditProfileModal(){const editProfileName=document.getElementById('editProfileName');if(editProfileName){editProfileName.value=this.currentUser.displayName||this.elements.profileUsername.textContent||''}const editProfileEmail=document.getElementById('editProfileEmail');if(editProfileEmail){editProfileEmail.value=this.currentUser.email||this.elements.profileEmail.textContent||''}if(this.elements.editProfileModalOverlay){this.elements.editProfileModalOverlay.classList.add('active')}if(this.elements.editProfileModal){this.elements.editProfileModal.classList.add('active')}document.body.style.overflow='hidden'}
     closeEditProfileModal(){if(this.elements.editProfileModalOverlay){this.elements.editProfileModalOverlay.classList.remove('active')}if(this.elements.editProfileModal){this.elements.editProfileModal.classList.remove('active')}document.body.style.overflow=''}
     switchTab(tab){if(this.elements.loginTabBtn){this.elements.loginTabBtn.classList.toggle('active',tab==='login')}if(this.elements.registerTabBtn){this.elements.registerTabBtn.classList.toggle('active',tab==='register')}if(this.elements.authModalTitle){this.elements.authModalTitle.textContent=tab==='login'?'Вход':'Регистрация'}if(this.elements.loginForm){this.elements.loginForm.classList.toggle('active',tab==='login')}if(this.elements.registerForm){this.elements.registerForm.classList.toggle('active',tab==='register')}this.clearMessages()}
-    async handleLogin(e){e.preventDefault();this.clearMessages();const username=document.getElementById('loginUsername').value.trim();const password=document.getElementById('loginPassword').value;if(!username||!password){this.showMessage(this.elements.loginMessage,'Заполните все поля','error');return}
-        
-        // Преобразуем логин в email (добавляем @gmail.com если нет @)
-        let email = username;
-        if (!email.includes('@')) {
-            email = email + '@gmail.com';
-        }
-        
-        try{const userCredential=await this.authFunctions.signInWithEmailAndPassword(this.auth,email,password);this.showMessage(this.elements.loginMessage,'Успешный вход!','success');setTimeout(()=>{this.closeAuthModal();this.showMainPage()},1500)}catch(error){let errorMessage='Ошибка входа';if(error.code==='auth/user-not-found'){errorMessage='Пользователь не найден'}else if(error.code==='auth/wrong-password'){errorMessage='Неверный пароль'}else if(error.code==='auth/invalid-email'){errorMessage='Неверный формат логина'}this.showMessage(this.elements.loginMessage,errorMessage,'error')}}
-    async handleRegister(e){e.preventDefault();this.clearMessages();const username=document.getElementById('registerUsername').value.trim();const email=document.getElementById('registerEmail').value.trim();const password=document.getElementById('registerPassword').value;const confirmPassword=document.getElementById('registerConfirmPassword').value;const acceptTerms=document.getElementById('acceptTerms')?document.getElementById('acceptTerms').checked:false;if(!username||!email||!password||!confirmPassword){this.showMessage(this.elements.registerMessage,'Заполните все поля','error');return}if(!acceptTerms){this.showMessage(this.elements.registerMessage,'Необходимо принять условия использования','error');return}if(password!==confirmPassword){this.showMessage(this.elements.registerMessage,'Пароли не совпадают','error');return}if(password.length<6){this.showMessage(this.elements.registerMessage,'Пароль должен содержать минимум 6 символов','error');return}try{const userCredential=await this.authFunctions.createUserWithEmailAndPassword(this.auth,email,password);await this.authFunctions.updateProfile(userCredential.user,{displayName:username});await this.createUserProfile(userCredential.user.uid,userCredential.user);this.showMessage(this.elements.registerMessage,'Регистрация успешна! Создаю профиль...','success');setTimeout(()=>{this.showMessage(this.elements.registerMessage,'Профиль создан! Перенаправляю...','success');setTimeout(()=>{this.closeAuthModal();this.showMainPage()},1000)},1500)}catch(error){let errorMessage='Ошибка регистрации';if(error.code==='auth/email-already-in-use'){errorMessage='Пользователь с таким email уже существует'}else if(error.code==='auth/invalid-email'){errorMessage='Неверный формат email'}else if(error.code==='auth/weak-password'){errorMessage='Пароль слишком слабый'}this.showMessage(this.elements.registerMessage,errorMessage,'error')}}
+    async handleLogin(e){e.preventDefault();this.clearMessages();const email=document.getElementById('loginEmail').value.trim();const password=document.getElementById('loginPassword').value;if(!email||!password){this.showMessage(this.elements.loginMessage,'Заполните все поля','error');return}try{const userCredential=await this.authFunctions.signInWithEmailAndPassword(this.auth,email,password);this.showMessage(this.elements.loginMessage,'Успешный вход!','success');setTimeout(()=>{this.closeAuthModal();this.showMainPage()},1500)}catch(error){let errorMessage='Ошибка входа';if(error.code==='auth/user-not-found'){errorMessage='Пользователь не найден'}else if(error.code==='auth/wrong-password'){errorMessage='Неверный пароль'}else if(error.code==='auth/invalid-email'){errorMessage='Неверный формат email'}this.showMessage(this.elements.loginMessage,errorMessage,'error')}}
+    async handleRegister(e){e.preventDefault();this.clearMessages();const email=document.getElementById('registerEmail').value.trim();const username=document.getElementById('registerUsername').value.trim();const password=document.getElementById('registerPassword').value;const confirmPassword=document.getElementById('registerConfirmPassword').value;const acceptTerms=document.getElementById('acceptTerms')?document.getElementById('acceptTerms').checked:false;if(!email||!username||!password||!confirmPassword){this.showMessage(this.elements.registerMessage,'Заполните все поля','error');return}if(!acceptTerms){this.showMessage(this.elements.registerMessage,'Необходимо принять условия использования','error');return}if(password!==confirmPassword){this.showMessage(this.elements.registerMessage,'Пароли не совпадают','error');return}if(password.length<6){this.showMessage(this.elements.registerMessage,'Пароль должен содержать минимум 6 символов','error');return}try{const userCredential=await this.authFunctions.createUserWithEmailAndPassword(this.auth,email,password);await this.authFunctions.updateProfile(userCredential.user,{displayName:username});await this.createUserProfile(userCredential.user.uid,userCredential.user);this.showMessage(this.elements.registerMessage,'Регистрация успешна! Создаю профиль...','success');setTimeout(()=>{this.showMessage(this.elements.registerMessage,'Профиль создан! Перенаправляю...','success');setTimeout(()=>{this.closeAuthModal();this.showMainPage()},1000)},1500)}catch(error){let errorMessage='Ошибка регистрации';if(error.code==='auth/email-already-in-use'){errorMessage='Пользователь с таким email уже существует'}else if(error.code==='auth/invalid-email'){errorMessage='Неверный формат email'}else if(error.code==='auth/weak-password'){errorMessage='Пароль слишком слабый'}this.showMessage(this.elements.registerMessage,errorMessage,'error')}}
     async handleLogout(){try{await this.authFunctions.signOut(this.auth);this.showAuthButtons();this.showMainPage()}catch(error){console.error('Ошибка выхода:',error)}}
     handleEditProfile(){this.openEditProfileModal()}
     async handleEditProfileSubmit(e){e.preventDefault();const newUsername=document.getElementById('editProfileName').value.trim();const newEmail=document.getElementById('editProfileEmail').value.trim();const currentPassword=document.getElementById('currentPassword').value;const newPassword=document.getElementById('newPassword').value;const confirmNewPassword=document.getElementById('confirmNewPassword').value;if(!newUsername){alert('Пожалуйста, введите имя пользователя');return}if(!currentPassword){alert('Для смены email или пароля необходимо ввести текущий пароль');return}try{const user=this.currentUser;if(!user){alert('Пользователь не авторизован');return}const credential=this.authFunctions.EmailAuthProvider.credential(user.email,currentPassword);await this.authFunctions.reauthenticateWithCredential(user,credential);let updates={};if(newUsername&&newUsername!==user.displayName){await this.authFunctions.updateProfile(user,{displayName:newUsername});updates.username=newUsername;updates.displayName=newUsername;if(this.elements.userName){this.elements.userName.textContent=newUsername;if(user.email === 'kurisu@gmail.com'){this.elements.userName.classList.add('kurisu-admin');}}if(this.elements.profileUserName){this.elements.profileUserName.textContent=newUsername;if(user.email === 'kurisu@gmail.com'){this.elements.profileUserName.classList.add('kurisu-admin');}}if(this.elements.profileUsername){this.elements.profileUsername.textContent=newUsername;}}if(newEmail&&newEmail!==user.email){await this.authFunctions.updateEmail(user,newEmail);updates.email=newEmail;if(this.elements.profileEmail){this.elements.profileEmail.textContent=newEmail;}}if(newPassword&&newPassword.trim()!==''){if(newPassword.length<6){alert('Новый пароль должен содержать минимум 6 символов');return}if(newPassword!==confirmNewPassword){alert('Новый пароль и подтверждение не совпадают');return}await this.authFunctions.updatePassword(user,newPassword);this.showNotification('Пароль успешно изменен!','success')}if(Object.keys(updates).length>0){await this.firestore.updateDoc(this.firestore.doc(this.db,'users',user.uid),{...updates,updatedAt:this.firestore.serverTimestamp()});}const userDoc=await this.firestore.getDoc(this.firestore.doc(this.db,'users',user.uid));const userData=userDoc.exists()?userDoc.data():{};if(!userData.avatar||!userData.avatar.startsWith('data:image')){if(this.elements.userAvatar){this.elements.userAvatar.textContent=newUsername.charAt(0).toUpperCase();}if(this.elements.profileAvatarLarge){this.elements.profileAvatarLarge.textContent=newUsername.charAt(0).toUpperCase();}}if(this.mobileMenuManager){this.mobileMenuManager.updateMobileUserInfo({...userData,...updates});}this.closeEditProfileModal();this.showNotification('Профиль успешно обновлен!','success');}catch(error){console.error('Ошибка обновления профиля:',error);let errorMessage='Ошибка при обновлении профиля';if(error.code==='auth/wrong-password'){errorMessage='Неверный текущий пароль'}else if(error.code==='auth/email-already-in-use'){errorMessage='Этот email уже используется другим пользователем'}else if(error.code==='auth/invalid-email'){errorMessage='Неверный формат email'}else if(error.code==='auth/weak-password'){errorMessage='Новый пароль слишком слабый'}this.showNotification(errorMessage,'error')}}
@@ -2114,207 +1831,6 @@ class FirebaseCommentsManager{
     closeCommentsModal(){if(this.elements.commentsModalOverlay){this.elements.commentsModalOverlay.classList.remove('active')}if(this.elements.commentsModal){this.elements.commentsModal.classList.remove('active')}document.body.style.overflow=''}
     showNotification(message,type='success'){const notification=document.createElement('div');notification.className=`auth-message ${type} show`;notification.textContent=message;notification.style.position='fixed';notification.style.top='20px';notification.style.right='20px';notification.style.zIndex='10004';notification.style.maxWidth='300px';document.body.appendChild(notification);setTimeout(()=>{notification.classList.remove('show');setTimeout(()=>{if(notification.parentNode){notification.parentNode.removeChild(notification)}},300)},3000)}}
 
-// Класс для управления обратной связью
-class FeedbackManager {
-    constructor() {
-        this.initElements();
-        this.bindEvents();
-    }
-    
-    initElements() {
-        this.elements = {
-            openFeedbackModal: document.getElementById('openFeedbackModal'),
-            feedbackModalOverlay: document.getElementById('feedbackModalOverlay'),
-            feedbackModal: document.getElementById('feedbackModal'),
-            feedbackCloseModal: document.getElementById('feedbackCloseModal'),
-            feedbackForm: document.getElementById('feedbackForm'),
-            feedbackMessage: document.getElementById('feedbackMessage'),
-            feedbackName: document.getElementById('feedbackName'),
-            feedbackEmail: document.getElementById('feedbackEmail'),
-            feedbackMessageText: document.getElementById('feedbackMessageText')
-        };
-    }
-    
-    bindEvents() {
-        if (this.elements.openFeedbackModal) {
-            this.elements.openFeedbackModal.addEventListener('click', () => this.openFeedbackModal());
-        }
-        if (this.elements.feedbackCloseModal) {
-            this.elements.feedbackCloseModal.addEventListener('click', () => this.closeFeedbackModal());
-        }
-        if (this.elements.feedbackModalOverlay) {
-            this.elements.feedbackModalOverlay.addEventListener('click', () => this.closeFeedbackModal());
-        }
-        if (this.elements.feedbackForm) {
-            this.elements.feedbackForm.addEventListener('submit', (e) => this.handleFeedbackSubmit(e));
-        }
-    }
-    
-    openFeedbackModal() {
-        if (this.elements.feedbackModalOverlay) {
-            this.elements.feedbackModalOverlay.classList.add('active');
-        }
-        if (this.elements.feedbackModal) {
-            this.elements.feedbackModal.classList.add('active');
-        }
-        document.body.style.overflow = 'hidden';
-        
-        // Если пользователь авторизован, подставляем его данные
-        const authManager = window.firebaseAuthManager;
-        if (authManager && authManager.currentUser) {
-            const user = authManager.currentUser;
-            if (this.elements.feedbackName) {
-                this.elements.feedbackName.value = user.displayName || '';
-            }
-            if (this.elements.feedbackEmail) {
-                this.elements.feedbackEmail.value = user.email || '';
-            }
-        }
-        
-        // Сброс сообщений
-        this.clearFeedbackMessage();
-    }
-    
-    closeFeedbackModal() {
-        if (this.elements.feedbackModalOverlay) {
-            this.elements.feedbackModalOverlay.classList.remove('active');
-        }
-        if (this.elements.feedbackModal) {
-            this.elements.feedbackModal.classList.remove('active');
-        }
-        document.body.style.overflow = '';
-        
-        // Сброс формы
-        if (this.elements.feedbackForm) {
-            this.elements.feedbackForm.reset();
-        }
-        this.clearFeedbackMessage();
-    }
-    
-    clearFeedbackMessage() {
-        if (this.elements.feedbackMessage) {
-            this.elements.feedbackMessage.classList.remove('show');
-            this.elements.feedbackMessage.textContent = '';
-        }
-    }
-    
-    showFeedbackMessage(text, type = 'success') {
-        if (!this.elements.feedbackMessage) return;
-        
-        this.elements.feedbackMessage.textContent = text;
-        this.elements.feedbackMessage.className = `feedback-message ${type} show`;
-        
-        if (type === 'success') {
-            setTimeout(() => {
-                this.elements.feedbackMessage.classList.remove('show');
-            }, 5000);
-        }
-    }
-    
-    async handleFeedbackSubmit(e) {
-        e.preventDefault();
-        
-        const name = this.elements.feedbackName ? this.elements.feedbackName.value.trim() : '';
-        const email = this.elements.feedbackEmail ? this.elements.feedbackEmail.value.trim() : '';
-        const message = this.elements.feedbackMessageText ? this.elements.feedbackMessageText.value.trim() : '';
-        
-        // Валидация
-        if (!name || !email || !message) {
-            this.showFeedbackMessage('Пожалуйста, заполните все поля', 'error');
-            return;
-        }
-        
-        if (!this.isValidEmail(email)) {
-            this.showFeedbackMessage('Пожалуйста, введите корректный email', 'error');
-            return;
-        }
-        
-        if (message.length < 10) {
-            this.showFeedbackMessage('Сообщение должно содержать минимум 10 символов', 'error');
-            return;
-        }
-        
-        // Отключение кнопки отправки
-        const submitBtn = this.elements.feedbackForm.querySelector('.feedback-submit-btn');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
-        submitBtn.disabled = true;
-        
-        try {
-            // Formspree endpoint - ВАШ РЕАЛЬНЫЙ ENDPOINT!
-            const formspreeEndpoint = 'https://formspree.io/f/mkgdvkke';
-            
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('email', email);
-            formData.append('message', message);
-            formData.append('subject', 'Обратная связь с сайта Kurisu');
-            formData.append('_replyto', email);
-            formData.append('_subject', 'Новое сообщение от ' + name);
-            
-            const response = await fetch(formspreeEndpoint, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-            
-            if (response.ok) {
-                this.showFeedbackMessage('Сообщение успешно отправлено! Мы свяжемся с вами в ближайшее время.', 'success');
-                
-                // Сброс формы
-                if (this.elements.feedbackForm) {
-                    this.elements.feedbackForm.reset();
-                }
-                
-                // Автоматическое закрытие модального окна через 3 секунды
-                setTimeout(() => {
-                    this.closeFeedbackModal();
-                }, 3000);
-                
-            } else {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Ошибка сервера');
-            }
-            
-        } catch (error) {
-            console.error('Ошибка отправки обратной связи:', error);
-            
-            // Показываем дружелюбное сообщение об ошибке
-            let errorMessage = 'Произошла ошибка при отправке сообщения. ';
-            
-            if (error.message.includes('Failed to fetch')) {
-                errorMessage += 'Проверьте подключение к интернету.';
-            } else if (error.message.includes('429')) {
-                errorMessage += 'Слишком много запросов. Пожалуйста, попробуйте позже.';
-            } else {
-                errorMessage += 'Пожалуйста, попробуйте позже или свяжитесь другим способом.';
-            }
-            
-            this.showFeedbackMessage(errorMessage, 'error');
-            
-            // Не закрываем форму при ошибке, чтобы пользователь мог исправить данные
-            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Попробовать снова';
-            submitBtn.disabled = false;
-            return;
-            
-        } finally {
-            // Восстановление кнопки только при успешной отправке
-            // При ошибке кнопка уже восстановлена выше
-            if (submitBtn.disabled) {
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }
-        }
-    }
-    
-    isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-}
-
 document.addEventListener('DOMContentLoaded',function(){
     console.log('Сайт Макисэ Курису загружен!');
     
@@ -2329,15 +1845,10 @@ document.addEventListener('DOMContentLoaded',function(){
     const mobileMenuManager = new MobileMenuManager(firebaseAuthManager);
     const stickerManager = new StickerManager();
     const firebaseCommentsManager = new FirebaseCommentsManager(firebaseAuthManager, stickerManager);
-    const feedbackManager = new FeedbackManager();
     
     // Установка связи между менеджерами
     stickerManager.commentManager = firebaseCommentsManager;
     firebaseAuthManager.setMobileMenuManager(mobileMenuManager);
-    
-    // Сохраняем менеджеры в глобальной области для доступа из других функций
-    window.firebaseAuthManager = firebaseAuthManager;
-    window.feedbackManager = feedbackManager;
     
     // Обновление формы комментариев при изменении состояния авторизации
     firebaseAuthManager.authFunctions.onAuthStateChanged(firebaseAuthManager.auth, (user) => {
@@ -2749,8 +2260,6 @@ document.addEventListener('DOMContentLoaded',function(){
                 firebaseAuthManager.closeEditProfileModal();
             } else if (document.querySelector('.mobile-menu-overlay.active')) {
                 mobileMenuManager.closeMobileMenu();
-            } else if (document.querySelector('.feedback-modal-overlay.active')) {
-                feedbackManager.closeFeedbackModal();
             }
         }
     });
@@ -2766,8 +2275,7 @@ document.addEventListener('DOMContentLoaded',function(){
     console.log('- Адаптивное меню: гамбургер-меню на мобильных');
     console.log('- Особый аккаунт Kurisu admin: переливающийся красным логин и роль "Основатель"');
     console.log('- Комментарии Kurisu admin теперь всегда отображаются сверху (закреплённые)');
-    console.log('- Обратная связь: форма для отправки сообщений администратору сайта');
-    console.log('- Formspree Endpoint: https://formspree.io/f/mkgdvkke');
+    console.log('- Убрана надпись "Лаборатория Будущего №008" в футере');
 });
 </script>
 </body>
