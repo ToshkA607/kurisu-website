@@ -108,11 +108,6 @@ body{background-color:var(--bg-dark);color:var(--text);line-height:1.6;overflow-
     object-fit: cover;
 }
 
-.video-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(10,10,18,0.6);z-index:1;pointer-events:none}
-.hero{position:relative;height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:80px}
-.hero-container{position:relative;z-index:2}
-.hero::before{display:none}
-
 /* Остальные стили остаются без изменений... */
 .stickers-section{margin-bottom:20px;border-radius:12px;background:rgba(41,121,255,0.1);border:1px solid rgba(41,121,255,0.3);overflow:hidden}
 .stickers-header{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(41,121,255,0.2);cursor:pointer;transition:all 0.3s ease}
@@ -447,7 +442,6 @@ section{padding:60px 0;position:relative}
 .stat-value{font-size:2rem;font-weight:700;color:var(--primary);margin-bottom:5px}
 .stat-label{font-size:0.9rem;color:var(--text-secondary)}
 .achievements{background:linear-gradient(135deg,rgba(10,10,18,0.95),rgba(21,21,34,0.98));position:relative;overflow:hidden}
-.achievements::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 20% 30%,rgba(198,40,40,0.1) 0%,transparent 40%),radial-gradient(circle at 80% 70%,rgba(41,121,255,0.1) 0%,transparent 40%);z-index:0}
 .tabs-wrapper{display:flex;flex-direction:column;gap:40px;max-width:1200px;margin:0 auto}
 .tabs-header{display:grid;grid-template-columns:repeat(4,1fr);gap:25px;margin-bottom:10px}
 .tab-btn{width:100%;height:380px;aspect-ratio:2/3;background:linear-gradient(145deg,rgba(21,21,34,0.9),rgba(10,10,18,0.95));color:var(--text);border:2px solid rgba(198,40,40,0.3);padding:35px 25px;font-weight:600;cursor:pointer;transition:none;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.1);text-align:center}
@@ -509,8 +503,6 @@ section{padding:60px 0;position:relative}
 .timeline-date i{margin-right:15px;animation:glow 2s ease-in-out infinite;position:absolute;left:0;font-size:1.3rem;color:var(--timeline-blue)}
 .timeline-text{color:var(--text);line-height:1.7;font-size:1.1rem;position:relative;z-index:2;transform:translateZ(20px);transition:none}
 .timeline-btn:hover .timeline-text{transform:translateZ(20px)}
-.world-lines{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0.3}
-.world-line{position:absolute;color:var(--lab-green);font-family:'Courier New',monospace;font-size:14px;font-weight:bold;text-shadow:0 0 10px var(--lab-green);animation:fadeIn 1s}
 .timeline-modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);z-index:9998;opacity:0;visibility:hidden;transition:all 0.5s cubic-bezier(0.175,0.885,0.32,1.275)}
 .timeline-modal-overlay.active{opacity:1;visibility:visible}
 .timeline-modal-content{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);width:90%;max-width:1000px;height:85vh;max-height:700px;background:linear-gradient(135deg,rgba(21,21,34,0.98),rgba(10,10,18,0.99));border-radius:20px;border:2px solid rgba(0,229,255,0.4);box-shadow:0 30px 80px rgba(0,0,0,0.8),0 0 80px rgba(0,229,255,0.4),inset 0 0 50px rgba(255,255,255,0.1);z-index:9999;opacity:0;visibility:hidden;overflow:hidden;transition:all 0.6s cubic-bezier(0.175,0.885,0.32,1.275);display:flex;flex-direction:column}
@@ -1142,7 +1134,6 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
 </head>
 <body>
     <div class="binary-bg" id="binaryBg"></div>
-    <div id="particles-js" class="particles-js"></div>
     
     <!-- Навигация -->
     <nav>
@@ -1439,12 +1430,6 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
                     <input type="email" id="feedbackEmail" name="email" class="feedback-form-control" placeholder="Введите ваш email для ответа" required>
                 </div>
                 <div class="feedback-form-group">
-                    <label class="feedback-form-label" for="feedbackSubject">
-                        <i class="fas fa-tag"></i> Тема
-                    </label>
-                    <input type="text" id="feedbackSubject" name="subject" class="feedback-form-control" placeholder="Тема сообщения" required>
-                </div>
-                <div class="feedback-form-group">
                     <label class="feedback-form-label" for="feedbackMessageText">
                         <i class="fas fa-edit"></i> Сообщение
                     </label>
@@ -1554,7 +1539,7 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
         <div class="about-content">
             <div class="about-text">
                 <p>Макисэ Курису (牧瀬 紅莉栖) — 18-летний гений в области нейробиологии, известная своими новаторскими исследованиями памяти человека. Несмотря на молодой возраст, она уже имеет публикации в ведущих научных журналах.</p>
-                <p>Присоединившись к Лаборатории Будущего, она сыграла ключевую роль в разработке технологии путешествия во времени, создав "Машину скачков по памяти".</p>
+                <p>Присоединившись к Лаборатории Будущего, она сыграла ключевую роль в разработке технологии путешествия во времени, создав «Машину скачков по памяти» — устройство, отправляющее воспоминания в прошлое и меняющее ход событий.</p>
                 <p>По характеру Курису — классический цундере: внешне холодная и рациональная, но внутри добрая и заботливая. Она часто конфликтует с Окабэ Ринтаро, но в конечном итоге между ними развиваются глубокие чувства.</p>
                 <div class="stats">
                     <div class="stat-item">
@@ -1562,16 +1547,16 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
                         <div class="stat-label">Возраст</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value">AB</div>
-                        <div class="stat-label">Группа крови</div>
+                        <div class="stat-value">IQ 193</div>
+                        <div class="stat-label">Уровня интеллекта</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value">25 июля</div>
                         <div class="stat-label">Дата рождения</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value">Цундере</div>
-                        <div class="stat-label">Тип личности</div>
+                        <div class="stat-value">№ 004 </div>
+                        <div class="stat-label">Статус</div>
                     </div>
                 </div>
             </div>
@@ -1595,7 +1580,7 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
                         <div class="tab-btn-title">Машина скачков по памяти</div>
                         <div class="tab-btn-info">
                             <div class="tab-btn-description">
-                                Инновационное устройство для передачи воспоминаний в прошлое через квантовую телепортацию сознания. Ключевая технология Лаборатории Будущего.
+                               Революционная система для передачи воспоминаний через временные линии с помощью квантовой телепортации.
                             </div>
                         </div>
                     </button>
@@ -1603,10 +1588,10 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
                         <div class="tab-btn-icon">
                             <i class="fas fa-flask"></i>
                         </div>
-                        <div class="tab-btn-title">Нейробиологические исследования</div>
+                        <div class="tab-btn-title">Теория дивергенции и аттракторов</div>
                         <div class="tab-btn-info">
                             <div class="tab-btn-description">
-                                Прорыв в изучении нейропластичности и квантового кодирования памяти. Открытие механизма "временной волны" в гиппокампе.
+                                Исследование Курису о природе расхождения мировых линий и полей аттракторов — теоретическая основа для Измерителя Дивергенции.
                             </div>
                         </div>
                     </button>
@@ -1654,7 +1639,6 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
 <section id="timeline" class="timeline-section">
     <canvas id="raindrop-canvas"></canvas>
     <div class="timeline-overlay"></div>
-    <div class="world-lines" id="worldLines"></div>
     <div class="container timeline-content">
         <h2 class="section-title">Временная линия</h2>
         <div class="timeline">
@@ -2397,71 +2381,83 @@ document.addEventListener('DOMContentLoaded',function(){
         }
     });
 
-    // Анимация частиц
-    particlesJS('particles-js',{
-        particles:{
-            number:{value:80,density:{enable:true,value_area:800}},
-            color:{value:"#c62828"},
-            shape:{type:"circle"},
-            opacity:{value:0.5,random:true},
-            size:{value:3,random:true},
-            line_linked:{enable:true,distance:150,color:"#1a237e",opacity:0.4,width:1},
-            move:{enable:true,speed:2,direction:"none",random:true,straight:false,out_mode:"out",bounce:false}
-        },
-        interactivity:{
-            detect_on:"canvas",
-            events:{
-                onhover:{enable:true,mode:"repulse"},
-                onclick:{enable:true,mode:"push"}
-            }
-        }
-    });
-
     // Бинарный фон
     const binaryBg=document.getElementById('binaryBg');
     const chars='01';
-    const worldLines=[];
-    
-    for(let i=0;i<50;i++){
-        const worldLine=document.createElement('div');
-        worldLine.className='world-line';
-        worldLine.style.left=Math.random()*100+'vw';
-        worldLine.style.top=Math.random()*100+'vh';
-        worldLine.textContent='МИРОВАЯ ЛИНИЯ '+Math.floor(Math.random()*1000000);
-        worldLine.style.opacity=Math.random()*0.5+0.1;
-        binaryBg.appendChild(worldLine);
-        worldLines.push(worldLine);
-    }
-    
-    function animateWorldLines(){
-        worldLines.forEach(line=>{
-            line.style.top=(parseFloat(line.style.top)+0.1)+'vh';
-            if(parseFloat(line.style.top)>100){
-                line.style.top='-10vh';
-                line.style.left=Math.random()*100+'vw';
-            }
-        });
-        requestAnimationFrame(animateWorldLines);
-    }
-    animateWorldLines();
 
     // Данные для модальных окон
     const tabData={
         'memory-jump':{
             title:'Машина скачков по памяти',
-            content:`<div class="achievement-details"><p class="achievement-description">Инновационное устройство, позволяющее передавать воспоминания из настоящего в прошлое, фактически осуществляя ограниченное путешествие во времени через сознание человека.</p><ul class="achievement-features"><li>Использует принцип квантовой телепортации сознания</li><li>Работает через систему LHC (отправка данных в прошлое)</li><li>Модифицирована из микроволновой печи с добавлением неон-лазерных диодов</li><li>Требует точных временных координат и волновых функций мозга</li><li>Создана в сотрудничестве с Окабэ Ринтаро и лабораторией будущего</li></ul></div><div class="achievement-visual"><img src="https://i.postimg.cc/YqXCCQQD/Schematic-representation-of-the-device.webp" alt="Схематическое изображение устройства"><div class="visual-label">Схематическое изображение устройства</div></div>`
+            content:`<div class="achievement-details"><p <div class="achievement-details">
+    <p class="achievement-description">Инновационное устройство, позволяющее передавать воспоминания из настоящего в прошлое, фактически осуществляя ограниченное путешествие во времени через сознание человека.</p>
+    <p class="achievement-description"><strong>Принцип работы:</strong></p>
+    <ul class="achievement-features">
+        <li>Наушники записывают нервные импульсы в височной доле мозга, где хранятся воспоминания.</li>
+        <li>С помощью технологии Visual Rebuilding нервные импульсы кодируются в данные в виде электрического сигнала.</li>
+        <li>Данные посылаются по прямому каналу в Большой адронный коллайдер (БАК).</li>
+        <li>В БАК создаётся миниатюрная чёрная дыра, и с помощью её супергравитации данные сжимаются до 36 байт.</li>
+        <li>Сжатые данные отправляются обратно в машину для скачков по времени и отправляются в прошлое как D-mail, но приходят к получателю в виде звонка.</li>
+        <li>Когда получатель берёт трубку, запускается программа декодирования данных обратно в нервные импульсы, и сигнал выводится из динамика телефона.</li>
+        <li>Данные в виде электрических импульсов проходят сквозь височную долю и попадают в гиппокамп, перезаписывая воспоминания получателя.</li>
+        <li>Телефон одновременно посылает импульсы, которые стимулируют лобную долю, позволяя мозгу принять новые воспоминания как свои.</li>
+    </ul>
+</div>
+<div class="achievement-visual">
+    <img src="https://i.postimg.cc/YqXCCQQD/Schematic-representation-of-the-device.webp" alt="Схематическое изображение устройства">
+    <div class="visual-label">Схематическое изображение устройства</div>
+</div>`
         },
         'neuro-research':{
-            title:'Нейробиологические исследования',
-            content:`<div class="achievement-details"><p class="achievement-description">Прорывные исследования в области нейропластичности и кодирования памяти, заложившие теоретическую основу для технологии скачков по памяти.</p><ul class="achievement-features"><li>Открытие механизма "временной волны" в гиппокампе</li><li>Исследование нейронных коррелятов дежавю</li><li>Разработка модели квантового кодирования воспоминаний</li><li>Теория о существовании "хронологических нейронов"</li><li>Эксперименты по стиранию и восстановлению памяти</li></ul></div><div class="achievement-visual"><img src="https://i.postimg.cc/zXdGGTTj/Map-of-the-hippocampus-neural-connections.jpg" alt="Карта нейронных связей гиппокампа"><div class="visual-label">Карта нейронных связей гиппокампа</div></div>`
+            title:'Теория дивергенции и аттракторов',
+            content:`<div class="achievement-details"><p <div <div <div class="achievement-details">
+    <p class="achievement-description"><strong>Курису Макисэ не создавала Измеритель Дивергенции, но её исследования легли в его теоретическую основу.</strong> Этот прибор был разработан Окабэ Ринтаро в далёком 2036 году для измерения отклонения текущей мировой линии от исходной.</p>
+    <p class="achievement-description">Однако именно <strong>теория мировых линий и полей аттракторов</strong>, которую Курису помогла развить, объясняет, что измеряет прибор. Дивергенция (от 0% до 4.99% и более) показывает, насколько реальность «отошла» от изначального пути. Более важной является концепция <strong>«полей аттракторов»</strong> — групп мировых линий, которые, несмотря на мелкие различия, всегда сходятся к одним и тем же ключевым событиям.</p>
+    <ul class="achievement-features">
+        <li><strong>Поле Аттракторов Альфа (0% — 0.99%)</strong>: Судьба, в которой доминирует SERN, а Маюри обречена на гибель. Большая часть оригинального сюжета происходит здесь.</li>
+        <li><strong>Поле Аттракторов Бета (1% — 1.99%)</strong>: Линии, ведущие к Третьей мировой войне, где жертвой становится Курису. Сюжет Steins;Gate 0 разворачивается здесь.</li>
+        <li><strong>Дивергенция 1.048596%</strong>: Уникальная, хрупкая мировая линия «Врат Штейна», находящаяся на стыке полей, где удаётся спасти и Маюри, и Курису.</li>
+    </ul>
+    <p class="achievement-description">Работа Курису заключалась в том, чтобы понять эти законы конвергенции. Именно её расчёты и идеи помогли Окабэ осознать: чтобы изменить судьбу, недостаточно просто скорректировать прошлое — необходимо <strong>«перепрыгнуть» в другое поле аттракторов</strong>, что требует изменения дивергенции более чем на 1%.</p>
+</div>
+<div class="achievement-visual">
+    <img src="https://i.postimg.cc/zXdGGTTj/Map-of-the-hippocampus-neural-connections.jpg" alt="Схема мировых линий и полей аттракторов">
+    <div class="visual-label">Визуализация теории: мировые линии группируются в «поля аттракторов» (Alpha, Beta)</div>
+</div>`
         },
         'time-travel':{
             title:'Теория путешествий во времени',
-            content:`<div class="achievement-details"><p class="achievement-description">Революционная теория, объединяющая квантовую механику с концепцией мировых линий, объясняющая парадоксы временных путешествий и предлагающая практическую реализацию.</p><ul class="achievement-features"><li>Концепция "Притяжения мировой линии" (World Line Attraction Field)</li><li>Теория конвергенции мировых линий в точках дивергенции</li><li>Математическое описание временных парадоксов и их разрешений</li><li>Модель квантового туннелирования через временные барьеры</li><li>Практическая реализация через отправку D-mail (D-писем)</li></ul></div><div class="achievement-visual"><img src="https://i.postimg.cc/Dyfzhx48/Diagram-of-world-lines-and-time-branches.jpg" alt="Диаграмма мировых линий и временных разветвлений"><div class="visual-label">Диаграмма мировых линий и временных разветвлений</div></div>`
+            content:`<div class="achievement-details"><p <div <div class="achievement-details">
+    <p class="achievement-description">Революционная теория, объединяющая квантовую механику с концепцией мировых линий, объясняющая парадоксы временных путешествий и предлагающая практическую реализацию.</p>
+    <ul class="achievement-features">
+        <li><strong>Концепция «Притяжения мировой линии»</strong>: Теория о том, что временные линии стремятся к стабильным состояниям («аттракторам»), что объясняет повторяющиеся события в разных реальностях.</li>
+        <li><strong>Теория конвергенции мировых линий</strong>: Объяснение того, как различные временные линии могут сходиться к одним и тем же ключевым событиям, несмотря на мелкие различия.</li>
+        <li><strong>Математическое описание временных парадоксов</strong>: Формализация таких явлений, как парадокс дедушки, и доказательство их разрешимости в рамках теории мировых линий.</li>
+        <li><strong>Модель квантового туннелирования через временные барьеры</strong>: Теоретическое обоснование возможности преодоления временных разрывов с помощью квантовых эффектов.</li>
+        <li><strong>Практическая реализация через отправку D-mail</strong>: Разработка метода изменения прошлого путём отправки сообщений в предыдущие моменты времени — первого шага к контролируемым временным изменениям.</li>
+    </ul>
+</div>
+<div class="achievement-visual">
+    <img src="https://i.postimg.cc/Dyfzhx48/Diagram-of-world-lines-and-time-branches.jpg" alt="Диаграмма мировых линий и временных разветвлений">
+    <div class="visual-label">Диаграмма мировых линий и временных разветвлений</div>
+</div>`
         },
         'publications':{
             title:'Научные публикации',
-            content:`<div class="achievement-details"><p class="achievement-description">Несмотря на молодой возраст, Макисэ Курису опубликовала несколько важных научных работ, получивших международное признание в академических кругах.</p><ul class="achievement-features"><li>"Квантовая природа памяти: Нейронные основы временного кодирования" (Science, 2009)</li><li>"Возможность манипуляции мировыми линиями через квантовые возмущения" (Nature Physics, 2010)</li><li>"Экспериментальное подтверждение существования Reading Steiner" (PNAS, 2010)</li><li>"Практическая реализация ограниченного временного путешествия через LHC" (Cell, 2011)</li><li>"Машина скачков по памяти: от теории к практике" (совместно с Окабэ Р., 2011)</li></ul></div><div class="achievement-visual"><img src="https://i.postimg.cc/TY2Pxt5K/Covers-of-scientific-journals-with-Kurisu-s-publications.jpg" alt="Обложки научных журналов с публикациями Курису"><div class="visual-label">Обложки научных журналов с публикациями Курису</div></div>`
+            content:`<div class="achievement-details"><p <div class="achievement-details">
+    <p class="achievement-description">Несмотря на молодой возраст, Макисэ Курису опубликовала несколько важных научных работ, которые получили международное признание в академических кругах. Её исследования стали теоретическим фундаментом для будущих экспериментов Лаборатории Будущего.</p>
+    <ul class="achievement-features">
+        <li><strong>«Природа памяти: временное кодирование в нейронных сетях»</strong> (журнал «Наука», 2009) — работа, заложившая основы для понимания того, как воспоминания могут быть записаны и переданы.</li>
+        <li><strong>«Влияние квантовых возмущений на мировые линии»</strong> (журнал «Физическая природа», 2010) — теоретическое обоснование возможности изменения реальности путём целенаправленного воздействия.</li>
+        <li><strong>«Экспериментальные данные о феномене Reading Steiner»</strong> (Труды Национальной академии наук, 2010) — первый в мире задокументированный анализ уникальной способности сохранять воспоминания при смене мировых линий.</li>
+        <li><strong>«Практическая реализация ограниченного временного перемещения с помощью Большого адронного коллайдера»</strong> (журнал «Клетка», 2011) — сенсационная статья, описывающая прикладное применение её теории.</li>
+        <li><strong>«Машина скачков по памяти: от теории к практике»</strong> (совместная публикация с Окабэ Р., 2011) — практическое руководство по созданию и использованию устройства, которое стало ключом к достижению Врат Штейна.</li>
+    </ul>
+</div>
+<div class="achievement-visual">
+    <img src="https://i.postimg.cc/TY2Pxt5K/Covers-of-scientific-journals-with-Kurisu-s-publications.jpg" alt="Обложки научных журналов с публикациями Курису">
+    <div class="visual-label">Обложки ведущих мировых научных журналов, где были опубликованы работы Курису</div>
+</div>`
         }
     };
     
