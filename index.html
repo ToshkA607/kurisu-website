@@ -230,7 +230,10 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:#000000;backd
 .nav-links-desktop a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height=2px;background:var(--primary);transition:width 0.3s}
 .nav-links-desktop a:hover::after{width:0}
 .nav-auth-buttons{display:flex;gap:10px;align-items:center;z-index:1001}
-.auth-btn{padding:5px 20px;border-radius:18px;font-weight:600;cursor:pointer;transition:all 0.3s ease;font-size:0.85rem;border:2px solid transparent;height:32px;display:flex;align-items:center;justify-content:center;min-width:80px}
+.auth-btn{padding:5px 20px;border-radius:18px;font-weight:600;cursor:pointer;transition:all 0.3s ease;font-size:0.85rem;border:2px solid transparent;height:32px;display:flex;align-items:center;justify-content:center;min-width:80px;gap: 8px;}
+.auth-btn i {
+    transform: translateY(2px); /* Опускает иконку на 1px вниз */
+}
 
 /* ИЗМЕНЕНО: Кнопка "Войти" теперь красная */
 .login-btn{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;border:none}
@@ -1905,7 +1908,20 @@ footer{background:var(--bg-card);padding:60px 0 30px;text-align:center}
 
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
-const stickers=[{url:'https://i.postimg.cc/0NmH2LmC/0xf09f9881.webp',name:'❤️'},{url:'https://i.postimg.cc/wjnGz6tQ/12xf09f9888.webp',name:'😈'},{url:'https://i.postimg.cc/3xzchKy1/13fsadfaf.webp',name:'😎'},{url:'https://i.postimg.cc/XvFD7TFx/15xf09f9892.webp',name:'😒'},{url:'https://i.postimg.cc/BvDwQdDM/19xe29d93.webp',name:'💯'},{url:'https://i.postimg.cc/mgK54bcS/19xf09f9982.webp',name:'🤢'},{url:'https://i.postimg.cc/k58hXk8H/1xf09f918d.webp',name:'🤭'},{url:'https://i.postimg.cc/XYtzWVZD/24xf09f9882.webp',name:'😊'},{url:'https://i.postimg.cc/BvDwQdD5/26xf09f9983.webp',name:'🤣'},{url:'https://i.postimg.cc/RZ2DmM3Q/3xf09f9181.webp',name:'🤩'},{url:'https://i.postimg.cc/GpYShZYJ/3xf09f918d.webp',name:'🤔'},{url:'https://i.postimg.cc/1z6Y5L67/8xe29da4efb88f.webp',name:'😱'}];
+const stickers = [
+    {url: 'https://i.postimg.cc/0NmH2LmC/0xf09f9881.webp', name: '❤️'},
+    {url: 'https://i.postimg.cc/wjnGz6tQ/12xf09f9888.webp', name: '😈'},
+    {url: 'https://i.postimg.cc/3xzchKy1/13fsadfaf.webp', name: '😎'},
+    {url: 'https://i.postimg.cc/XvFD7TFx/15xf09f9892.webp', name: '😒'},
+    {url: 'https://i.postimg.cc/BvDwQdDM/19xe29d93.webp', name: '💯'},
+    {url: 'https://i.postimg.cc/mgK54bcS/19xf09f9982.webp', name: '🤢'},
+    {url: 'https://i.postimg.cc/k58hXk8H/1xf09f918d.webp', name: '🤭'},
+    {url: 'https://i.postimg.cc/XYtzWVZD/24xf09f9882.webp', name: '😊'},
+    {url: 'https://i.postimg.cc/BvDwQdD5/26xf09f9983.webp', name: '🤣'},
+    {url: 'https://i.postimg.cc/RZ2DmM3Q/3xf09f9181.webp', name: '🤩'},
+    {url: 'https://i.postimg.cc/GpYShZYJ/3xf09f918d.webp', name: '🤔'},
+    {url: 'https://i.postimg.cc/1z6Y5L67/8xe29da4efb88f.webp', name: '😱'}
+];
 
 class MobileMenuManager {
     constructor(authManager) {
@@ -2044,199 +2060,1568 @@ class MobileMenuManager {
     }
 }
 
-class StickerManager{
-    constructor(commentManager){this.commentManager=commentManager;this.selectedStickers=[];this.initElements();this.bindEvents();this.loadStickers()}
-    initElements(){this.elements={stickersGrid:document.getElementById('stickersGrid'),selectedStickers:document.getElementById('selectedStickers'),stickersHeader:document.getElementById('stickersHeader'),stickersToggle:document.getElementById('stickersToggle'),modalStickersGrid:document.getElementById('modalStickersGrid'),modalSelectedStickers:document.getElementById('modalSelectedStickers'),modalStickersHeader:document.getElementById('modalStickersHeader'),modalStickersToggle:document.getElementById('modalStickersToggle')}}
-    bindEvents(){if(this.elements.stickersHeader){this.elements.stickersHeader.addEventListener('click',()=>this.toggleStickers('main'))}if(this.elements.modalStickersHeader){this.elements.modalStickersHeader.addEventListener('click',()=>this.toggleStickers('modal'))}}
-    loadStickers(){this.renderStickers(this.elements.stickersGrid);this.renderStickers(this.elements.modalStickersGrid)}
-    renderStickers(container){if(!container)return;stickers.forEach((sticker,index)=>{const stickerElement=document.createElement('div');stickerElement.className='sticker-item';stickerElement.title=sticker.name;stickerElement.dataset.stickerIndex=index;const img=document.createElement('img');img.src=sticker.url;img.alt=sticker.name;img.className='sticker-img';img.loading='lazy';stickerElement.appendChild(img);container.appendChild(stickerElement);stickerElement.addEventListener('click',(e)=>{e.stopPropagation();this.selectSticker(sticker,index)})})}
-    selectSticker(sticker,index){const user=this.commentManager.authManager.currentUser;if(!user){alert('Пожалуйста, войдите в аккаунт, чтобы использовать стикеры');this.commentManager.authManager.openAuthModal('login');return}this.selectedStickers.push({...sticker,id:Date.now()+Math.random()});this.updateSelectedStickers();const stickerElements=document.querySelectorAll(`.sticker-item[data-sticker-index="${index}"]`);stickerElements.forEach(el=>{el.style.transform='scale(0.8)';setTimeout(()=>{el.style.transform='scale(1)'},200)})}
-    updateSelectedStickers(){this.updateContainer(this.elements.selectedStickers);this.updateContainer(this.elements.modalSelectedStickers)}
-    updateContainer(container){if(!container)return;container.innerHTML='';if(this.selectedStickers.length===0){container.style.display='none';return}container.style.display='flex';this.selectedStickers.forEach((sticker,index)=>{const stickerElement=document.createElement('div');stickerElement.className='selected-sticker';const img=document.createElement('img');img.src=sticker.url;img.alt=sticker.name;const removeBtn=document.createElement('div');removeBtn.className='remove-sticker';removeBtn.innerHTML='<i class="fas fa-times"></i>';removeBtn.addEventListener('click',(e)=>{e.stopPropagation();this.removeSticker(index)});stickerElement.appendChild(img);stickerElement.appendChild(removeBtn);container.appendChild(stickerElement)})}
-    removeSticker(index){this.selectedStickers.splice(index,1);this.updateSelectedStickers()}
-    clearSelectedStickers(){this.selectedStickers=[];this.updateSelectedStickers()}
-    toggleStickers(type='main'){const grid=type==='main'?this.elements.stickersGrid:this.elements.modalStickersGrid;const toggle=type==='main'?this.elements.stickersToggle:this.elements.modalStickersToggle;if(grid&&toggle){grid.classList.toggle('expanded');toggle.classList.toggle('rotated')}}
-    getStickerHtml(stickerUrl){return`<img src="${stickerUrl}" class="comment-sticker" alt="Стикер">`}}
-class FirebaseAuthManager{
-    constructor(){this.auth=window.firebase.auth;this.authFunctions=window.firebase.authFunctions;this.db=window.firebase.db;this.firestore=window.firebase.firestoreFunctions;this.currentUser=null;this.mobileMenuManager=null;this.initElements();this.bindEvents();this.checkAuthState()}
-    initElements(){this.elements={authButtons:document.getElementById('authButtons'),userInfo:document.getElementById('userInfo'),openLoginModal:document.getElementById('openLoginModal'),openRegisterModal:document.getElementById('openRegisterModal'),profileBtn:document.getElementById('profileBtn'),backToMainBtn:document.getElementById('backToMainBtn'),logoutBtn:document.getElementById('logoutBtn'),authModalOverlay:document.getElementById('authModalOverlay'),authModal:document.getElementById('authModal'),closeAuthModal:document.getElementById('closeAuthModal'),loginTabBtn:document.getElementById('loginTabBtn'),registerTabBtn:document.getElementById('registerTabBtn'),authModalTitle:document.getElementById('authModalTitle'),loginForm:document.getElementById('loginForm'),registerForm:document.getElementById('registerForm'),loginMessage:document.getElementById('loginMessage'),registerMessage:document.getElementById('registerMessage'),userAvatar:document.getElementById('userAvatar'),userName:document.getElementById('userName'),profilePage:document.getElementById('profilePage'),profileAvatarLarge:document.getElementById('profileAvatarLarge'),profileUserName:document.getElementById('profileUserName'),profileUserRole:document.getElementById('profileUserRole'),profileEmail:document.getElementById('profileEmail'),profileUsername:document.getElementById('profileUsername'),profileUserId:document.getElementById('profileUserId'),joinDate:document.getElementById('joinDate'),editProfileBtn:document.getElementById('editProfileBtn'),editProfileModalOverlay:document.getElementById('editProfileModalOverlay'),editProfileModal:document.getElementById('editProfileModal'),closeEditProfileModal:document.getElementById('closeEditProfileModal'),editProfileForm:document.getElementById('editProfileForm'),avatarInput:document.getElementById('avatarInput'),avatarUploadBtn:document.getElementById('avatarUploadBtn')}}
-    bindEvents(){if(this.elements.openLoginModal){this.elements.openLoginModal.addEventListener('click',()=>this.openAuthModal('login'))}if(this.elements.openRegisterModal){this.elements.openRegisterModal.addEventListener('click',()=>this.openAuthModal('register'))}if(this.elements.closeAuthModal){this.elements.closeAuthModal.addEventListener('click',()=>this.closeAuthModal())}if(this.elements.authModalOverlay){this.elements.authModalOverlay.addEventListener('click',()=>this.closeAuthModal())}if(this.elements.loginTabBtn){this.elements.loginTabBtn.addEventListener('click',()=>this.switchTab('login'))}if(this.elements.registerTabBtn){this.elements.registerTabBtn.addEventListener('click',()=>this.switchTab('register'))}if(this.elements.loginForm){this.elements.loginForm.addEventListener('submit',(e)=>this.handleLogin(e))}if(this.elements.registerForm){this.elements.registerForm.addEventListener('submit',(e)=>this.handleRegister(e))}if(this.elements.profileBtn){this.elements.profileBtn.addEventListener('click',()=>this.showProfilePage())}if(this.elements.backToMainBtn){this.elements.backToMainBtn.addEventListener('click',()=>this.showMainPage())}if(this.elements.logoutBtn){this.elements.logoutBtn.addEventListener('click',()=>this.handleLogout())}if(this.elements.editProfileBtn){this.elements.editProfileBtn.addEventListener('click',()=>this.handleEditProfile())}if(this.elements.closeEditProfileModal){this.elements.closeEditProfileModal.addEventListener('click',()=>this.closeEditProfileModal())}if(this.elements.editProfileModalOverlay){this.elements.editProfileModalOverlay.addEventListener('click',()=>this.closeEditProfileModal())}if(this.elements.editProfileForm){this.elements.editProfileForm.addEventListener('submit',(e)=>this.handleEditProfileSubmit(e))}if(this.elements.avatarUploadBtn){this.elements.avatarUploadBtn.addEventListener('click',()=>{this.elements.avatarInput.click()})}if(this.elements.avatarInput){this.elements.avatarInput.addEventListener('change',(e)=>{const file=e.target.files[0];if(file){this.handleAvatarUpload(file)}})}document.querySelectorAll('.auth-toggle-password').forEach(btn=>{btn.addEventListener('click',(e)=>{const targetId=e.target.closest('button').dataset.target;const input=document.getElementById(targetId);const icon=e.target.closest('button').querySelector('i');if(input&&icon){if(input.type==='password'){input.type='text';icon.classList.remove('fa-eye');icon.classList.add('fa-eye-slash')}else{input.type='password';icon.classList.remove('fa-eye-slash');icon.classList.add('fa-eye')}}})})}
-    checkAuthState(){console.log('Проверка состояния аутентификации...');this.authFunctions.onAuthStateChanged(this.auth,async(user)=>{console.log('Состояние аутентификации изменилось:',user);if(user){console.log('Пользователь вошел:',{uid:user.uid,email:user.email,displayName:user.displayName});this.currentUser=user;this.showUserInfo();await this.loadUserProfile(user.uid)}else{console.log('Пользователь вышел');this.currentUser=null;this.showAuthButtons()}})}
-    async loadUserProfile(userId){try{const userDoc=await this.firestore.getDoc(this.firestore.doc(this.db,'users',userId));if(userDoc.exists()){const userData=userDoc.data();this.updateUserInfo(userData);if(this.mobileMenuManager){this.mobileMenuManager.updateMobileUserInfo(userData)}}else{await this.createUserProfile(userId,this.currentUser)}}catch(error){console.error('Ошибка загрузки профиля:',error)}}
-    async createUserProfile(userId,firebaseUser){try{console.log('Создание профиля для пользователя:',userId);// Проверяем, является ли это пользователем Kurisu admin
-        const isKurisuAdmin = firebaseUser.email === 'kurisu@gmail.com';
-        
-        const userData={
-            userId:userId,
-            email:firebaseUser.email,
-            username:firebaseUser.displayName||firebaseUser.email.split('@')[0],
-            role: isKurisuAdmin ? 'Основатель' : 'Участник Лаборатории',
-            labId: isKurisuAdmin ? 'LAB-001' : `LAB-${String(Math.floor(Math.random()*999)+1).padStart(3,'0')}`,
-            joinDate:new Date().toLocaleDateString('ru-RU'),
-            avatar:'',
-            commentCount:0,
-            createdAt:this.firestore.serverTimestamp(),
-            displayName:firebaseUser.displayName||firebaseUser.email.split('@')[0],
-            likesCount:0,
-            isKurisuAdmin: isKurisuAdmin
+class StickerManager {
+    constructor(commentManager) {
+        this.commentManager = commentManager;
+        this.selectedStickers = [];
+        this.initElements();
+        this.bindEvents();
+        this.loadStickers();
+    }
+    
+    initElements() {
+        this.elements = {
+            stickersGrid: document.getElementById('stickersGrid'),
+            selectedStickers: document.getElementById('selectedStickers'),
+            stickersHeader: document.getElementById('stickersHeader'),
+            stickersToggle: document.getElementById('stickersToggle'),
+            modalStickersGrid: document.getElementById('modalStickersGrid'),
+            modalSelectedStickers: document.getElementById('modalSelectedStickers'),
+            modalStickersHeader: document.getElementById('modalStickersHeader'),
+            modalStickersToggle: document.getElementById('modalStickersToggle')
         };
-        
-        const userDocRef=this.firestore.doc(this.db,'users',userId);
-        await this.firestore.setDoc(userDocRef,userData);
-        this.updateUserInfo(userData);
-        if(this.mobileMenuManager){
-            this.mobileMenuManager.updateMobileUserInfo(userData);
+    }
+    
+    bindEvents() {
+        if (this.elements.stickersHeader) {
+            this.elements.stickersHeader.addEventListener('click', () => this.toggleStickers('main'));
         }
-        console.log('Профиль успешно создан');
-        return true;
-        }catch(error){console.error('Ошибка создания профиля:',error);return false;}}
-    updateUserInfo(userData){
+        if (this.elements.modalStickersHeader) {
+            this.elements.modalStickersHeader.addEventListener('click', () => this.toggleStickers('modal'));
+        }
+    }
+    
+    loadStickers() {
+        this.renderStickers(this.elements.stickersGrid);
+        this.renderStickers(this.elements.modalStickersGrid);
+    }
+    
+    renderStickers(container) {
+        if (!container) return;
+        
+        stickers.forEach((sticker, index) => {
+            const stickerElement = document.createElement('div');
+            stickerElement.className = 'sticker-item';
+            stickerElement.title = sticker.name;
+            stickerElement.dataset.stickerIndex = index;
+            
+            const img = document.createElement('img');
+            img.src = sticker.url;
+            img.alt = sticker.name;
+            img.className = 'sticker-img';
+            img.loading = 'lazy';
+            
+            stickerElement.appendChild(img);
+            container.appendChild(stickerElement);
+            
+            stickerElement.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.selectSticker(sticker, index);
+            });
+        });
+    }
+    
+    selectSticker(sticker, index) {
+        const user = this.commentManager.authManager.currentUser;
+        if (!user) {
+            alert('Пожалуйста, войдите в аккаунт, чтобы использовать стикеры');
+            this.commentManager.authManager.openAuthModal('login');
+            return;
+        }
+        
+        this.selectedStickers.push({...sticker, id: Date.now() + Math.random()});
+        this.updateSelectedStickers();
+        
+        const stickerElements = document.querySelectorAll(`.sticker-item[data-sticker-index="${index}"]`);
+        stickerElements.forEach(el => {
+            el.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                el.style.transform = 'scale(1)';
+            }, 200);
+        });
+    }
+    
+    updateSelectedStickers() {
+        this.updateContainer(this.elements.selectedStickers);
+        this.updateContainer(this.elements.modalSelectedStickers);
+    }
+    
+    updateContainer(container) {
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        if (this.selectedStickers.length === 0) {
+            container.style.display = 'none';
+            return;
+        }
+        
+        container.style.display = 'flex';
+        
+        this.selectedStickers.forEach((sticker, index) => {
+            const stickerElement = document.createElement('div');
+            stickerElement.className = 'selected-sticker';
+            
+            const img = document.createElement('img');
+            img.src = sticker.url;
+            img.alt = sticker.name;
+            
+            const removeBtn = document.createElement('div');
+            removeBtn.className = 'remove-sticker';
+            removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+            removeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.removeSticker(index);
+            });
+            
+            stickerElement.appendChild(img);
+            stickerElement.appendChild(removeBtn);
+            container.appendChild(stickerElement);
+        });
+    }
+    
+    removeSticker(index) {
+        this.selectedStickers.splice(index, 1);
+        this.updateSelectedStickers();
+    }
+    
+    clearSelectedStickers() {
+        this.selectedStickers = [];
+        this.updateSelectedStickers();
+    }
+    
+    toggleStickers(type = 'main') {
+        const grid = type === 'main' ? this.elements.stickersGrid : this.elements.modalStickersGrid;
+        const toggle = type === 'main' ? this.elements.stickersToggle : this.elements.modalStickersToggle;
+        
+        if (grid && toggle) {
+            grid.classList.toggle('expanded');
+            toggle.classList.toggle('rotated');
+        }
+    }
+    
+    getStickerHtml(stickerUrl) {
+        return `<img src="${stickerUrl}" class="comment-sticker" alt="Стикер">`;
+    }
+}
+
+class FirebaseAuthManager {
+    constructor() {
+        this.auth = window.firebase.auth;
+        this.authFunctions = window.firebase.authFunctions;
+        this.db = window.firebase.db;
+        this.firestore = window.firebase.firestoreFunctions;
+        this.currentUser = null;
+        this.mobileMenuManager = null;
+        this.initElements();
+        this.bindEvents();
+        this.checkAuthState();
+    }
+    
+    initElements() {
+        this.elements = {
+            authButtons: document.getElementById('authButtons'),
+            userInfo: document.getElementById('userInfo'),
+            openLoginModal: document.getElementById('openLoginModal'),
+            openRegisterModal: document.getElementById('openRegisterModal'),
+            profileBtn: document.getElementById('profileBtn'),
+            backToMainBtn: document.getElementById('backToMainBtn'),
+            logoutBtn: document.getElementById('logoutBtn'),
+            authModalOverlay: document.getElementById('authModalOverlay'),
+            authModal: document.getElementById('authModal'),
+            closeAuthModal: document.getElementById('closeAuthModal'),
+            loginTabBtn: document.getElementById('loginTabBtn'),
+            registerTabBtn: document.getElementById('registerTabBtn'),
+            authModalTitle: document.getElementById('authModalTitle'),
+            loginForm: document.getElementById('loginForm'),
+            registerForm: document.getElementById('registerForm'),
+            loginMessage: document.getElementById('loginMessage'),
+            registerMessage: document.getElementById('registerMessage'),
+            userAvatar: document.getElementById('userAvatar'),
+            userName: document.getElementById('userName'),
+            profilePage: document.getElementById('profilePage'),
+            profileAvatarLarge: document.getElementById('profileAvatarLarge'),
+            profileUserName: document.getElementById('profileUserName'),
+            profileUserRole: document.getElementById('profileUserRole'),
+            profileEmail: document.getElementById('profileEmail'),
+            profileUsername: document.getElementById('profileUsername'),
+            profileUserId: document.getElementById('profileUserId'),
+            joinDate: document.getElementById('joinDate'),
+            editProfileBtn: document.getElementById('editProfileBtn'),
+            editProfileModalOverlay: document.getElementById('editProfileModalOverlay'),
+            editProfileModal: document.getElementById('editProfileModal'),
+            closeEditProfileModal: document.getElementById('closeEditProfileModal'),
+            editProfileForm: document.getElementById('editProfileForm'),
+            avatarInput: document.getElementById('avatarInput'),
+            avatarUploadBtn: document.getElementById('avatarUploadBtn')
+        };
+    }
+    
+    bindEvents() {
+        if (this.elements.openLoginModal) {
+            this.elements.openLoginModal.addEventListener('click', () => this.openAuthModal('login'));
+        }
+        if (this.elements.openRegisterModal) {
+            this.elements.openRegisterModal.addEventListener('click', () => this.openAuthModal('register'));
+        }
+        if (this.elements.closeAuthModal) {
+            this.elements.closeAuthModal.addEventListener('click', () => this.closeAuthModal());
+        }
+        if (this.elements.authModalOverlay) {
+            this.elements.authModalOverlay.addEventListener('click', () => this.closeAuthModal());
+        }
+        if (this.elements.loginTabBtn) {
+            this.elements.loginTabBtn.addEventListener('click', () => this.switchTab('login'));
+        }
+        if (this.elements.registerTabBtn) {
+            this.elements.registerTabBtn.addEventListener('click', () => this.switchTab('register'));
+        }
+        if (this.elements.loginForm) {
+            this.elements.loginForm.addEventListener('submit', (e) => this.handleLogin(e));
+        }
+        if (this.elements.registerForm) {
+            this.elements.registerForm.addEventListener('submit', (e) => this.handleRegister(e));
+        }
+        if (this.elements.profileBtn) {
+            this.elements.profileBtn.addEventListener('click', () => this.showProfilePage());
+        }
+        if (this.elements.backToMainBtn) {
+            this.elements.backToMainBtn.addEventListener('click', () => this.showMainPage());
+        }
+        if (this.elements.logoutBtn) {
+            this.elements.logoutBtn.addEventListener('click', () => this.handleLogout());
+        }
+        if (this.elements.editProfileBtn) {
+            this.elements.editProfileBtn.addEventListener('click', () => this.handleEditProfile());
+        }
+        if (this.elements.closeEditProfileModal) {
+            this.elements.closeEditProfileModal.addEventListener('click', () => this.closeEditProfileModal());
+        }
+        if (this.elements.editProfileModalOverlay) {
+            this.elements.editProfileModalOverlay.addEventListener('click', () => this.closeEditProfileModal());
+        }
+        if (this.elements.editProfileForm) {
+            this.elements.editProfileForm.addEventListener('submit', (e) => this.handleEditProfileSubmit(e));
+        }
+        if (this.elements.avatarUploadBtn) {
+            this.elements.avatarUploadBtn.addEventListener('click', () => {
+                this.elements.avatarInput.click();
+            });
+        }
+        if (this.elements.avatarInput) {
+            this.elements.avatarInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    this.handleAvatarUpload(file);
+                }
+            });
+        }
+        
+        document.querySelectorAll('.auth-toggle-password').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const targetId = e.target.closest('button').dataset.target;
+                const input = document.getElementById(targetId);
+                const icon = e.target.closest('button').querySelector('i');
+                
+                if (input && icon) {
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        input.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                }
+            });
+        });
+    }
+    
+    checkAuthState() {
+        console.log('Проверка состояния аутентификации...');
+        this.authFunctions.onAuthStateChanged(this.auth, async (user) => {
+            console.log('Состояние аутентификации изменилось:', user);
+            
+            if (user) {
+                console.log('Пользователь вошел:', {uid: user.uid, email: user.email, displayName: user.displayName});
+                this.currentUser = user;
+                this.showUserInfo();
+                await this.loadUserProfile(user.uid);
+            } else {
+                console.log('Пользователь вышел');
+                this.currentUser = null;
+                this.showAuthButtons();
+            }
+        });
+    }
+    
+    async loadUserProfile(userId) {
+        try {
+            const userDoc = await this.firestore.getDoc(this.firestore.doc(this.db, 'users', userId));
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                this.updateUserInfo(userData);
+                if (this.mobileMenuManager) {
+                    this.mobileMenuManager.updateMobileUserInfo(userData);
+                }
+            } else {
+                await this.createUserProfile(userId, this.currentUser);
+            }
+        } catch (error) {
+            console.error('Ошибка загрузки профиля:', error);
+        }
+    }
+    
+    async createUserProfile(userId, firebaseUser) {
+        try {
+            console.log('Создание профиля для пользователя:', userId);
+            // Проверяем, является ли это пользователем Kurisu admin
+            const isKurisuAdmin = firebaseUser.email === 'kurisu@gmail.com';
+            
+            const userData = {
+                userId: userId,
+                email: firebaseUser.email,
+                username: firebaseUser.displayName || firebaseUser.email.split('@')[0],
+                role: isKurisuAdmin ? 'Основатель' : 'Участник Лаборатории',
+                labId: isKurisuAdmin ? 'LAB-001' : `LAB-${String(Math.floor(Math.random() * 999) + 1).padStart(3, '0')}`,
+                joinDate: new Date().toLocaleDateString('ru-RU'),
+                avatar: '',
+                commentCount: 0,
+                createdAt: this.firestore.serverTimestamp(),
+                displayName: firebaseUser.displayName || firebaseUser.email.split('@')[0],
+                likesCount: 0,
+                isKurisuAdmin: isKurisuAdmin
+            };
+            
+            const userDocRef = this.firestore.doc(this.db, 'users', userId);
+            await this.firestore.setDoc(userDocRef, userData);
+            
+            this.updateUserInfo(userData);
+            if (this.mobileMenuManager) {
+                this.mobileMenuManager.updateMobileUserInfo(userData);
+            }
+            
+            console.log('Профиль успешно создан');
+            return true;
+        } catch (error) {
+            console.error('Ошибка создания профиля:', error);
+            return false;
+        }
+    }
+    
+    updateUserInfo(userData) {
         // Проверяем, является ли это пользователем Kurisu admin
         const isKurisuAdmin = this.currentUser && this.currentUser.email === 'kurisu@gmail.com';
         
-        if(this.elements.userName){
-            this.elements.userName.textContent=userData.username||userData.displayName||'Пользователь';
+        if (this.elements.userName) {
+            this.elements.userName.textContent = userData.username || userData.displayName || 'Пользователь';
             if (isKurisuAdmin) {
                 this.elements.userName.classList.add('kurisu-admin');
             } else {
                 this.elements.userName.classList.remove('kurisu-admin');
             }
         }
-        if(this.elements.profileUserName){
-            this.elements.profileUserName.textContent=userData.username||userData.displayName||'Пользователь';
+        
+        if (this.elements.profileUserName) {
+            this.elements.profileUserName.textContent = userData.username || userData.displayName || 'Пользователь';
             if (isKurisuAdmin) {
                 this.elements.profileUserName.classList.add('kurisu-admin');
             } else {
                 this.elements.profileUserName.classList.remove('kurisu-admin');
             }
         }
-        if(this.elements.profileUserRole){
-            this.elements.profileUserRole.textContent=isKurisuAdmin ? 'Основатель' : (userData.role||'Участник Лаборатории');
+        
+        if (this.elements.profileUserRole) {
+            this.elements.profileUserRole.textContent = isKurisuAdmin ? 'Основатель' : (userData.role || 'Участник Лаборатории');
             if (isKurisuAdmin) {
                 this.elements.profileUserRole.classList.add('founder');
             } else {
                 this.elements.profileUserRole.classList.remove('founder');
             }
         }
-        if(this.elements.profileEmail){
-            this.elements.profileEmail.textContent=userData.email||this.currentUser.email||'user@example.com';
-        }
-        if(this.elements.profileUsername){
-            this.elements.profileUsername.textContent=userData.username||userData.displayName||'username';
-        }
-        if(this.elements.profileUserId){
-            this.elements.profileUserId.textContent=userData.labId?userData.labId.split('-')[1]:'001';
-        }
-        if(this.elements.joinDate){
-            this.elements.joinDate.textContent=userData.joinDate||new Date().toLocaleDateString('ru-RU');
+        
+        if (this.elements.profileEmail) {
+            this.elements.profileEmail.textContent = userData.email || this.currentUser.email || 'user@example.com';
         }
         
-        const displayName=userData.username||userData.displayName||'П';
-        const firstLetter=displayName.charAt(0).toUpperCase();
+        if (this.elements.profileUsername) {
+            this.elements.profileUsername.textContent = userData.username || userData.displayName || 'username';
+        }
         
-        if(userData.avatar&&userData.avatar.startsWith('data:image')){
-            if(this.elements.userAvatar){
-                this.elements.userAvatar.style.backgroundImage=`url(${userData.avatar})`;
-                this.elements.userAvatar.textContent='';
+        if (this.elements.profileUserId) {
+            this.elements.profileUserId.textContent = userData.labId ? userData.labId.split('-')[1] : '001';
+        }
+        
+        if (this.elements.joinDate) {
+            this.elements.joinDate.textContent = userData.joinDate || new Date().toLocaleDateString('ru-RU');
+        }
+        
+        const displayName = userData.username || userData.displayName || 'П';
+        const firstLetter = displayName.charAt(0).toUpperCase();
+        
+        if (userData.avatar && userData.avatar.startsWith('data:image')) {
+            if (this.elements.userAvatar) {
+                this.elements.userAvatar.style.backgroundImage = `url(${userData.avatar})`;
+                this.elements.userAvatar.textContent = '';
             }
-            if(this.elements.profileAvatarLarge){
-                this.elements.profileAvatarLarge.style.backgroundImage=`url(${userData.avatar})`;
-                this.elements.profileAvatarLarge.textContent='';
+            if (this.elements.profileAvatarLarge) {
+                this.elements.profileAvatarLarge.style.backgroundImage = `url(${userData.avatar})`;
+                this.elements.profileAvatarLarge.textContent = '';
             }
-        }else{
-            if(this.elements.userAvatar){
-                this.elements.userAvatar.style.backgroundImage='';
-                this.elements.userAvatar.textContent=firstLetter;
+        } else {
+            if (this.elements.userAvatar) {
+                this.elements.userAvatar.style.backgroundImage = '';
+                this.elements.userAvatar.textContent = firstLetter;
             }
-            if(this.elements.profileAvatarLarge){
-                this.elements.profileAvatarLarge.style.backgroundImage='';
-                this.elements.profileAvatarLarge.textContent=firstLetter;
+            if (this.elements.profileAvatarLarge) {
+                this.elements.profileAvatarLarge.style.backgroundImage = '';
+                this.elements.profileAvatarLarge.textContent = firstLetter;
             }
         }
         
-        if(this.mobileMenuManager){
+        if (this.mobileMenuManager) {
             this.mobileMenuManager.updateMobileUserInfo(userData);
         }
     }
-    showAuthButtons(){if(this.elements.authButtons){this.elements.authButtons.style.display='flex'}if(this.elements.userInfo){this.elements.userInfo.style.display='none'}this.showMainPage();if(this.mobileMenuManager){this.mobileMenuManager.updateMobileUserInfo({})}}
-    showUserInfo(){if(this.elements.authButtons){this.elements.authButtons.style.display='none'}if(this.elements.userInfo){this.elements.userInfo.style.display='flex'}}
-    openAuthModal(tab='login'){if(this.elements.authModalOverlay){this.elements.authModalOverlay.classList.add('active')}if(this.elements.authModal){this.elements.authModal.classList.add('active')}document.body.style.overflow='hidden';this.switchTab(tab);if(tab==='login'){const loginEmail=document.getElementById('loginEmail');if(loginEmail)loginEmail.focus()}else{const registerEmail=document.getElementById('registerEmail');if(registerEmail)registerEmail.focus()}}
-    closeAuthModal(){if(this.elements.authModalOverlay){this.elements.authModalOverlay.classList.remove('active')}if(this.elements.authModal){this.elements.authModal.classList.remove('active')}document.body.style.overflow='';this.clearMessages();if(this.elements.loginForm){this.elements.loginForm.reset()}if(this.elements.registerForm){this.elements.registerForm.reset()}}
-    openEditProfileModal(){const editProfileName=document.getElementById('editProfileName');if(editProfileName){editProfileName.value=this.currentUser.displayName||this.elements.profileUsername.textContent||''}const editProfileEmail=document.getElementById('editProfileEmail');if(editProfileEmail){editProfileEmail.value=this.currentUser.email||this.elements.profileEmail.textContent||''}if(this.elements.editProfileModalOverlay){this.elements.editProfileModalOverlay.classList.add('active')}if(this.elements.editProfileModal){this.elements.editProfileModal.classList.add('active')}document.body.style.overflow='hidden'}
-    closeEditProfileModal(){if(this.elements.editProfileModalOverlay){this.elements.editProfileModalOverlay.classList.remove('active')}if(this.elements.editProfileModal){this.elements.editProfileModal.classList.remove('active')}document.body.style.overflow=''}
-    switchTab(tab){if(this.elements.loginTabBtn){this.elements.loginTabBtn.classList.toggle('active',tab==='login')}if(this.elements.registerTabBtn){this.elements.registerTabBtn.classList.toggle('active',tab==='register')}if(this.elements.authModalTitle){this.elements.authModalTitle.textContent=tab==='login'?'Вход':'Регистрация'}if(this.elements.loginForm){this.elements.loginForm.classList.toggle('active',tab==='login')}if(this.elements.registerForm){this.elements.registerForm.classList.toggle('active',tab==='register')}this.clearMessages()}
-    async handleLogin(e){e.preventDefault();this.clearMessages();const email=document.getElementById('loginEmail').value.trim();const password=document.getElementById('loginPassword').value;if(!email||!password){this.showMessage(this.elements.loginMessage,'Заполните все поля','error');return}try{const userCredential=await this.authFunctions.signInWithEmailAndPassword(this.auth,email,password);this.showMessage(this.elements.loginMessage,'Успешный вход!','success');setTimeout(()=>{this.closeAuthModal();this.showMainPage()},1500)}catch(error){let errorMessage='Ошибка входа';if(error.code==='auth/user-not-found'){errorMessage='Пользователь не найден'}else if(error.code==='auth/wrong-password'){errorMessage='Неверный пароль'}else if(error.code==='auth/invalid-email'){errorMessage='Неверный формат email'}this.showMessage(this.elements.loginMessage,errorMessage,'error')}}
-    async handleRegister(e){e.preventDefault();this.clearMessages();const email=document.getElementById('registerEmail').value.trim();const username=document.getElementById('registerUsername').value.trim();const password=document.getElementById('registerPassword').value;const confirmPassword=document.getElementById('registerConfirmPassword').value;const acceptTerms=document.getElementById('acceptTerms')?document.getElementById('acceptTerms').checked:false;if(!email||!username||!password||!confirmPassword){this.showMessage(this.elements.registerMessage,'Заполните все поля','error');return}if(!acceptTerms){this.showMessage(this.elements.registerMessage,'Необходимо принять условия использования','error');return}if(password!==confirmPassword){this.showMessage(this.elements.registerMessage,'Пароли не совпадают','error');return}if(password.length<6){this.showMessage(this.elements.registerMessage,'Пароль должен содержать минимум 6 символов','error');return}try{const userCredential=await this.authFunctions.createUserWithEmailAndPassword(this.auth,email,password);await this.authFunctions.updateProfile(userCredential.user,{displayName:username});await this.createUserProfile(userCredential.user.uid,userCredential.user);this.showMessage(this.elements.registerMessage,'Регистрация успешна! Создаю профиль...','success');setTimeout(()=>{this.showMessage(this.elements.registerMessage,'Профиль создан! Перенаправляю...','success');setTimeout(()=>{this.closeAuthModal();this.showMainPage()},1000)},1500)}catch(error){let errorMessage='Ошибка регистрации';if(error.code==='auth/email-already-in-use'){errorMessage='Пользователь с таким email уже существует'}else if(error.code==='auth/invalid-email'){errorMessage='Неверный формат email'}else if(error.code==='auth/weak-password'){errorMessage='Пароль слишком слабый'}this.showMessage(this.elements.registerMessage,errorMessage,'error')}}
-    async handleLogout(){try{await this.authFunctions.signOut(this.auth);this.showAuthButtons();this.showMainPage()}catch(error){console.error('Ошибка выхода:',error)}}
-    handleEditProfile(){this.openEditProfileModal()}
-    async handleEditProfileSubmit(e){e.preventDefault();const newUsername=document.getElementById('editProfileName').value.trim();const newEmail=document.getElementById('editProfileEmail').value.trim();const currentPassword=document.getElementById('currentPassword').value;const newPassword=document.getElementById('newPassword').value;const confirmNewPassword=document.getElementById('confirmNewPassword').value;if(!newUsername){alert('Пожалуйста, введите имя пользователя');return}if(!currentPassword){alert('Для смены email или пароля необходимо ввести текущий пароль');return}try{const user=this.currentUser;if(!user){alert('Пользователь не авторизован');return}const credential=this.authFunctions.EmailAuthProvider.credential(user.email,currentPassword);await this.authFunctions.reauthenticateWithCredential(user,credential);let updates={};if(newUsername&&newUsername!==user.displayName){await this.authFunctions.updateProfile(user,{displayName:newUsername});updates.username=newUsername;updates.displayName=newUsername;if(this.elements.userName){this.elements.userName.textContent=newUsername;if(user.email === 'kurisu@gmail.com'){this.elements.userName.classList.add('kurisu-admin');}}if(this.elements.profileUserName){this.elements.profileUserName.textContent=newUsername;if(user.email === 'kurisu@gmail.com'){this.elements.profileUserName.classList.add('kurisu-admin');}}if(this.elements.profileUsername){this.elements.profileUsername.textContent=newUsername;}}if(newEmail&&newEmail!==user.email){await this.authFunctions.updateEmail(user,newEmail);updates.email=newEmail;if(this.elements.profileEmail){this.elements.profileEmail.textContent=newEmail;}}if(newPassword&&newPassword.trim()!==''){if(newPassword.length<6){alert('Новый пароль должен содержать минимум 6 символов');return}if(newPassword!==confirmNewPassword){alert('Новый пароль и подтверждение не совпадают');return}await this.authFunctions.updatePassword(user,newPassword);this.showNotification('Пароль успешно изменен!','success')}if(Object.keys(updates).length>0){await this.firestore.updateDoc(this.firestore.doc(this.db,'users',user.uid),{...updates,updatedAt:this.firestore.serverTimestamp()});}const userDoc=await this.firestore.getDoc(this.firestore.doc(this.db,'users',user.uid));const userData=userDoc.exists()?userDoc.data():{};if(!userData.avatar||!userData.avatar.startsWith('data:image')){if(this.elements.userAvatar){this.elements.userAvatar.textContent=newUsername.charAt(0).toUpperCase();}if(this.elements.profileAvatarLarge){this.elements.profileAvatarLarge.textContent=newUsername.charAt(0).toUpperCase();}}if(this.mobileMenuManager){this.mobileMenuManager.updateMobileUserInfo({...userData,...updates});}this.closeEditProfileModal();this.showNotification('Профиль успешно обновлен!','success');}catch(error){console.error('Ошибка обновления профиля:',error);let errorMessage='Ошибка при обновлении профиля';if(error.code==='auth/wrong-password'){errorMessage='Неверный текущий пароль'}else if(error.code==='auth/email-already-in-use'){errorMessage='Этот email уже используется другим пользователем'}else if(error.code==='auth/invalid-email'){errorMessage='Неверный формат email'}else if(error.code==='auth/weak-password'){errorMessage='Новый пароль слишком слабый'}this.showNotification(errorMessage,'error')}}
-    async handleAvatarUpload(file){try{if(!file)return;if(file.size>2*1024*1024){alert('Файл слишком большой. Максимальный размер: 2MB');return}if(!file.type.match('image.*')){alert('Пожалуйста, выберите изображение');return}const user=this.currentUser;if(!user){alert('Пожалуйста, войдите в аккаунт');return}const reader=new FileReader();reader.onload=async(e)=>{const avatarData=e.target.result;if(this.elements.userAvatar){this.elements.userAvatar.style.backgroundImage=`url(${avatarData})`;this.elements.userAvatar.textContent=''}if(this.elements.profileAvatarLarge){this.elements.profileAvatarLarge.style.backgroundImage=`url(${avatarData})`;this.elements.profileAvatarLarge.textContent=''}await this.firestore.updateDoc(this.firestore.doc(this.db,'users',user.uid),{avatar:avatarData,updatedAt:this.firestore.serverTimestamp()});const userDoc=await this.firestore.getDoc(this.firestore.doc(this.db,'users',user.uid));const userData=userDoc.exists()?userDoc.data():{};if(this.mobileMenuManager){this.mobileMenuManager.updateMobileUserInfo({...userData,avatar:avatarData})}this.showNotification('Аватар успешно обновлен!','success')};reader.onerror=()=>{this.showNotification('Ошибка при чтении файла','error')};reader.readAsDataURL(file)}catch(error){console.error('Ошибка загрузки аватара:',error);this.showNotification('Ошибка при загрузке аватара','error')}}
-    showProfilePage(){const user=this.currentUser;if(!user)return;if(this.elements.profileAvatarLarge){const userDoc=this.firestore.getDoc(this.firestore.doc(this.db,'users',user.uid)).then(doc=>{if(doc.exists()){const userData=doc.data();if(userData.avatar&&userData.avatar.startsWith('data:image')){this.elements.profileAvatarLarge.style.backgroundImage=`url(${userData.avatar})`;this.elements.profileAvatarLarge.textContent=''}else{this.elements.profileAvatarLarge.style.backgroundImage='';this.elements.profileAvatarLarge.textContent=userData.displayName?userData.displayName.charAt(0).toUpperCase():user.email.charAt(0).toUpperCase()}}})}document.querySelectorAll('section').forEach(section=>{if(section)section.style.display='none'});const footer=document.querySelector('footer');if(footer)footer.style.display='none';if(this.elements.profilePage){this.elements.profilePage.style.display='block'}window.scrollTo(0,0)}
-    showMainPage(){if(this.elements.profilePage){this.elements.profilePage.style.display='none'}document.querySelectorAll('section').forEach(section=>{if(section)section.style.display='block'});const footer=document.querySelector('footer');if(footer)footer.style.display='block';window.scrollTo(0,0)}
-    showMessage(element,text,type){if(!element)return;element.textContent=text;element.className=`auth-message ${type} show`;if(type==='success'){setTimeout(()=>{element.classList.remove('show')},5000)}}
-    showNotification(message,type='success'){const notification=document.createElement('div');notification.className=`auth-message ${type} show`;notification.textContent=message;notification.style.position='fixed';notification.style.top='20px';notification.style.right='20px';notification.style.zIndex='10004';notification.style.maxWidth='300px';document.body.appendChild(notification);setTimeout(()=>{notification.classList.remove('show');setTimeout(()=>{if(notification.parentNode){notification.parentNode.removeChild(notification)}},300)},3000)}
-    clearMessages(){if(this.elements.loginMessage){this.elements.loginMessage.classList.remove('show')}if(this.elements.registerMessage){this.elements.registerMessage.classList.remove('show')}}
-    setMobileMenuManager(mobileMenuManager){this.mobileMenuManager=mobileMenuManager}}
-class FirebaseCommentsManager{
-    constructor(authManager,stickerManager){this.authManager=authManager;this.stickerManager=stickerManager;this.db=window.firebase.db;this.firestore=window.firebase.firestoreFunctions;this.currentEpisodeId=1;this.currentEpisodeName='Начало и конец';this.initElements();this.bindEvents();this.loadComments()}
-    initElements(){this.elements={commentForm:document.getElementById('commentForm'),commentText:document.getElementById('commentText'),charCount:document.getElementById('charCount'),submitComment:document.getElementById('submitComment'),commentsList:document.getElementById('commentsList'),commentsSection:document.getElementById('commentsSection'),modalCommentForm:document.getElementById('modalCommentForm'),modalCommentText:document.getElementById('modalCommentText'),modalCharCount:document.getElementById('modalCharCount'),modalSubmitComment:document.getElementById('modalSubmitComment'),modalCommentsList:document.getElementById('modalCommentsList'),openCommentsBtn:document.getElementById('openCommentsBtn'),commentsModalOverlay:document.getElementById('commentsModalOverlay'),commentsModal:document.getElementById('commentsModal'),commentsCloseModal:document.getElementById('commentsCloseModal')}}
-    bindEvents(){if(this.elements.commentText){this.elements.commentText.addEventListener('input',(e)=>this.updateCharCount(e,this.elements.charCount))}if(this.elements.submitComment){this.elements.submitComment.addEventListener('click',()=>this.submitComment())}if(this.elements.modalCommentText){this.elements.modalCommentText.addEventListener('input',(e)=>this.updateCharCount(e,this.elements.modalCharCount))}if(this.elements.modalSubmitComment){this.elements.modalSubmitComment.addEventListener('click',()=>this.submitModalComment())}if(this.elements.openCommentsBtn){this.elements.openCommentsBtn.addEventListener('click',()=>this.openCommentsModal())}if(this.elements.commentsCloseModal){this.elements.commentsCloseModal.addEventListener('click',()=>this.closeCommentsModal())}if(this.elements.commentsModalOverlay){this.elements.commentsModalOverlay.addEventListener('click',()=>this.closeCommentsModal())}document.querySelectorAll('.episode-item').forEach(item=>{item.addEventListener('click',()=>{if(!item.classList.contains('disabled')){const episodeId=parseInt(item.dataset.episode);const episodeName=item.querySelector('.episode-name').textContent;this.setCurrentEpisode(episodeId,episodeName)}})})}
-    setCurrentEpisode(episodeId,episodeName){this.currentEpisodeId=episodeId;this.currentEpisodeName=episodeName;this.loadComments()}
-    updateCharCount(e,charCountElement){const text=e.target.value;const count=text.length;const maxLength=500;if(charCountElement){charCountElement.textContent=`${count}/${maxLength}`;if(count>maxLength*0.9){charCountElement.classList.add('warning');charCountElement.classList.remove('error')}else if(count>maxLength){charCountElement.classList.remove('warning');charCountElement.classList.add('error')}else{charCountElement.classList.remove('warning','error')}}}
-    updateCommentForm(){const user=this.authManager.currentUser;const isLoggedIn=!!user;if(this.elements.commentForm){if(isLoggedIn){this.elements.commentForm.style.display='block'}else{this.elements.commentForm.style.display='none'}}if(this.elements.modalCommentForm){if(isLoggedIn){this.elements.modalCommentForm.style.display='block'}else{this.elements.modalCommentForm.style.display='none'}}}
-    async loadComments(){try{if(this.elements.commentsList){this.elements.commentsList.innerHTML=`<div class="loading-comments"><i class="fas fa-spinner fa-spin"></i><p>Загрузка комментариев...</p></div>`}if(this.elements.modalCommentsList){this.elements.modalCommentsList.innerHTML=`<div class="loading-comments"><i class="fas fa-spinner fa-spin"></i><p>Загрузка комментариев...</p></div>`}const commentsQuery=this.firestore.query(this.firestore.collection(this.db,'comments'),this.firestore.where('episodeId','==',this.currentEpisodeId),this.firestore.orderBy('createdAt','desc'));const querySnapshot=await this.firestore.getDocs(commentsQuery);if(this.elements.commentsList){this.elements.commentsList.innerHTML=''}if(this.elements.modalCommentsList){this.elements.modalCommentsList.innerHTML=''}if(querySnapshot.empty){const noCommentsHtml=`<div class="no-comments"><i class="fas fa-comment-slash"></i><p>Пока нет комментариев.<br>Будьте первым, кто оставит отзыв!</p></div>`;if(this.elements.commentsList){this.elements.commentsList.innerHTML=noCommentsHtml}if(this.elements.modalCommentsList){this.elements.modalCommentsList.innerHTML=noCommentsHtml}return}const commentsWithUserData=[];for(const doc of querySnapshot.docs){const comment=doc.data();comment.id=doc.id;if(!comment.createdAt){comment.createdAt=new Date()}let userData={};try{const userDoc=await this.firestore.getDoc(this.firestore.doc(this.db,'users',comment.userId));if(userDoc.exists()){userData=userDoc.data()}}catch(error){console.error('Ошибка загрузки данных пользователя:',error)}commentsWithUserData.push({...comment,userName:userData.username||userData.displayName||comment.userName||'Аноним',userRole:userData.role||comment.userRole||'Участник Лаборатории',userAvatar:comment.userAvatar||userData.avatar||'',likes:comment.likes||0,likedBy:comment.likedBy||[],stickers:comment.stickers||[]})}// СОРТИРОВКА: комментарии Kurisu admin всегда сверху
-        commentsWithUserData.sort((a, b) => {
-            const aIsKurisuAdmin = a.userEmail === 'kurisu@gmail.com';
-            const bIsKurisuAdmin = b.userEmail === 'kurisu@gmail.com';
-            if (aIsKurisuAdmin && !bIsKurisuAdmin) return -1;
-            if (!aIsKurisuAdmin && bIsKurisuAdmin) return 1;
-            // Для остальных сортируем по дате (новые сверху)
-            return b.createdAt - a.createdAt;
+    
+    showAuthButtons() {
+        if (this.elements.authButtons) {
+            this.elements.authButtons.style.display = 'flex';
+        }
+        if (this.elements.userInfo) {
+            this.elements.userInfo.style.display = 'none';
+        }
+        this.showMainPage();
+        if (this.mobileMenuManager) {
+            this.mobileMenuManager.updateMobileUserInfo({});
+        }
+    }
+    
+    showUserInfo() {
+        if (this.elements.authButtons) {
+            this.elements.authButtons.style.display = 'none';
+        }
+        if (this.elements.userInfo) {
+            this.elements.userInfo.style.display = 'flex';
+        }
+    }
+    
+    openAuthModal(tab = 'login') {
+        if (this.elements.authModalOverlay) {
+            this.elements.authModalOverlay.classList.add('active');
+        }
+        if (this.elements.authModal) {
+            this.elements.authModal.classList.add('active');
+        }
+        document.body.style.overflow = 'hidden';
+        this.switchTab(tab);
+        
+        if (tab === 'login') {
+            const loginEmail = document.getElementById('loginEmail');
+            if (loginEmail) loginEmail.focus();
+        } else {
+            const registerEmail = document.getElementById('registerEmail');
+            if (registerEmail) registerEmail.focus();
+        }
+    }
+    
+    closeAuthModal() {
+        if (this.elements.authModalOverlay) {
+            this.elements.authModalOverlay.classList.remove('active');
+        }
+        if (this.elements.authModal) {
+            this.elements.authModal.classList.remove('active');
+        }
+        document.body.style.overflow = '';
+        this.clearMessages();
+        
+        if (this.elements.loginForm) {
+            this.elements.loginForm.reset();
+        }
+        if (this.elements.registerForm) {
+            this.elements.registerForm.reset();
+        }
+    }
+    
+    openEditProfileModal() {
+        const editProfileName = document.getElementById('editProfileName');
+        if (editProfileName) {
+            editProfileName.value = this.currentUser.displayName || this.elements.profileUsername.textContent || '';
+        }
+        
+        const editProfileEmail = document.getElementById('editProfileEmail');
+        if (editProfileEmail) {
+            editProfileEmail.value = this.currentUser.email || this.elements.profileEmail.textContent || '';
+        }
+        
+        if (this.elements.editProfileModalOverlay) {
+            this.elements.editProfileModalOverlay.classList.add('active');
+        }
+        if (this.elements.editProfileModal) {
+            this.elements.editProfileModal.classList.add('active');
+        }
+        document.body.style.overflow = 'hidden';
+    }
+    
+    closeEditProfileModal() {
+        if (this.elements.editProfileModalOverlay) {
+            this.elements.editProfileModalOverlay.classList.remove('active');
+        }
+        if (this.elements.editProfileModal) {
+            this.elements.editProfileModal.classList.remove('active');
+        }
+        document.body.style.overflow = '';
+    }
+    
+    switchTab(tab) {
+        if (this.elements.loginTabBtn) {
+            this.elements.loginTabBtn.classList.toggle('active', tab === 'login');
+        }
+        if (this.elements.registerTabBtn) {
+            this.elements.registerTabBtn.classList.toggle('active', tab === 'register');
+        }
+        if (this.elements.authModalTitle) {
+            this.elements.authModalTitle.textContent = tab === 'login' ? 'Вход' : 'Регистрация';
+        }
+        if (this.elements.loginForm) {
+            this.elements.loginForm.classList.toggle('active', tab === 'login');
+        }
+        if (this.elements.registerForm) {
+            this.elements.registerForm.classList.toggle('active', tab === 'register');
+        }
+        this.clearMessages();
+    }
+    
+    async handleLogin(e) {
+        e.preventDefault();
+        this.clearMessages();
+        
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        
+        if (!email || !password) {
+            this.showMessage(this.elements.loginMessage, 'Заполните все поля', 'error');
+            return;
+        }
+        
+        try {
+            const userCredential = await this.authFunctions.signInWithEmailAndPassword(this.auth, email, password);
+            this.showMessage(this.elements.loginMessage, 'Успешный вход!', 'success');
+            
+            setTimeout(() => {
+                this.closeAuthModal();
+                this.showMainPage();
+            }, 1500);
+        } catch (error) {
+            let errorMessage = 'Ошибка входа';
+            if (error.code === 'auth/user-not-found') {
+                errorMessage = 'Пользователь не найден';
+            } else if (error.code === 'auth/wrong-password') {
+                errorMessage = 'Неверный пароль';
+            } else if (error.code === 'auth/invalid-email') {
+                errorMessage = 'Неверный формат email';
+            }
+            this.showMessage(this.elements.loginMessage, errorMessage, 'error');
+        }
+    }
+    
+    async handleRegister(e) {
+        e.preventDefault();
+        this.clearMessages();
+        
+        const email = document.getElementById('registerEmail').value.trim();
+        const username = document.getElementById('registerUsername').value.trim();
+        const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('registerConfirmPassword').value;
+        const acceptTerms = document.getElementById('acceptTerms') ? document.getElementById('acceptTerms').checked : false;
+        
+        if (!email || !username || !password || !confirmPassword) {
+            this.showMessage(this.elements.registerMessage, 'Заполните все поля', 'error');
+            return;
+        }
+        
+        if (!acceptTerms) {
+            this.showMessage(this.elements.registerMessage, 'Необходимо принять условия использования', 'error');
+            return;
+        }
+        
+        if (password !== confirmPassword) {
+            this.showMessage(this.elements.registerMessage, 'Пароли не совпадают', 'error');
+            return;
+        }
+        
+        if (password.length < 6) {
+            this.showMessage(this.elements.registerMessage, 'Пароль должен содержать минимум 6 символов', 'error');
+            return;
+        }
+        
+        try {
+            const userCredential = await this.authFunctions.createUserWithEmailAndPassword(this.auth, email, password);
+            await this.authFunctions.updateProfile(userCredential.user, {displayName: username});
+            await this.createUserProfile(userCredential.user.uid, userCredential.user);
+            
+            this.showMessage(this.elements.registerMessage, 'Регистрация успешна! Создаю профиль...', 'success');
+            
+            setTimeout(() => {
+                this.showMessage(this.elements.registerMessage, 'Профиль создан! Перенаправляю...', 'success');
+                setTimeout(() => {
+                    this.closeAuthModal();
+                    this.showMainPage();
+                }, 1000);
+            }, 1500);
+        } catch (error) {
+            let errorMessage = 'Ошибка регистрации';
+            if (error.code === 'auth/email-already-in-use') {
+                errorMessage = 'Пользователь с таким email уже существует';
+            } else if (error.code === 'auth/invalid-email') {
+                errorMessage = 'Неверный формат email';
+            } else if (error.code === 'auth/weak-password') {
+                errorMessage = 'Пароль слишком слабый';
+            }
+            this.showMessage(this.elements.registerMessage, errorMessage, 'error');
+        }
+    }
+    
+    async handleLogout() {
+        try {
+            await this.authFunctions.signOut(this.auth);
+            this.showAuthButtons();
+            this.showMainPage();
+        } catch (error) {
+            console.error('Ошибка выхода:', error);
+        }
+    }
+    
+    handleEditProfile() {
+        this.openEditProfileModal();
+    }
+    
+    async handleEditProfileSubmit(e) {
+        e.preventDefault();
+        
+        const newUsername = document.getElementById('editProfileName').value.trim();
+        const newEmail = document.getElementById('editProfileEmail').value.trim();
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+        
+        if (!newUsername) {
+            alert('Пожалуйста, введите имя пользователя');
+            return;
+        }
+        
+        if (!currentPassword) {
+            alert('Для смены email или пароля необходимо ввести текущий пароль');
+            return;
+        }
+        
+        try {
+            const user = this.currentUser;
+            if (!user) {
+                alert('Пользователь не авторизован');
+                return;
+            }
+            
+            const credential = this.authFunctions.EmailAuthProvider.credential(user.email, currentPassword);
+            await this.authFunctions.reauthenticateWithCredential(user, credential);
+            
+            let updates = {};
+            
+            if (newUsername && newUsername !== user.displayName) {
+                await this.authFunctions.updateProfile(user, {displayName: newUsername});
+                updates.username = newUsername;
+                updates.displayName = newUsername;
+                
+                if (this.elements.userName) {
+                    this.elements.userName.textContent = newUsername;
+                    if (user.email === 'kurisu@gmail.com') {
+                        this.elements.userName.classList.add('kurisu-admin');
+                    }
+                }
+                
+                if (this.elements.profileUserName) {
+                    this.elements.profileUserName.textContent = newUsername;
+                    if (user.email === 'kurisu@gmail.com') {
+                        this.elements.profileUserName.classList.add('kurisu-admin');
+                    }
+                }
+                
+                if (this.elements.profileUsername) {
+                    this.elements.profileUsername.textContent = newUsername;
+                }
+            }
+            
+            if (newEmail && newEmail !== user.email) {
+                await this.authFunctions.updateEmail(user, newEmail);
+                updates.email = newEmail;
+                
+                if (this.elements.profileEmail) {
+                    this.elements.profileEmail.textContent = newEmail;
+                }
+            }
+            
+            if (newPassword && newPassword.trim() !== '') {
+                if (newPassword.length < 6) {
+                    alert('Новый пароль должен содержать минимум 6 символов');
+                    return;
+                }
+                
+                if (newPassword !== confirmNewPassword) {
+                    alert('Новый пароль и подтверждение не совпадают');
+                    return;
+                }
+                
+                await this.authFunctions.updatePassword(user, newPassword);
+                this.showNotification('Пароль успешно изменен!', 'success');
+            }
+            
+            if (Object.keys(updates).length > 0) {
+                await this.firestore.updateDoc(this.firestore.doc(this.db, 'users', user.uid), {
+                    ...updates,
+                    updatedAt: this.firestore.serverTimestamp()
+                });
+            }
+            
+            const userDoc = await this.firestore.getDoc(this.firestore.doc(this.db, 'users', user.uid));
+            const userData = userDoc.exists() ? userDoc.data() : {};
+            
+            if (!userData.avatar || !userData.avatar.startsWith('data:image')) {
+                if (this.elements.userAvatar) {
+                    this.elements.userAvatar.textContent = newUsername.charAt(0).toUpperCase();
+                }
+                if (this.elements.profileAvatarLarge) {
+                    this.elements.profileAvatarLarge.textContent = newUsername.charAt(0).toUpperCase();
+                }
+            }
+            
+            if (this.mobileMenuManager) {
+                this.mobileMenuManager.updateMobileUserInfo({...userData, ...updates});
+            }
+            
+            this.closeEditProfileModal();
+            this.showNotification('Профиль успешно обновлен!', 'success');
+            
+        } catch (error) {
+            console.error('Ошибка обновления профиля:', error);
+            let errorMessage = 'Ошибка при обновлении профиля';
+            if (error.code === 'auth/wrong-password') {
+                errorMessage = 'Неверный текущий пароль';
+            } else if (error.code === 'auth/email-already-in-use') {
+                errorMessage = 'Этот email уже используется другим пользователем';
+            } else if (error.code === 'auth/invalid-email') {
+                errorMessage = 'Неверный формат email';
+            } else if (error.code === 'auth/weak-password') {
+                errorMessage = 'Новый пароль слишком слабый';
+            }
+            this.showNotification(errorMessage, 'error');
+        }
+    }
+    
+    async handleAvatarUpload(file) {
+        try {
+            if (!file) return;
+            
+            if (file.size > 2 * 1024 * 1024) {
+                alert('Файл слишком большой. Максимальный размер: 2MB');
+                return;
+            }
+            
+            if (!file.type.match('image.*')) {
+                alert('Пожалуйста, выберите изображение');
+                return;
+            }
+            
+            const user = this.currentUser;
+            if (!user) {
+                alert('Пожалуйста, войдите в аккаунт');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const avatarData = e.target.result;
+                
+                if (this.elements.userAvatar) {
+                    this.elements.userAvatar.style.backgroundImage = `url(${avatarData})`;
+                    this.elements.userAvatar.textContent = '';
+                }
+                
+                if (this.elements.profileAvatarLarge) {
+                    this.elements.profileAvatarLarge.style.backgroundImage = `url(${avatarData})`;
+                    this.elements.profileAvatarLarge.textContent = '';
+                }
+                
+                await this.firestore.updateDoc(this.firestore.doc(this.db, 'users', user.uid), {
+                    avatar: avatarData,
+                    updatedAt: this.firestore.serverTimestamp()
+                });
+                
+                const userDoc = await this.firestore.getDoc(this.firestore.doc(this.db, 'users', user.uid));
+                const userData = userDoc.exists() ? userDoc.data() : {};
+                
+                if (this.mobileMenuManager) {
+                    this.mobileMenuManager.updateMobileUserInfo({...userData, avatar: avatarData});
+                }
+                
+                this.showNotification('Аватар успешно обновлен!', 'success');
+            };
+            
+            reader.onerror = () => {
+                this.showNotification('Ошибка при чтении файла', 'error');
+            };
+            
+            reader.readAsDataURL(file);
+        } catch (error) {
+            console.error('Ошибка загрузки аватара:', error);
+            this.showNotification('Ошибка при загрузке аватара', 'error');
+        }
+    }
+    
+    showProfilePage() {
+        const user = this.currentUser;
+        if (!user) return;
+        
+        if (this.elements.profileAvatarLarge) {
+            const userDoc = this.firestore.getDoc(this.firestore.doc(this.db, 'users', user.uid)).then(doc => {
+                if (doc.exists()) {
+                    const userData = doc.data();
+                    if (userData.avatar && userData.avatar.startsWith('data:image')) {
+                        this.elements.profileAvatarLarge.style.backgroundImage = `url(${userData.avatar})`;
+                        this.elements.profileAvatarLarge.textContent = '';
+                    } else {
+                        this.elements.profileAvatarLarge.style.backgroundImage = '';
+                        this.elements.profileAvatarLarge.textContent = userData.displayName ? 
+                            userData.displayName.charAt(0).toUpperCase() : 
+                            user.email.charAt(0).toUpperCase();
+                    }
+                }
+            });
+        }
+        
+        document.querySelectorAll('section').forEach(section => {
+            if (section) section.style.display = 'none';
         });
         
-        commentsWithUserData.forEach(comment=>{const commentHtml=this.createCommentHtml(comment);if(this.elements.commentsList){this.elements.commentsList.insertAdjacentHTML('beforeend',commentHtml)}if(this.elements.modalCommentsList){this.elements.modalCommentsList.insertAdjacentHTML('beforeend',commentHtml)}setTimeout(()=>{this.addDeleteHandler(comment.id,comment.userId);this.addLikeHandler(comment.id)},100)})}catch(error){console.error('Ошибка загрузки комментариев:',error);console.error('Детали ошибки:',error.code,error.message);const errorHtml=`<div class="no-comments"><i class="fas fa-exclamation-triangle"></i><p>Ошибка загрузки комментариев</p><p style="font-size: 0.8rem; margin-top: 10px;">Пожалуйста, проверьте подключение к Firebase</p></div>`;if(this.elements.commentsList){this.elements.commentsList.innerHTML=errorHtml}if(this.elements.modalCommentsList){this.elements.modalCommentsList.innerHTML=errorHtml}}}
-    createCommentHtml(comment){
-        const date=comment.createdAt?(comment.createdAt.toDate?comment.createdAt.toDate():new Date(comment.createdAt)).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}):'Недавно';
-        const avatarStyle=comment.userAvatar?`background-image: url(${comment.userAvatar})`:'';
-        const avatarContent=comment.userAvatar?'':(comment.userName?comment.userName.charAt(0).toUpperCase():'А');
+        const footer = document.querySelector('footer');
+        if (footer) footer.style.display = 'none';
+        
+        if (this.elements.profilePage) {
+            this.elements.profilePage.style.display = 'block';
+        }
+        
+        window.scrollTo(0, 0);
+    }
+    
+    showMainPage() {
+        if (this.elements.profilePage) {
+            this.elements.profilePage.style.display = 'none';
+        }
+        
+        document.querySelectorAll('section').forEach(section => {
+            if (section) section.style.display = 'block';
+        });
+        
+        const footer = document.querySelector('footer');
+        if (footer) footer.style.display = 'block';
+        
+        window.scrollTo(0, 0);
+    }
+    
+    showMessage(element, text, type) {
+        if (!element) return;
+        element.textContent = text;
+        element.className = `auth-message ${type} show`;
+        
+        if (type === 'success') {
+            setTimeout(() => {
+                element.classList.remove('show');
+            }, 5000);
+        }
+    }
+    
+    showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.className = `auth-message ${type} show`;
+        notification.textContent = message;
+        notification.style.position = 'fixed';
+        notification.style.top = '20px';
+        notification.style.right = '20px';
+        notification.style.zIndex = '10004';
+        notification.style.maxWidth = '300px';
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+    
+    clearMessages() {
+        if (this.elements.loginMessage) {
+            this.elements.loginMessage.classList.remove('show');
+        }
+        if (this.elements.registerMessage) {
+            this.elements.registerMessage.classList.remove('show');
+        }
+    }
+    
+    setMobileMenuManager(mobileMenuManager) {
+        this.mobileMenuManager = mobileMenuManager;
+    }
+}
+
+class FirebaseCommentsManager {
+    constructor(authManager, stickerManager) {
+        this.authManager = authManager;
+        this.stickerManager = stickerManager;
+        this.db = window.firebase.db;
+        this.firestore = window.firebase.firestoreFunctions;
+        this.currentEpisodeId = 1;
+        this.currentEpisodeName = 'Начало и конец';
+        this.initElements();
+        this.bindEvents();
+        this.loadComments();
+    }
+    
+    initElements() {
+        this.elements = {
+            commentForm: document.getElementById('commentForm'),
+            commentText: document.getElementById('commentText'),
+            charCount: document.getElementById('charCount'),
+            submitComment: document.getElementById('submitComment'),
+            commentsList: document.getElementById('commentsList'),
+            commentsSection: document.getElementById('commentsSection'),
+            modalCommentForm: document.getElementById('modalCommentForm'),
+            modalCommentText: document.getElementById('modalCommentText'),
+            modalCharCount: document.getElementById('modalCharCount'),
+            modalSubmitComment: document.getElementById('modalSubmitComment'),
+            modalCommentsList: document.getElementById('modalCommentsList'),
+            openCommentsBtn: document.getElementById('openCommentsBtn'),
+            commentsModalOverlay: document.getElementById('commentsModalOverlay'),
+            commentsModal: document.getElementById('commentsModal'),
+            commentsCloseModal: document.getElementById('commentsCloseModal')
+        };
+    }
+    
+    bindEvents() {
+        if (this.elements.commentText) {
+            this.elements.commentText.addEventListener('input', (e) => this.updateCharCount(e, this.elements.charCount));
+        }
+        if (this.elements.submitComment) {
+            this.elements.submitComment.addEventListener('click', () => this.submitComment());
+        }
+        if (this.elements.modalCommentText) {
+            this.elements.modalCommentText.addEventListener('input', (e) => this.updateCharCount(e, this.elements.modalCharCount));
+        }
+        if (this.elements.modalSubmitComment) {
+            this.elements.modalSubmitComment.addEventListener('click', () => this.submitModalComment());
+        }
+        if (this.elements.openCommentsBtn) {
+            this.elements.openCommentsBtn.addEventListener('click', () => this.openCommentsModal());
+        }
+        if (this.elements.commentsCloseModal) {
+            this.elements.commentsCloseModal.addEventListener('click', () => this.closeCommentsModal());
+        }
+        if (this.elements.commentsModalOverlay) {
+            this.elements.commentsModalOverlay.addEventListener('click', () => this.closeCommentsModal());
+        }
+        
+        document.querySelectorAll('.episode-item').forEach(item => {
+            item.addEventListener('click', () => {
+                if (!item.classList.contains('disabled')) {
+                    const episodeId = parseInt(item.dataset.episode);
+                    const episodeName = item.querySelector('.episode-name').textContent;
+                    this.setCurrentEpisode(episodeId, episodeName);
+                }
+            });
+        });
+    }
+    
+    setCurrentEpisode(episodeId, episodeName) {
+        this.currentEpisodeId = episodeId;
+        this.currentEpisodeName = episodeName;
+        this.loadComments();
+    }
+    
+    updateCharCount(e, charCountElement) {
+        const text = e.target.value;
+        const count = text.length;
+        const maxLength = 500;
+        
+        if (charCountElement) {
+            charCountElement.textContent = `${count}/${maxLength}`;
+            
+            if (count > maxLength * 0.9) {
+                charCountElement.classList.add('warning');
+                charCountElement.classList.remove('error');
+            } else if (count > maxLength) {
+                charCountElement.classList.remove('warning');
+                charCountElement.classList.add('error');
+            } else {
+                charCountElement.classList.remove('warning', 'error');
+            }
+        }
+    }
+    
+    updateCommentForm() {
+        const user = this.authManager.currentUser;
+        const isLoggedIn = !!user;
+        
+        if (this.elements.commentForm) {
+            if (isLoggedIn) {
+                this.elements.commentForm.style.display = 'block';
+            } else {
+                this.elements.commentForm.style.display = 'none';
+            }
+        }
+        
+        if (this.elements.modalCommentForm) {
+            if (isLoggedIn) {
+                this.elements.modalCommentForm.style.display = 'block';
+            } else {
+                this.elements.modalCommentForm.style.display = 'none';
+            }
+        }
+    }
+    
+    async loadComments() {
+        try {
+            // ОЧИЩАЕМ списки комментариев перед загрузкой новых
+            if (this.elements.commentsList) {
+                this.elements.commentsList.innerHTML = `<div class="loading-comments"><i class="fas fa-spinner fa-spin"></i><p>Загрузка комментариев...</p></div>`;
+            }
+            if (this.elements.modalCommentsList) {
+                this.elements.modalCommentsList.innerHTML = `<div class="loading-comments"><i class="fas fa-spinner fa-spin"></i><p>Загрузка комментариев...</p></div>`;
+            }
+            
+            const commentsQuery = this.firestore.query(
+                this.firestore.collection(this.db, 'comments'),
+                this.firestore.where('episodeId', '==', this.currentEpisodeId),
+                this.firestore.orderBy('createdAt', 'desc')
+            );
+            
+            const querySnapshot = await this.firestore.getDocs(commentsQuery);
+            
+            // ОЧИЩАЕМ списки перед отображением новых комментариев
+            if (this.elements.commentsList) {
+                this.elements.commentsList.innerHTML = '';
+            }
+            if (this.elements.modalCommentsList) {
+                this.elements.modalCommentsList.innerHTML = '';
+            }
+            
+            if (querySnapshot.empty) {
+                const noCommentsHtml = `<div class="no-comments"><i class="fas fa-comment-slash"></i><p>Пока нет комментариев.<br>Будьте первым, кто оставит отзыв!</p></div>`;
+                if (this.elements.commentsList) {
+                    this.elements.commentsList.innerHTML = noCommentsHtml;
+                }
+                if (this.elements.modalCommentsList) {
+                    this.elements.modalCommentsList.innerHTML = noCommentsHtml;
+                }
+                return;
+            }
+            
+            const commentsWithUserData = [];
+            for (const doc of querySnapshot.docs) {
+                const comment = doc.data();
+                comment.id = doc.id;
+                if (!comment.createdAt) {
+                    comment.createdAt = new Date();
+                }
+                
+                let userData = {};
+                try {
+                    const userDoc = await this.firestore.getDoc(this.firestore.doc(this.db, 'users', comment.userId));
+                    if (userDoc.exists()) {
+                        userData = userDoc.data();
+                    }
+                } catch (error) {
+                    console.error('Ошибка загрузки данных пользователя:', error);
+                }
+                
+                commentsWithUserData.push({
+                    ...comment,
+                    userName: userData.username || userData.displayName || comment.userName || 'Аноним',
+                    userRole: userData.role || comment.userRole || 'Участник Лаборатории',
+                    userAvatar: comment.userAvatar || userData.avatar || '',
+                    likes: comment.likes || 0,
+                    likedBy: comment.likedBy || [],
+                    stickers: comment.stickers || []
+                });
+            }
+            
+            // СОРТИРОВКА: комментарии Kurisu admin всегда сверху
+            commentsWithUserData.sort((a, b) => {
+                const aIsKurisuAdmin = a.userEmail === 'kurisu@gmail.com';
+                const bIsKurisuAdmin = b.userEmail === 'kurisu@gmail.com';
+                if (aIsKurisuAdmin && !bIsKurisuAdmin) return -1;
+                if (!aIsKurisuAdmin && bIsKurisuAdmin) return 1;
+                // Для остальных сортируем по дате (новые сверху)
+                return b.createdAt - a.createdAt;
+            });
+            
+            // ОЧИЩАЕМ и добавляем комментарии заново
+            if (this.elements.commentsList) {
+                this.elements.commentsList.innerHTML = '';
+                commentsWithUserData.forEach(comment => {
+                    const commentHtml = this.createCommentHtml(comment);
+                    this.elements.commentsList.insertAdjacentHTML('beforeend', commentHtml);
+                });
+            }
+            
+            if (this.elements.modalCommentsList) {
+                this.elements.modalCommentsList.innerHTML = '';
+                commentsWithUserData.forEach(comment => {
+                    const commentHtml = this.createCommentHtml(comment);
+                    this.elements.modalCommentsList.insertAdjacentHTML('beforeend', commentHtml);
+                });
+            }
+            
+            // Добавляем обработчики для новых комментариев
+            setTimeout(() => {
+                commentsWithUserData.forEach(comment => {
+                    this.addDeleteHandler(comment.id, comment.userId);
+                    this.addLikeHandler(comment.id);
+                });
+            }, 100);
+            
+        } catch (error) {
+            console.error('Ошибка загрузки комментариев:', error);
+            console.error('Детали ошибки:', error.code, error.message);
+            
+            const errorHtml = `<div class="no-comments"><i class="fas fa-exclamation-triangle"></i><p>Ошибка загрузки комментариев</p><p style="font-size: 0.8rem; margin-top: 10px;">Пожалуйста, проверьте подключение к Firebase</p></div>`;
+            
+            if (this.elements.commentsList) {
+                this.elements.commentsList.innerHTML = errorHtml;
+            }
+            if (this.elements.modalCommentsList) {
+                this.elements.modalCommentsList.innerHTML = errorHtml;
+            }
+        }
+    }
+    
+    createCommentHtml(comment) {
+        const date = comment.createdAt ? 
+            (comment.createdAt.toDate ? comment.createdAt.toDate() : new Date(comment.createdAt)).toLocaleDateString('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }) : 'Недавно';
+        
+        const avatarStyle = comment.userAvatar ? `background-image: url(${comment.userAvatar})` : '';
+        const avatarContent = comment.userAvatar ? '' : (comment.userName ? comment.userName.charAt(0).toUpperCase() : 'А');
         
         // Проверяем, является ли это пользователем Kurisu admin
         const isKurisuAdmin = comment.userEmail === 'kurisu@gmail.com' || 
                              (comment.userName && comment.userName.toLowerCase().includes('kurisu'));
         
-        const currentUser=this.authManager.currentUser;
-        const showDeleteBtn=currentUser&&currentUser.uid===comment.userId;
-        const isLiked=comment.likedBy&&currentUser?comment.likedBy.includes(currentUser.uid):false;
-        const likesCount=comment.likes||0;
-        const deleteBtnHtml=showDeleteBtn?`<button class="comment-delete-btn" data-comment-id="${comment.id}" title="Удалить комментарий"><i class="fas fa-trash"></i> Удалить</button>`:'';
-        const likeBtnHtml=currentUser?`<button class="comment-like-btn ${isLiked?'liked':''}" data-comment-id="${comment.id}" title="${isLiked?'Убрать лайк':'Поставить лайк'}"><i class="fas fa-heart"></i> <span class="like-count">${likesCount}</span></button>`:`<div class="comment-like-btn disabled" title="Войдите, чтобы ставить лайки"><i class="fas fa-heart"></i> <span class="like-count">${likesCount}</span></div>`;
+        const currentUser = this.authManager.currentUser;
+        const showDeleteBtn = currentUser && currentUser.uid === comment.userId;
+        const isLiked = comment.likedBy && currentUser ? comment.likedBy.includes(currentUser.uid) : false;
+        const likesCount = comment.likes || 0;
+        const deleteBtnHtml = showDeleteBtn ? 
+            `<button class="comment-delete-btn" data-comment-id="${comment.id}" title="Удалить комментарий"><i class="fas fa-trash"></i> Удалить</button>` : '';
         
-        let stickersHtml='';
-        if(comment.stickers&&comment.stickers.length>0){
-            stickersHtml='<div class="comment-stickers">';
-            comment.stickers.forEach(stickerUrl=>{
-                stickersHtml+=`<img src="${stickerUrl}" class="comment-sticker" alt="Стикер">`;
+        const likeBtnHtml = currentUser ? 
+            `<button class="comment-like-btn ${isLiked ? 'liked' : ''}" data-comment-id="${comment.id}" title="${isLiked ? 'Убрать лайк' : 'Поставить лайк'}"><i class="fas fa-heart"></i> <span class="like-count">${likesCount}</span></button>` :
+            `<div class="comment-like-btn disabled" title="Войдите, чтобы ставить лайки"><i class="fas fa-heart"></i> <span class="like-count">${likesCount}</span></div>`;
+        
+        let stickersHtml = '';
+        if (comment.stickers && comment.stickers.length > 0) {
+            stickersHtml = '<div class="comment-stickers">';
+            comment.stickers.forEach(stickerUrl => {
+                stickersHtml += `<img src="${stickerUrl}" class="comment-sticker" alt="Стикер">`;
             });
-            stickersHtml+='</div>';
+            stickersHtml += '</div>';
         }
         
         const userNameClass = isKurisuAdmin ? 'kurisu-admin' : '';
         const userRoleText = isKurisuAdmin ? 'Основатель' : (comment.userRole || 'Участник Лаборатории');
         const userRoleClass = isKurisuAdmin ? 'founder' : '';
         
-        return`<div class="comment-item" data-comment-id="${comment.id}"><div class="comment-header"><div class="comment-author"><div class="comment-author-avatar" style="${avatarStyle}">${avatarContent}</div><div class="comment-author-info"><div class="comment-author-name ${userNameClass}">${comment.userName||'Аноним'}</div><div class="comment-author-role ${userRoleClass}">${userRoleText}</div></div></div><div class="comment-date">${date}</div></div>${comment.content?`<div class="comment-content-text">${this.escapeHtml(comment.content)}</div>`:''}${stickersHtml}<div class="comment-actions">${likeBtnHtml}${deleteBtnHtml}</div><div class="comment-episode-info"><div class="episode-text"><i class="fas fa-play-circle"></i> Серия ${comment.episodeId}: ${comment.episodeName}</div></div></div>`;
+        return `<div class="comment-item" data-comment-id="${comment.id}">
+            <div class="comment-header">
+                <div class="comment-author">
+                    <div class="comment-author-avatar" style="${avatarStyle}">${avatarContent}</div>
+                    <div class="comment-author-info">
+                        <div class="comment-author-name ${userNameClass}">${comment.userName || 'Аноним'}</div>
+                        <div class="comment-author-role ${userRoleClass}">${userRoleText}</div>
+                    </div>
+                </div>
+                <div class="comment-date">${date}</div>
+            </div>
+            ${comment.content ? `<div class="comment-content-text">${this.escapeHtml(comment.content)}</div>` : ''}
+            ${stickersHtml}
+            <div class="comment-actions">
+                ${likeBtnHtml}
+                ${deleteBtnHtml}
+            </div>
+            <div class="comment-episode-info">
+                <div class="episode-text">
+                    <i class="fas fa-play-circle"></i> Серия ${comment.episodeId}: ${comment.episodeName}
+                </div>
+            </div>
+        </div>`;
     }
-    addDeleteHandler(commentId,userId){const deleteBtns=document.querySelectorAll(`.comment-delete-btn[data-comment-id="${commentId}"]`);deleteBtns.forEach(btn=>{btn.addEventListener('click',(e)=>{e.stopPropagation();this.deleteComment(commentId,userId)})})}
-    addLikeHandler(commentId){const likeBtns=document.querySelectorAll(`.comment-like-btn[data-comment-id="${commentId}"]`);likeBtns.forEach(btn=>{if(btn.classList.contains('disabled'))return;btn.addEventListener('click',async(e)=>{e.stopPropagation();e.preventDefault();const user=this.authManager.currentUser;if(!user){this.authManager.openAuthModal('login');return}console.log('Клик по лайку:',commentId,'Пользователь:',user.uid);const isCurrentlyLiked=btn.classList.contains('liked');const likeCountSpan=btn.querySelector('.like-count');const currentLikes=parseInt(likeCountSpan.textContent)||0;if(isCurrentlyLiked){btn.classList.remove('liked');btn.title='Убрать лайк';likeCountSpan.textContent=Math.max(0,currentLikes-1)}else{btn.classList.add('liked');btn.title='Убрать лайк';likeCountSpan.textContent=currentLikes+1}document.querySelectorAll(`.comment-like-btn[data-comment-id="${commentId}"]`).forEach(otherBtn=>{if(otherBtn!==btn&&!otherBtn.classList.contains('disabled')){const otherLikeCount=otherBtn.querySelector('.like-count');if(otherLikeCount){otherLikeCount.textContent=isCurrentlyLiked?Math.max(0,currentLikes-1):currentLikes+1}otherBtn.classList.toggle('liked',!isCurrentlyLiked);otherBtn.title=!isCurrentlyLiked?'Убрать лайк':'Поставить лайк'}});try{const commentRef=this.firestore.doc(this.db,'comments',commentId);const commentDoc=await this.firestore.getDoc(commentRef);if(!commentDoc.exists()){console.error('Комментарий не найден:',commentId);return}const commentData=commentDoc.data();const commentLikes=commentData.likes||0;const likedBy=commentData.likedBy||[];let newLikes=commentLikes;let newLikedBy=[...likedBy];if(isCurrentlyLiked){newLikes=Math.max(0,commentLikes-1);newLikedBy=likedBy.filter(id=>id!==user.uid)}else{newLikes=commentLikes+1;newLikedBy.push(user.uid)}await this.firestore.updateDoc(commentRef,{likes:newLikes,likedBy:newLikedBy,updatedAt:this.firestore.serverTimestamp()});console.log('Лайк обновлен:',{commentId,newLikes,newLikedBy,wasLiked:isCurrentlyLiked})}catch(error){console.error('Ошибка при обновлении лайка:',error);console.error('Детали ошибки:',error.code,error.message);if(isCurrentlyLiked){btn.classList.add('liked');btn.title='Убрать лайк';likeCountSpan.textContent=currentLikes}else{btn.classList.remove('liked');btn.title='Поставить лайк';likeCountSpan.textContent=Math.max(0,currentLikes-1)}document.querySelectorAll(`.comment-like-btn[data-comment-id="${commentId}"]`).forEach(otherBtn=>{if(otherBtn!==btn&&!otherBtn.classList.contains('disabled')){const otherLikeCount=otherBtn.querySelector('.like-count');if(otherLikeCount)otherLikeCount.textContent=currentLikes;otherBtn.classList.toggle('liked',isCurrentlyLiked);otherBtn.title=isCurrentlyLiked?'Убрать лайк':'Поставить лайк'}});this.showNotification('Ошибка при обновлении лайка: '+error.message,'error')}})})}
-    escapeHtml(text){const div=document.createElement('div');div.textContent=text;return div.innerHTML}
-    async submitComment(){const user=this.authManager.currentUser;if(!user){alert('Пожалуйста, войдите в аккаунт, чтобы оставлять комментарии');this.authManager.openAuthModal('login');return}const commentText=this.elements.commentText?this.elements.commentText.value.trim():'';const selectedStickers=this.stickerManager.selectedStickers.map(s=>s.url);if(!commentText&&selectedStickers.length===0){alert('Пожалуйста, введите текст комментария или добавьте стикеры');return}if(commentText.length>500){alert('Комментарий не должен превышать 500 символов');return}try{let userData={};const userDoc=await this.firestore.getDoc(this.firestore.doc(this.db,'users',user.uid));if(userDoc.exists()){userData=userDoc.data()}const commentData={episodeId:this.currentEpisodeId,userId:user.uid,userName:userData.username||userData.displayName||user.displayName||user.email.split('@')[0],userEmail: user.email,userRole:userData.role||'Участник Лаборатории',userAvatar:userData.avatar||'',content:commentText,episodeName:this.currentEpisodeName,stickers:selectedStickers,likes:0,likedBy:[],createdAt:this.firestore.serverTimestamp()};const docRef=await this.firestore.addDoc(this.firestore.collection(this.db,'comments'),commentData);await this.firestore.updateDoc(this.firestore.doc(this.db,'users',user.uid),{commentCount:(userData.commentCount||0)+1});if(this.elements.commentText){this.elements.commentText.value='';this.updateCharCount({target:this.elements.commentText},this.elements.charCount)}this.stickerManager.clearSelectedStickers();commentData.id=docRef.id;commentData.createdAt=new Date();const commentHtml=this.createCommentHtml(commentData);const noCommentsElement=this.elements.commentsList.querySelector('.no-comments');if(noCommentsElement){noCommentsElement.remove()}const modalNoCommentsElement=this.elements.modalCommentsList?this.elements.modalCommentsList.querySelector('.no-comments'):null;if(modalNoCommentsElement){modalNoCommentsElement.remove()}if(this.elements.commentsList){this.elements.commentsList.insertAdjacentHTML('afterbegin',commentHtml)}if(this.elements.modalCommentsList){this.elements.modalCommentsList.insertAdjacentHTML('afterbegin',commentHtml)}this.addDeleteHandler(docRef.id,user.uid);this.addLikeHandler(docRef.id);this.showNotification('Комментарий успешно добавлен!','success')}catch(error){console.error('Ошибка добавления комментария:',error);this.showNotification('Ошибка при добавлении комментария','error')}}
-    async submitModalComment(){const user=this.authManager.currentUser;if(!user){alert('Пожалуйста, войдите в аккаунт, чтобы оставлять комментарии');this.authManager.openAuthModal('login');return}const commentText=this.elements.modalCommentText?this.elements.modalCommentText.value.trim():'';const selectedStickers=this.stickerManager.selectedStickers.map(s=>s.url);if(!commentText&&selectedStickers.length===0){alert('Пожалуйста, введите текст комментария или добавьте стикеры');return}if(commentText.length>500){alert('Комментарий не должен превышать 500 символов');return}try{let userData={};const userDoc=await this.firestore.getDoc(this.firestore.doc(this.db,'users',user.uid));if(userDoc.exists()){userData=userDoc.data()}const commentData={episodeId:this.currentEpisodeId,userId:user.uid,userName:userData.username||userData.displayName||user.displayName||user.email.split('@')[0],userEmail: user.email,userRole:userData.role||'Участник Лаборатории',userAvatar:userData.avatar||'',content:commentText,episodeName:this.currentEpisodeName,stickers:selectedStickers,likes:0,likedBy:[],createdAt:this.firestore.serverTimestamp()};const docRef=await this.firestore.addDoc(this.firestore.collection(this.db,'comments'),commentData);await this.firestore.updateDoc(this.firestore.doc(this.db,'users',user.uid),{commentCount:(userData.commentCount||0)+1});if(this.elements.modalCommentText){this.elements.modalCommentText.value='';this.updateCharCount({target:this.elements.modalCommentText},this.elements.modalCharCount)}this.stickerManager.clearSelectedStickers();commentData.id=docRef.id;commentData.createdAt=new Date();const commentHtml=this.createCommentHtml(commentData);const noCommentsElement=this.elements.commentsList?this.elements.commentsList.querySelector('.no-comments'):null;if(noCommentsElement){noCommentsElement.remove()}const modalNoCommentsElement=this.elements.modalCommentsList.querySelector('.no-comments');if(modalNoCommentsElement){modalNoCommentsElement.remove()}if(this.elements.commentsList){this.elements.commentsList.insertAdjacentHTML('afterbegin',commentHtml)}if(this.elements.modalCommentsList){this.elements.modalCommentsList.insertAdjacentHTML('afterbegin',commentHtml)}this.addDeleteHandler(docRef.id,user.uid);this.addLikeHandler(docRef.id);this.showNotification('Комментарий успешно добавлен!','success')}catch(error){console.error('Ошибка добавления комментария:',error);this.showNotification('Ошибка при добавлении комментария','error')}}
-    async deleteComment(commentId,userId){const user=this.authManager.currentUser;if(!user||user.uid!==userId)return;if(!confirm('Вы уверены, что хотите удалить этот комментарий?')){return}try{await this.firestore.deleteDoc(this.firestore.doc(this.db,'comments',commentId));const userDoc=await this.firestore.getDoc(this.firestore.doc(this.db,'users',user.uid));if(userDoc.exists()){const userData=userDoc.data();await this.firestore.updateDoc(this.firestore.doc(this.db,'users',user.uid),{commentCount:Math.max(0,(userData.commentCount||1)-1)})}const commentElements=document.querySelectorAll(`[data-comment-id="${commentId}"]`);commentElements.forEach(commentElement=>{if(commentElement){commentElement.style.animation='fadeOut 0.3s ease';commentElement.style.opacity='0';setTimeout(()=>{if(commentElement.parentNode){commentElement.parentNode.removeChild(commentElement)}},300)}});const commentsQuery=this.firestore.query(this.firestore.collection(this.db,'comments'),this.firestore.where('episodeId','==',this.currentEpisodeId));const querySnapshot=await this.firestore.getDocs(commentsQuery);if(querySnapshot.empty){const noCommentsHtml=`<div class="no-comments"><i class="fas fa-comment-slash"></i><p>Пока нет комментариев.<br>Будьте первым, кто оставит отзыв!</p></div>`;if(this.elements.commentsList&&this.elements.commentsList.children.length===0){this.elements.commentsList.innerHTML=noCommentsHtml}if(this.elements.modalCommentsList&&this.elements.modalCommentsList.children.length===0){this.elements.modalCommentsList.innerHTML=noCommentsHtml}}this.showNotification('Комментарий удален!','success')}catch(error){console.error('Ошибка удаления комментария:',error);this.showNotification('Ошибка при удалении комментария','error')}}
-    openCommentsModal(){this.loadComments();if(this.elements.commentsModalOverlay){this.elements.commentsModalOverlay.classList.add('active')}if(this.elements.commentsModal){this.elements.commentsModal.classList.add('active')}document.body.style.overflow='hidden'}
-    closeCommentsModal(){if(this.elements.commentsModalOverlay){this.elements.commentsModalOverlay.classList.remove('active')}if(this.elements.commentsModal){this.elements.commentsModal.classList.remove('active')}document.body.style.overflow=''}
-    showNotification(message,type='success'){const notification=document.createElement('div');notification.className=`auth-message ${type} show`;notification.textContent=message;notification.style.position='fixed';notification.style.top='20px';notification.style.right='20px';notification.style.zIndex='10004';notification.style.maxWidth='300px';document.body.appendChild(notification);setTimeout(()=>{notification.classList.remove('show');setTimeout(()=>{if(notification.parentNode){notification.parentNode.removeChild(notification)}},300)},3000)}}
+    
+    addDeleteHandler(commentId, userId) {
+        const deleteBtns = document.querySelectorAll(`.comment-delete-btn[data-comment-id="${commentId}"]`);
+        deleteBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.deleteComment(commentId, userId);
+            });
+        });
+    }
+    
+    addLikeHandler(commentId) {
+        const likeBtns = document.querySelectorAll(`.comment-like-btn[data-comment-id="${commentId}"]`);
+        likeBtns.forEach(btn => {
+            if (btn.classList.contains('disabled')) return;
+            
+            btn.addEventListener('click', async (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                
+                const user = this.authManager.currentUser;
+                if (!user) {
+                    this.authManager.openAuthModal('login');
+                    return;
+                }
+                
+                console.log('Клик по лайку:', commentId, 'Пользователь:', user.uid);
+                const isCurrentlyLiked = btn.classList.contains('liked');
+                const likeCountSpan = btn.querySelector('.like-count');
+                const currentLikes = parseInt(likeCountSpan.textContent) || 0;
+                
+                if (isCurrentlyLiked) {
+                    btn.classList.remove('liked');
+                    btn.title = 'Убрать лайк';
+                    likeCountSpan.textContent = Math.max(0, currentLikes - 1);
+                } else {
+                    btn.classList.add('liked');
+                    btn.title = 'Убрать лайк';
+                    likeCountSpan.textContent = currentLikes + 1;
+                }
+                
+                document.querySelectorAll(`.comment-like-btn[data-comment-id="${commentId}"]`).forEach(otherBtn => {
+                    if (otherBtn !== btn && !otherBtn.classList.contains('disabled')) {
+                        const otherLikeCount = otherBtn.querySelector('.like-count');
+                        if (otherLikeCount) {
+                            otherLikeCount.textContent = isCurrentlyLiked ? Math.max(0, currentLikes - 1) : currentLikes + 1;
+                        }
+                        otherBtn.classList.toggle('liked', !isCurrentlyLiked);
+                        otherBtn.title = !isCurrentlyLiked ? 'Убрать лайк' : 'Поставить лайк';
+                    }
+                });
+                
+                try {
+                    const commentRef = this.firestore.doc(this.db, 'comments', commentId);
+                    const commentDoc = await this.firestore.getDoc(commentRef);
+                    
+                    if (!commentDoc.exists()) {
+                        console.error('Комментарий не найден:', commentId);
+                        return;
+                    }
+                    
+                    const commentData = commentDoc.data();
+                    const commentLikes = commentData.likes || 0;
+                    const likedBy = commentData.likedBy || [];
+                    
+                    let newLikes = commentLikes;
+                    let newLikedBy = [...likedBy];
+                    
+                    if (isCurrentlyLiked) {
+                        newLikes = Math.max(0, commentLikes - 1);
+                        newLikedBy = likedBy.filter(id => id !== user.uid);
+                    } else {
+                        newLikes = commentLikes + 1;
+                        newLikedBy.push(user.uid);
+                    }
+                    
+                    await this.firestore.updateDoc(commentRef, {
+                        likes: newLikes,
+                        likedBy: newLikedBy,
+                        updatedAt: this.firestore.serverTimestamp()
+                    });
+                    
+                    console.log('Лайк обновлен:', {commentId, newLikes, newLikedBy, wasLiked: isCurrentlyLiked});
+                    
+                } catch (error) {
+                    console.error('Ошибка при обновлении лайка:', error);
+                    console.error('Детали ошибки:', error.code, error.message);
+                    
+                    if (isCurrentlyLiked) {
+                        btn.classList.add('liked');
+                        btn.title = 'Убрать лайк';
+                        likeCountSpan.textContent = currentLikes;
+                    } else {
+                        btn.classList.remove('liked');
+                        btn.title = 'Поставить лайк';
+                        likeCountSpan.textContent = Math.max(0, currentLikes - 1);
+                    }
+                    
+                    document.querySelectorAll(`.comment-like-btn[data-comment-id="${commentId}"]`).forEach(otherBtn => {
+                        if (otherBtn !== btn && !otherBtn.classList.contains('disabled')) {
+                            const otherLikeCount = otherBtn.querySelector('.like-count');
+                            if (otherLikeCount) otherLikeCount.textContent = currentLikes;
+                            otherBtn.classList.toggle('liked', isCurrentlyLiked);
+                            otherBtn.title = isCurrentlyLiked ? 'Убрать лайк' : 'Поставить лайк';
+                        }
+                    });
+                    
+                    this.showNotification('Ошибка при обновлении лайка: ' + error.message, 'error');
+                }
+            });
+        });
+    }
+    
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    async submitComment() {
+        const user = this.authManager.currentUser;
+        if (!user) {
+            alert('Пожалуйста, войдите в аккаунт, чтобы оставлять комментарии');
+            this.authManager.openAuthModal('login');
+            return;
+        }
+        
+        const commentText = this.elements.commentText ? this.elements.commentText.value.trim() : '';
+        const selectedStickers = this.stickerManager.selectedStickers.map(s => s.url);
+        
+        if (!commentText && selectedStickers.length === 0) {
+            alert('Пожалуйста, введите текст комментария или добавьте стикеры');
+            return;
+        }
+        
+        if (commentText.length > 500) {
+            alert('Комментарий не должен превышать 500 символов');
+            return;
+        }
+        
+        try {
+            let userData = {};
+            const userDoc = await this.firestore.getDoc(this.firestore.doc(this.db, 'users', user.uid));
+            if (userDoc.exists()) {
+                userData = userDoc.data();
+            }
+            
+            const commentData = {
+                episodeId: this.currentEpisodeId,
+                userId: user.uid,
+                userName: userData.username || userData.displayName || user.displayName || user.email.split('@')[0],
+                userEmail: user.email,
+                userRole: userData.role || 'Участник Лаборатории',
+                userAvatar: userData.avatar || '',
+                content: commentText,
+                episodeName: this.currentEpisodeName,
+                stickers: selectedStickers,
+                likes: 0,
+                likedBy: [],
+                createdAt: this.firestore.serverTimestamp()
+            };
+            
+            const docRef = await this.firestore.addDoc(this.firestore.collection(this.db, 'comments'), commentData);
+            await this.firestore.updateDoc(this.firestore.doc(this.db, 'users', user.uid), {
+                commentCount: (userData.commentCount || 0) + 1
+            });
+            
+            if (this.elements.commentText) {
+                this.elements.commentText.value = '';
+                this.updateCharCount({target: this.elements.commentText}, this.elements.charCount);
+            }
+            this.stickerManager.clearSelectedStickers();
+            
+            // ВМЕСТО добавления нового комментария к существующим, перезагружаем все комментарии
+            this.loadComments();
+            
+            this.showNotification('Комментарий успешно добавлен!', 'success');
+            
+        } catch (error) {
+            console.error('Ошибка добавления комментария:', error);
+            this.showNotification('Ошибка при добавлении комментария', 'error');
+        }
+    }
+    
+    async submitModalComment() {
+        const user = this.authManager.currentUser;
+        if (!user) {
+            alert('Пожалуйста, войдите в аккаунт, чтобы оставлять комментарии');
+            this.authManager.openAuthModal('login');
+            return;
+        }
+        
+        const commentText = this.elements.modalCommentText ? this.elements.modalCommentText.value.trim() : '';
+        const selectedStickers = this.stickerManager.selectedStickers.map(s => s.url);
+        
+        if (!commentText && selectedStickers.length === 0) {
+            alert('Пожалуйста, введите текст комментария или добавьте стикеры');
+            return;
+        }
+        
+        if (commentText.length > 500) {
+            alert('Комментарий не должен превышать 500 символов');
+            return;
+        }
+        
+        try {
+            let userData = {};
+            const userDoc = await this.firestore.getDoc(this.firestore.doc(this.db, 'users', user.uid));
+            if (userDoc.exists()) {
+                userData = userDoc.data();
+            }
+            
+            const commentData = {
+                episodeId: this.currentEpisodeId,
+                userId: user.uid,
+                userName: userData.username || userData.displayName || user.displayName || user.email.split('@')[0],
+                userEmail: user.email,
+                userRole: userData.role || 'Участник Лаборатории',
+                userAvatar: userData.avatar || '',
+                content: commentText,
+                episodeName: this.currentEpisodeName,
+                stickers: selectedStickers,
+                likes: 0,
+                likedBy: [],
+                createdAt: this.firestore.serverTimestamp()
+            };
+            
+            const docRef = await this.firestore.addDoc(this.firestore.collection(this.db, 'comments'), commentData);
+            await this.firestore.updateDoc(this.firestore.doc(this.db, 'users', user.uid), {
+                commentCount: (userData.commentCount || 0) + 1
+            });
+            
+            if (this.elements.modalCommentText) {
+                this.elements.modalCommentText.value = '';
+                this.updateCharCount({target: this.elements.modalCommentText}, this.elements.modalCharCount);
+            }
+            this.stickerManager.clearSelectedStickers();
+            
+            // ВМЕСТО добавления нового комментария к существующим, перезагружаем все комментарии
+            this.loadComments();
+            
+            this.showNotification('Комментарий успешно добавлен!', 'success');
+            
+        } catch (error) {
+            console.error('Ошибка добавления комментария:', error);
+            this.showNotification('Ошибка при добавлении комментария', 'error');
+        }
+    }
+    
+    async deleteComment(commentId, userId) {
+        const user = this.authManager.currentUser;
+        if (!user || user.uid !== userId) return;
+        
+        if (!confirm('Вы уверены, что хотите удалить этот комментарий?')) {
+            return;
+        }
+        
+        try {
+            await this.firestore.deleteDoc(this.firestore.doc(this.db, 'comments', commentId));
+            
+            const userDoc = await this.firestore.getDoc(this.firestore.doc(this.db, 'users', user.uid));
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                await this.firestore.updateDoc(this.firestore.doc(this.db, 'users', user.uid), {
+                    commentCount: Math.max(0, (userData.commentCount || 1) - 1)
+                });
+            }
+            
+            const commentElements = document.querySelectorAll(`[data-comment-id="${commentId}"]`);
+            commentElements.forEach(commentElement => {
+                if (commentElement) {
+                    commentElement.style.animation = 'fadeOut 0.3s ease';
+                    commentElement.style.opacity = '0';
+                    setTimeout(() => {
+                        if (commentElement.parentNode) {
+                            commentElement.parentNode.removeChild(commentElement);
+                        }
+                    }, 300);
+                }
+            });
+            
+            const commentsQuery = this.firestore.query(
+                this.firestore.collection(this.db, 'comments'),
+                this.firestore.where('episodeId', '==', this.currentEpisodeId)
+            );
+            
+            const querySnapshot = await this.firestore.getDocs(commentsQuery);
+            
+            if (querySnapshot.empty) {
+                const noCommentsHtml = `<div class="no-comments"><i class="fas fa-comment-slash"></i><p>Пока нет комментариев.<br>Будьте первым, кто оставит отзыв!</p></div>`;
+                
+                if (this.elements.commentsList && this.elements.commentsList.children.length === 0) {
+                    this.elements.commentsList.innerHTML = noCommentsHtml;
+                }
+                if (this.elements.modalCommentsList && this.elements.modalCommentsList.children.length === 0) {
+                    this.elements.modalCommentsList.innerHTML = noCommentsHtml;
+                }
+            }
+            
+            this.showNotification('Комментарий удален!', 'success');
+            
+        } catch (error) {
+            console.error('Ошибка удаления комментария:', error);
+            this.showNotification('Ошибка при удалении комментария', 'error');
+        }
+    }
+    
+    openCommentsModal() {
+        this.loadComments();
+        if (this.elements.commentsModalOverlay) {
+            this.elements.commentsModalOverlay.classList.add('active');
+        }
+        if (this.elements.commentsModal) {
+            this.elements.commentsModal.classList.add('active');
+        }
+        document.body.style.overflow = 'hidden';
+    }
+    
+    closeCommentsModal() {
+        if (this.elements.commentsModalOverlay) {
+            this.elements.commentsModalOverlay.classList.remove('active');
+        }
+        if (this.elements.commentsModal) {
+            this.elements.commentsModal.classList.remove('active');
+        }
+        document.body.style.overflow = '';
+    }
+    
+    showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.className = `auth-message ${type} show`;
+        notification.textContent = message;
+        notification.style.position = 'fixed';
+        notification.style.top = '20px';
+        notification.style.right = '20px';
+        notification.style.zIndex = '10004';
+        notification.style.maxWidth = '300px';
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+}
 
-// КЛАСС ДЛЯ ОБРАТНОЙ СВЯЗИ
 class FeedbackManager {
     constructor() {
         this.initElements();
@@ -2322,11 +3707,11 @@ class FeedbackManager {
     validateForm() {
         const name = this.elements.feedbackName.value.trim();
         const email = this.elements.feedbackEmail.value.trim();
-        const subject = this.elements.feedbackSubject.value.trim();
+        const subject = this.elements.feedbackSubject ? this.elements.feedbackSubject.value.trim() : 'Обратная связь с сайта Курису';
         const message = this.elements.feedbackMessageText.value.trim();
         
-        if (!name || !email || !subject || !message) {
-            alert('Пожалуйста, заполните все поля');
+        if (!name || !email || !message) {
+            alert('Пожалуйста, заполните все обязательные поля');
             return false;
         }
         
@@ -2353,10 +3738,10 @@ class FeedbackManager {
     }
 }
 
-document.addEventListener('DOMContentLoaded',function(){
+document.addEventListener('DOMContentLoaded', function() {
     console.log('Сайт Макисэ Курису загружен!');
     
-    if(!window.firebase||!window.firebase.auth){
+    if (!window.firebase || !window.firebase.auth) {
         console.error('Firebase не инициализирован!');
         alert('Ошибка инициализации Firebase. Пожалуйста, обновите страницу.');
         return;
@@ -2382,14 +3767,14 @@ document.addEventListener('DOMContentLoaded',function(){
     });
 
     // Бинарный фон
-    const binaryBg=document.getElementById('binaryBg');
-    const chars='01';
+    const binaryBg = document.getElementById('binaryBg');
+    const chars = '01';
 
     // Данные для модальных окон
-    const tabData={
-        'memory-jump':{
-            title:'Машина скачков по памяти',
-            content:`<div class="achievement-details"><p <div class="achievement-details">
+    const tabData = {
+        'memory-jump': {
+            title: 'Машина скачков по памяти',
+            content: `<div class="achievement-details">
     <p class="achievement-description">Инновационное устройство, позволяющее передавать воспоминания из настоящего в прошлое, фактически осуществляя ограниченное путешествие во времени через сознание человека.</p>
     <p class="achievement-description"><strong>Принцип работы:</strong></p>
     <ul class="achievement-features">
@@ -2408,9 +3793,9 @@ document.addEventListener('DOMContentLoaded',function(){
     <div class="visual-label">Схематическое изображение устройства</div>
 </div>`
         },
-        'neuro-research':{
-            title:'Теория дивергенции и аттракторов',
-            content:`<div class="achievement-details"><p <div <div <div class="achievement-details">
+        'neuro-research': {
+            title: 'Теория дивергенции и аттракторов',
+            content: `<div class="achievement-details">
     <p class="achievement-description"><strong>Курису Макисэ не создавала Измеритель Дивергенции, но её исследования легли в его теоретическую основу.</strong> Этот прибор был разработан Окабэ Ринтаро в далёком 2036 году для измерения отклонения текущей мировой линии от исходной.</p>
     <p class="achievement-description">Однако именно <strong>теория мировых линий и полей аттракторов</strong>, которую Курису помогла развить, объясняет, что измеряет прибор. Дивергенция (от 0% до 4.99% и более) показывает, насколько реальность «отошла» от изначального пути. Более важной является концепция <strong>«полей аттракторов»</strong> — групп мировых линий, которые, несмотря на мелкие различия, всегда сходятся к одним и тем же ключевым событиям.</p>
     <ul class="achievement-features">
@@ -2422,12 +3807,12 @@ document.addEventListener('DOMContentLoaded',function(){
 </div>
 <div class="achievement-visual">
     <img src="https://i.postimg.cc/zXdGGTTj/Map-of-the-hippocampus-neural-connections.jpg" alt="Схема мировых линий и полей аттракторов">
-    <div class="visual-label">Визуализация теории: мировые линии группируются в «поля аттракторов» (Alpha, Beta)</div>
+    <div class="visual-label">Измеритель дивергенции с газоразрядным индикатором </div>
 </div>`
         },
-        'time-travel':{
-            title:'Теория путешествий во времени',
-            content:`<div class="achievement-details"><p <div <div class="achievement-details">
+        'time-travel': {
+            title: 'Теория путешествий во времени',
+            content: `<div class="achievement-details">
     <p class="achievement-description">Революционная теория, объединяющая квантовую механику с концепцией мировых линий, объясняющая парадоксы временных путешествий и предлагающая практическую реализацию.</p>
     <ul class="achievement-features">
         <li><strong>Концепция «Притяжения мировой линии»</strong>: Теория о том, что временные линии стремятся к стабильным состояниям («аттракторам»), что объясняет повторяющиеся события в разных реальностях.</li>
@@ -2442,9 +3827,9 @@ document.addEventListener('DOMContentLoaded',function(){
     <div class="visual-label">Диаграмма мировых линий и временных разветвлений</div>
 </div>`
         },
-        'publications':{
-            title:'Научные публикации',
-            content:`<div class="achievement-details"><p <div class="achievement-details">
+        'publications': {
+            title: 'Научные публикации',
+            content: `<div class="achievement-details">
     <p class="achievement-description">Несмотря на молодой возраст, Макисэ Курису опубликовала несколько важных научных работ, которые получили международное признание в академических кругах. Её исследования стали теоретическим фундаментом для будущих экспериментов Лаборатории Будущего.</p>
     <ul class="achievement-features">
         <li><strong>«Природа памяти: временное кодирование в нейронных сетях»</strong> (журнал «Наука», 2009) — работа, заложившая основы для понимания того, как воспоминания могут быть записаны и переданы.</li>
@@ -2461,26 +3846,26 @@ document.addEventListener('DOMContentLoaded',function(){
         }
     };
     
-    const timelineEvents={
-        'event1':{
-            title:'28 июля 2010 (Альфа-мир)',
-            content:`<div class="timeline-description"><p class="timeline-full-description">Судьбоносная встреча Макисэ Курису с Окабэ Ринтаро в лекционном зале Радиокан. Курису прибыла в Японию для выступления на научной конференции, где представляла свои исследования в области нейробиологии. В этот же день происходит первое столкновение с парадоксами времени.</p><p class="timeline-full-description">Курису становится невольной свидетельницей отправки первого D-mail (D-письма) - сообщения в прошлое, которое изменяет мировую линию. Это событие запускает цепь временных экспериментов и приводит к созданию Лаборатории Будущего.</p><ul class="timeline-features"><li>Первая встреча Курису и Окабэ в лекционном зале</li><li>Отправка первого D-mail (сообщение о поимке майора)</li><li>Смена мировой линии с Beta на Alpha</li><li>Начало временных экспериментов</li><li>Обнаружение феномена Reading Steiner у Окабэ</li></ul></div><div class="timeline-visual"><img src="https://i.postimg.cc/8PyzzLLh/Radiokan-Lecture-Hall-the-place-of-the-first-meeting.webp" alt="Лекционный зал Радиокан"><div class="timeline-visual-label">Лекционный зал Радиокан, место первой встречи</div></div>`
+    const timelineEvents = {
+        'event1': {
+            title: '28 июля 2010 (Альфа-мир)',
+            content: `<div class="timeline-description"><p class="timeline-full-description">Судьбоносная встреча Макисэ Курису с Окабэ Ринтаро в лекционном зале Радиокан. Курису прибыла в Японию для выступления на научной конференции, где представляла свои исследования в области нейробиологии. В этот же день происходит первое столкновение с парадоксами времени.</p><p class="timeline-full-description">Курису становится невольной свидетельницей отправки первого D-mail (D-письма) - сообщения в прошлое, которое изменяет мировую линию. Это событие запускает цепь временных экспериментов и приводит к созданию Лаборатории Будущего.</p><ul class="timeline-features"><li>Первая встреча Курису и Окабэ в лекционном зале</li><li>Отправка первого D-mail (сообщение о поимке майора)</li><li>Смена мировой линии с Beta на Alpha</li><li>Начало временных экспериментов</li><li>Обнаружение феномена Reading Steiner у Окабэ</li></ul></div><div class="timeline-visual"><img src="https://i.postimg.cc/8PyzzLLh/Radiokan-Lecture-Hall-the-place-of-the-first-meeting.webp" alt="Лекционный зал Радиокан"><div class="timeline-visual-label">Лекционный зал Радиокан, место первой встречи</div></div>`
         },
-        'event2':{
-            title:'Июль-Август 2010',
-            content:`<div class="timeline-description"><p class="timeline-full-description">Курису официально присоединяется к Лаборатории Будущего в роли главного научного консультанта. Её экспертиза в области нейробиологии становится ключевой для понимания механизмов временных путешествий.</p><p class="timeline-full-description">Совместно с членами лаборатории, Курису помогает усовершенствовать обычную микроволновую печь ("Микроволновка Банано") в полноценную машину времени. Она разрабатывает теорию мировых линий и начинает работу над "Машиной скачков по памяти".</p><ul class="timeline-features"><li>Официальное вступление в Лабораторию Будущего</li><li>Модификация микроволновки в машину времени</li><li>Разработка теории мировых линий</li><li>Начало работы над Memory Leap Machine</li><li>Установление связи с SERN</li></ul></div><div class="timeline-visual"><img src="https://i.postimg.cc/hPCttVVY/The-Future-Laboratory-a-place-for-experiments.jpg" alt="Лаборатория Будущего"><div class="timeline-visual-label">Лаборатория Будущего, место проведения экспериментов</div></div>`
+        'event2': {
+            title: 'Июль-Август 2010',
+            content: `<div class="timeline-description"><p class="timeline-full-description">Курису официально присоединяется к Лаборатории Будущего в роли главного научного консультанта. Её экспертиза в области нейробиологии становится ключевой для понимания механизмов временных путешествий.</p><p class="timeline-full-description">Совместно с членами лаборатории, Курису помогает усовершенствовать обычную микроволновую печь ("Микроволновка Банано") в полноценную машину времени. Она разрабатывает теорию мировых линий и начинает работу над "Машиной скачков по памяти".</p><ul class="timeline-features"><li>Официальное вступление в Лабораторию Будущего</li><li>Модификация микроволновки в машину времени</li><li>Разработка теории мировых линий</li><li>Начало работы над Memory Leap Machine</li><li>Установление связи с SERN</li></ul></div><div class="timeline-visual"><img src="https://i.postimg.cc/hPCttVVY/The-Future-Laboratory-a-place-for-experiments.jpg" alt="Лаборатория Будущего"><div class="timeline-visual-label">Лаборатория Будущего, место проведения экспериментов</div></div>`
         },
-        'event3':{
-            title:'Август 2010 (Альфа-мир)',
-            content:`<div class="timeline-description"><p class="timeline-full-description">Курису завершает разработку "Машины скачков по памяти" - революционного устройства, позволяющего передавать воспоминания из настоящего в прошлое. Эта технология становится ключевым инструментом для спасения Маюри Сиины от неизбежной гибели.</p><p class="timeline-full-description">Вместе с Окабэ, Курису проводит серию опасных экспериментов по изменению мировой линии, пытаясь найти путь к Мировой линии Врат Штейна - идеальной временной линии, где все главные герои остаются живы и счастливы.</p><ul class="timeline-features"><li>Завершение разработки Memory Leap Machine</li><li>Попытки спасения Маюри от Convergence</li><li>Открытие принципа Attractor Field</li><li>Эксперименты с Reading Steiner</li><li>Обнаружение временных парадоксов</li></ul></div><div class="timeline-visual"><img src="https://i.postimg.cc/9FxQQyyx/Schematic-representation-of-the-Memory-Leap-Machine.jpg" alt="Машина скачков по памяти"><div class="timeline-visual-label">Схематическое изображение Memory Leap Machine</div></div>`
+        'event3': {
+            title: 'Август 2010 (Альфа-мир)',
+            content: `<div class="timeline-description"><p class="timeline-full-description">Курису завершает разработку "Машины скачков по памяти" - революционного устройства, позволяющего передавать воспоминания из настоящего в прошлое. Эта технология становится ключевым инструментом для спасения Маюри Сиины от неизбежной гибели.</p><p class="timeline-full-description">Вместе с Окабэ, Курису проводит серию опасных экспериментов по изменению мировой линии, пытаясь найти путь к Мировой линии Врат Штейна - идеальной временной линии, где все главные герои остаются живы и счастливы.</p><ul class="timeline-features"><li>Завершение разработки Memory Leap Machine</li><li>Попытки спасения Маюри от Convergence</li><li>Открытие принципа Attractor Field</li><li>Эксперименты с Reading Steiner</li><li>Обнаружение временных парадоксов</li></ul></div><div class="timeline-visual"><img src="https://i.postimg.cc/9FxQQyyx/Schematic-representation-of-the-Memory-Leap-Machine.jpg" alt="Машина скачков по памяти"><div class="timeline-visual-label">Схематическое изображение Memory Leap Machine</div></div>`
         },
-        'event4':{
-            title:'Конец Августа 2010',
-            content:`<div class="timeline-description"><p class="timeline-full-description">В кульминационный момент временного противостояния, Курису жертвует собой в Альфа-мире, чтобы Окабэ мог достичь Мировой линии Врат Штейна. Её смерть становится необходимым условием для изменения мировой линии и спасения всех остальных.</p><p class="timeline-full-description">Это самопожертвование демонстрирует глубину чувств Курису к Окабэ и её готовность пожертвовать собой ради достижения лучшего будущего. Её смерть оставляет глубокий след в сознании Окабэ и становится движущей силой для его дальнейших действий.</p><ul class="timeline-features"><li>Самопожертвование Курису в Альфа-мире</li><li>Переход в Beta мировую линию</li><li>Начало операции по достижению Мировой линии Врат Штейна</li><li>Воспоминания Окабэ о "мертвой" Курису</li><li>Подготовка к финальной временной операции</li></ul></div><div class="timeline-visual"><img src="https://i.postimg.cc/BQZv3mPv/A-tragic-moment-of-self-sacrifice.jpg" alt="Трагический момент"><div class="timeline-visual-label">Трагический момент самопожертвования</div></div>`
+        'event4': {
+            title: 'Конец Августа 2010',
+            content: `<div class="timeline-description"><p class="timeline-full-description">В кульминационный момент временного противостояния, Курису жертвует собой в Альфа-мире, чтобы Окабэ мог достичь Мировой линии Врат Штейна. Её смерть становится необходимым условием для изменения мировой линии и спасения всех остальных.</p><p class="timeline-full-description">Это самопожертвование демонстрирует глубину чувств Курису к Окабэ и её готовность пожертвовать собой ради достижения лучшего будущего. Её смерть оставляет глубокий след в сознании Окабэ и становится движущей силой для его дальнейших действий.</p><ul class="timeline-features"><li>Самопожертвование Курису в Альфа-мире</li><li>Переход в Beta мировую линию</li><li>Начало операции по достижению Мировой линии Врат Штейна</li><li>Воспоминания Окабэ о "мертвой" Курису</li><li>Подготовка к финальной временной операции</li></ul></div><div class="timeline-visual"><img src="https://i.postimg.cc/BQZv3mPv/A-tragic-moment-of-self-sacrifice.jpg" alt="Трагический момент"><div class="timeline-visual-label">Трагический момент самопожертвования</div></div>`
         },
-        'event5':{
-            title:'Мир Врат Штейна',
-            content:`<div class="timeline-description"><p class="timeline-full-description">После успешного достижения Мировой линии Врат Штейна, Курису воссоединяется с Окабэ в идеальном мире, где оба спасены от своих трагических судеб. В этой линии времени Курису никогда не была убита, а Окабэ сохранил воспоминания о всех предыдущих мировых линиях.</p><p class="timeline-full-description">Курису продолжает свои научные исследования в области нейробиологии, теперь с практическим опытом временных путешествий. Её отношения с Окабэ развиваются, и вместе они продолжают работать над новыми научными открытиями в мирных условиях.</p><ul class="timeline-features"><li>Воссоединение Курису и Окабэ в Мире Врат Штейна</li><li>Сохранение воспоминаний о всех мировых линиях</li><li>Продолжение научных исследований</li><li>Развитие отношений между персонажами</li><li>Мирная жизнь без временных угроз</li></ul></div><div class="timeline-visual"><img src="https://i.postimg.cc/c4DLLff2/The-ideal-peaceful-line-of-the-Stein-Gate.jpg" alt="Мир Врат Штейна"><div class="timeline-visual-label">Идеальная мирная линия Врат Штейна</div></div>`
+        'event5': {
+            title: 'Мир Врат Штейна',
+            content: `<div class="timeline-description"><p class="timeline-full-description">После успешного достижения Мировой линии Врат Штейна, Курису воссоединяется с Окабэ в идеальном мире, где оба спасены от своих трагических судеб. В этой линии времени Курису никогда не была убита, а Окабэ сохранил воспоминания о всех предыдущих мировых линиях.</p><p class="timeline-full-description">Курису продолжает свои научные исследования в области нейробиологии, теперь с практическим опытом временных путешествий. Её отношения с Окабэ развиваются, и вместе они продолжают работать над новыми научными открытиями в мирных условиях.</p><ul class="timeline-features"><li>Воссоединение Курису и Окабэ в Мире Врат Штейна</li><li>Сохранение воспоминаний о всех мировых линиях</li><li>Продолжение научных исследований</li><li>Развитие отношений между персонажами</li><li>Мирная жизнь без временных угроз</li></ul></div><div class="timeline-visual"><img src="https://i.postimg.cc/c4DLLff2/The-ideal-peaceful-line-of-the-Stein-Gate.jpg" alt="Мир Врат Штейна"><div class="timeline-visual-label">Идеальная мирная линия Врат Штейна</div></div>`
         }
     };
 
@@ -2814,7 +4199,6 @@ document.addEventListener('DOMContentLoaded',function(){
     console.log('- Комментарии Kurisu admin теперь всегда отображаются сверху (закреплённые)');
     console.log('- Убрана надпись "Лаборатория Будущего №008" в футере');
     console.log('- Рабочая обратная связь: отправка сообщений через Formspree');
-});
-</script>
+});</script>
 </body>
 </html>
